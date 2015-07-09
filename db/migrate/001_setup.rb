@@ -9,7 +9,7 @@
 
 class Setup < ActiveRecord::Migration
 	def self.up
-		create_table :user_info do |t|
+		create_table :user_infos do |t|
 			t.column :login_name, :string, :limit => 30, :default => "", :null => false
 			t.column :login_password, :string, :default => "", :null =>false
 			t.column :real_name, :string, :default => "", :null => false
@@ -20,7 +20,7 @@ class Setup < ActiveRecord::Migration
 			t.column :user_money, :decimal, :default => 0.0, :null => false, precision: 5, scale: 2
 		end
 
-		create_table :user_address do |t|
+		create_table :user_addresses do |t|
 			t.column :user_id, :integer, :defualt => 0, :null => false
 			t.column :real_name, :string, :default => "", :null => false
 			t.column :mobile, :string, :default => "", :null => false
@@ -31,7 +31,7 @@ class Setup < ActiveRecord::Migration
 			t.column :address, :string, :defualt => "", :null => false
 		end
 
-		create_table :user_point_io do |t|
+		create_table :user_point_ios do |t|
 			t.column :user_id, :integer, :defualt => 0, :null => false
 			t.column :point, :integer, :default => 0, :null =>false
 			t.column :remarks, :string, :limit => 125, :defualt => "", :null => false
@@ -40,7 +40,7 @@ class Setup < ActiveRecord::Migration
 			t.column :operate_user_id,  :integer, :default => 0, :null => false
 		end
 
-		create_table :user_money_io do |t|
+		create_table :user_money_ios do |t|
 			t.column :user_id, :integer, :defualt => 0, :null => false
 			t.column :money, :decimal, :defualt => 0.00, :null => false, precision: 5, scale: 2
 			t.column :remarks, :string, :limit => 125, :defualt => "", :null => false
@@ -49,7 +49,7 @@ class Setup < ActiveRecord::Migration
 			t.column :operate_user_id, :integer, :default => 0, :null => false
 		end
 
-		create_table :prdocut do |t|
+		create_table :prdocuts do |t|
 			t.column :sales_point, :integer, :defualt => 0, :null => false
 			t.column :original_point, :integer, :default => 0, :null => false
 			t.column :product_img_url, :string, :limit => 60, :default => "", :null => false
@@ -57,7 +57,7 @@ class Setup < ActiveRecord::Migration
 			t.column :description, :string
 		end
 
-		create_table :order do |t|
+		create_table :orders do |t|
 			t.column :user_id, :integer, :default => 0, :null => false
 			t.column :order_point, :integer, :default => 0, :null => false
 			t.column :status, :integer, :default => 0, :null => false
@@ -65,7 +65,7 @@ class Setup < ActiveRecord::Migration
 			t.column :remarks, :string, :limit => 200
 		end
 
-		create_table :order_shipping do |t|
+		create_table :order_shippings do |t|
 			t.column :order_id, :integer, :default => 0, :null => false
 			t.column :real_name, :string, :default => "", :null => false
 			t.column :mobile, :string, :default => "", :null => false
@@ -76,7 +76,7 @@ class Setup < ActiveRecord::Migration
 			t.column :address, :string, :defualt => "", :null => false
 		end
 
-		create_table :order_item do |t|
+		create_table :order_items do |t|
 			t.column :order_id, :integer, :default => 0, :null => false
 			t.column :product_id, :integer, :default => 0, :null => false
 			t.column :pre_point, :integer, :default => 0, :null => false
@@ -86,13 +86,13 @@ class Setup < ActiveRecord::Migration
 	end
 
 	def self.down
-		drop_table :user_info
-		drop_table :user_address
-		drop_table :user_point_io
-		drop_table :user_money_io
-		drop_table :prdocut
-		drop_table :order
-		drop_table :order_shipping
-		drop_table :order_item
+		drop_table :user_infos
+		drop_table :user_addresses
+		drop_table :user_point_ios
+		drop_table :user_money_ios
+		drop_table :prdocuts
+		drop_table :orders
+		drop_table :order_shippings
+		drop_table :order_items
 	end
 end

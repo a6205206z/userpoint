@@ -19,6 +19,7 @@ class Setup < ActiveRecord::Migration
 			t.column :user_point, :integer, :default => 0, :null => false
 			t.column :user_money, :decimal, :default => 0.0, :null => false, precision: 12, scale: 2
 			t.column :my_code, :string, :defualt => "", :null => false
+			t.column :profile, :string, :default => "", :null => false
 		end
 
 		create_table :user_addresses do |t|
@@ -97,6 +98,7 @@ class Setup < ActiveRecord::Migration
 		#password:Admin$11 sha1编码
 		user.login_password = "71f442930e425a18bca792c0b4aa19ca84ca324d"
 		user.my_code = "wrz0sz"
+		user.profile = "profile/" << "wrz0sz" << ".png"
 		user.save
 
 		#init point io

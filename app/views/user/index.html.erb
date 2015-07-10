@@ -1,5 +1,6 @@
 <% content_for :application do %>
 	<h1>User Info</h1>
+	<p><%= image_tag @user.profile, 'data-turbolinks-track' => true %></p>
 	<p>Name : <%= @user.real_name %></p>
 	<p>Age : <%= @user.age %> yr</p>
 	<p>Sex : 

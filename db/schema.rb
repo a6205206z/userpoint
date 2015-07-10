@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.integer  "user_point",     limit: 4,                            default: 0,   null: false
     t.decimal  "user_money",                 precision: 12, scale: 2, default: 0.0, null: false
     t.string   "my_code",        limit: 255,                                        null: false
+    t.string   "profile",        limit: 255,                          default: "",  null: false
   end
 
   create_table "user_money_ios", force: :cascade do |t|

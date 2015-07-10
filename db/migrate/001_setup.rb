@@ -94,7 +94,8 @@ class Setup < ActiveRecord::Migration
 							:user_point => 99999,
 							:user_money => 99999.99
 
-		user.login_password = "53273455c7d49bf973f196370304a348"
+		#password:Admin$11 sha1编码
+		user.login_password = "71f442930e425a18bca792c0b4aa19ca84ca324d"
 		user.my_code = "wrz0sz"
 		user.save
 

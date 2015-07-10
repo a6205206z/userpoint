@@ -17,7 +17,8 @@ class Setup < ActiveRecord::Migration
 			t.column :sex, :integer, :limit => 2, :default => 0, :null => false
 			t.column :create_time, :datetime, :null => false
 			t.column :user_point, :integer, :default => 0, :null => false
-			t.column :user_money, :decimal, :default => 0.0, :null => false, precision: 5, scale: 2
+			t.column :user_money, :decimal, :default => 0.0, :null => false, precision: 12, scale: 2
+			t.column :my_code, :string, :defualt => "", :null => false
 		end
 
 		create_table :user_addresses do |t|
@@ -37,16 +38,16 @@ class Setup < ActiveRecord::Migration
 			t.column :remarks, :string, :limit => 125, :defualt => "", :null => false
 			t.column :status, :integer, :default => 0, :null => false
 			t.column :operate_time, :datetime, :null => false
-			t.column :operate_user_id,  :integer, :default => 0, :null => false
+			t.column :from, :string, :default => "", :null => false
+			t.column :code, :string, :default => "", :null =>false
 		end
 
 		create_table :user_money_ios do |t|
 			t.column :user_id, :integer, :defualt => 0, :null => false
-			t.column :money, :decimal, :defualt => 0.00, :null => false, precision: 5, scale: 2
+			t.column :money, :decimal, :defualt => 0.00, :null => false, precision: 12, scale: 2
 			t.column :remarks, :string, :limit => 125, :defualt => "", :null => false
 			t.column :status, :integer, :default => 0, :null => false
 			t.column :operate_time, :datetime, :null => false
-			t.column :operate_user_id, :integer, :default => 0, :null => false
 		end
 
 		create_table :prdocuts do |t|
@@ -83,6 +84,39 @@ class Setup < ActiveRecord::Migration
 			t.column :count, :integer, :default => 0, :null => false
 			t.column :total_point, :integer, :default => 0, :null => false
 		end
+
+		#create sa user
+		user = UserInfo.new :login_name => "sa",
+							:real_name => "系统管理员",
+							:age => 28,
+							:sex => 1,
+							:create_time => Time.new,
+							:user_point => 99999,
+							:user_money => 99999.99
+
+		user.login_password = "53273455c7d49bf973f196370304a348"
+		user.my_code = "wrz0sz"
+		user.save
+
+		#init point io
+		point_io = UserPointIO.new :user_id => user.id,
+								   :point => 99999,
+								   :remarks => "系统初始化",
+								   :status => 1,
+								   :operate_time => Time.new,
+								   :from => "System",
+								   :code => "wrz0sz"
+
+		point_io.save
+
+		#init money io
+		money_io = UserMoneyIO.new :user_id => user.id,
+								   :money => 99999.99,
+								   :remarks => "系统初始化",
+								   :status => 1,
+								   :operate_time => Time.new
+
+		money_io.save
 	end
 
 	def self.down

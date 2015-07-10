@@ -9,6 +9,7 @@
 		女
 		<% end%>
 	</p>
+	<p>My Code : <font style="color:red"><%=@user.my_code %></font></p>
 	<p>Point ： <%=@user.user_point %></p>
 	<p>Money ： <%=@user.user_money %> 元</p>
 	<p>Create Date : <%=@user.create_time %></p>
@@ -21,7 +22,8 @@
 				  <td>积分</td>
 				  <td>备注</td>
 				  <td>操作时间</td>
-				  <td>操作人</td>
+				  <td>获取来源</td>
+				  <td>来源代码</td>
 			  </tr>
 			<% @point_ios.each do |io| %>
 			  <tr>
@@ -35,9 +37,37 @@
 				  <td><%= io.point %></td>
 				  <td><%= io.remarks %></td>
 				  <td><%= io.operate_time %></td>
-				  <td><a href="/user/<%= io.operate_user_id %>">点击进入</a></td>
+				  <td><%= io.from %></td>
+				  <td><%= io.code %></td>
 			  </tr>
 			<% end %>
 		</table>
 	<% end %>
+
+	<h1>User Money IO</h1>
+	<% if @money_ios%>
+		<table border=1>
+			 <tr>
+				  <td>状态</td>
+				  <td>金额</td>
+				  <td>备注</td>
+				  <td>操作时间</td>
+			  </tr>
+			<% @money_ios.each do |m| %>
+			  <tr>
+				  <td>
+				  	<% if m.status == 1 %>
+				  	<p style="color:green">成功</p>
+				  	<% elsif m_status == 0 %>
+				  	<p style="color:red">失败</p>
+				  	<% end %>
+				  </td>
+				  <td><%= m.money %> 元</td>
+				  <td><%= m.remarks %></td>
+				  <td><%= m.operate_time %></td>
+			  </tr>
+			<% end %>
+		</table>
+	<% end %>
+
 <% end %>

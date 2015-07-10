@@ -12,6 +12,7 @@ class UserController < ApplicationController
 	def index
 		@user = UserInfo.find_by(id: params[:id])
 		@point_ios = UserPointIO.where(user_id: params[:id]).order('operate_time DESC')
+		@money_ios = UserMoneyIO.where(user_id: params[:id]).order('operate_time DESC')
 		#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
 	end
 end

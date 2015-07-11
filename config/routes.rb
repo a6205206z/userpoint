@@ -53,5 +53,10 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  get 'user/:id' => 'user#index'
+  get '/' => 'user#index'
+  get 'user/index' => 'user#index'
+  get 'user/addpoint/:userid/:code' => 'user#add_point_by_code'
+  post 'user/signin' => 'user#sign_in'
+  get 'user/signout' => 'user#sign_out'
+  get 'user/login'  => 'user#login'
 end

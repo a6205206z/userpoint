@@ -13,6 +13,16 @@
 
 ActiveRecord::Schema.define(version: 1) do
 
+  create_table "code_sources", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4,                                          null: false
+    t.string   "code",        limit: 255,                          default: "0", null: false
+    t.integer  "add_point",   limit: 4,                            default: 0,   null: false
+    t.decimal  "add_money",               precision: 12, scale: 2, default: 0.0, null: false
+    t.string   "remarks",     limit: 200
+    t.datetime "create_time",                                                    null: false
+    t.datetime "expire_time",                                                    null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id",    limit: 4, default: 0, null: false
     t.integer "product_id",  limit: 4, default: 0, null: false
@@ -60,16 +70,16 @@ ActiveRecord::Schema.define(version: 1) do
   end
 
   create_table "user_infos", force: :cascade do |t|
-    t.string   "login_name",     limit: 30,                           default: "",  null: false
-    t.string   "login_password", limit: 255,                          default: "",  null: false
-    t.string   "real_name",      limit: 255,                          default: "",  null: false
-    t.integer  "age",            limit: 4,                            default: 0,   null: false
-    t.integer  "sex",            limit: 2,                            default: 0,   null: false
-    t.datetime "create_time",                                                       null: false
-    t.integer  "user_point",     limit: 4,                            default: 0,   null: false
-    t.decimal  "user_money",                 precision: 12, scale: 2, default: 0.0, null: false
-    t.string   "my_code",        limit: 255,                                        null: false
-    t.string   "profile",        limit: 255,                          default: "",  null: false
+    t.string   "login_name",        limit: 30,                           default: "",  null: false
+    t.string   "login_password",    limit: 255,                          default: "",  null: false
+    t.string   "real_name",         limit: 255,                          default: "",  null: false
+    t.integer  "age",               limit: 4,                            default: 0,   null: false
+    t.integer  "sex",               limit: 2,                            default: 0,   null: false
+    t.datetime "create_time",                                                          null: false
+    t.integer  "user_point",        limit: 4,                            default: 0,   null: false
+    t.decimal  "user_money",                    precision: 12, scale: 2, default: 0.0, null: false
+    t.string   "profile",           limit: 255,                          default: "",  null: false
+    t.string   "persistence_token", limit: 255,                                        null: false
   end
 
   create_table "user_money_ios", force: :cascade do |t|

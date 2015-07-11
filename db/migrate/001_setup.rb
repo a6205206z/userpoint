@@ -18,8 +18,9 @@ class Setup < ActiveRecord::Migration
 			t.column :create_time, :datetime, :null => false
 			t.column :user_point, :integer, :default => 0, :null => false
 			t.column :user_money, :decimal, :default => 0.0, :null => false, precision: 12, scale: 2
-			t.column :my_code, :string, :defualt => "", :null => false
 			t.column :profile, :string, :default => "", :null => false
+			t.column :persistence_token, :string, :null => false
+
 		end
 
 		create_table :user_addresses do |t|
@@ -41,6 +42,16 @@ class Setup < ActiveRecord::Migration
 			t.column :operate_time, :datetime, :null => false
 			t.column :from, :string, :default => "", :null => false
 			t.column :code, :string, :default => "", :null =>false
+		end
+
+		create_table :code_sources do |t|
+			t.column :user_id, :integer, :defualt => 0, :null => false, :unique => true
+			t.column :code, :string, :default => 0, :null => false
+			t.column :add_point, :integer, :default =>0, :null => false
+			t.column :add_money, :decimal, :default => 0.0, :null => false, precision: 12, scale: 2
+			t.column :remarks, :string, :limit => 200
+			t.column :create_time, :datetime, :null => false
+			t.column :expire_time, :datetime, :null => false
 		end
 
 		create_table :user_money_ios do |t|
@@ -95,11 +106,33 @@ class Setup < ActiveRecord::Migration
 							:user_point => 99999,
 							:user_money => 99999.99
 
+		user.persistence_token = ""
+
 		#password:Admin$11 sha1编码
 		user.login_password = "71f442930e425a18bca792c0b4aa19ca84ca324d"
-		user.my_code = "wrz0sz"
 		user.profile = "profile/" << "wrz0sz" << ".png"
 		user.save
+
+		
+
+		my_code = CodeSource.new :user_id => user.id,
+							  :code => "000000",
+							  :add_point => 99999,
+							  :add_money => 99999.99,
+							  :remarks => "System init",
+							  :create_time => Time.new,
+							  :expire_time => Time.new
+
+		my_code.save
+
+		test_code = CodeSource.new :user_id => 2,
+							  :code => "wrz0sz",
+							  :add_point => 200,
+							  :add_money => 5000,
+							  :remarks => "System test",
+							  :create_time => Time.new,
+							  :expire_time => Time.mktime(2025) 
+		test_code.save
 
 		#init point io
 		point_io = UserPointIO.new :user_id => user.id,
@@ -108,7 +141,7 @@ class Setup < ActiveRecord::Migration
 								   :status => 1,
 								   :operate_time => Time.new,
 								   :from => "System",
-								   :code => "wrz0sz"
+								   :code => "000000"
 
 		point_io.save
 
@@ -126,6 +159,7 @@ class Setup < ActiveRecord::Migration
 		drop_table :user_infos
 		drop_table :user_addresses
 		drop_table :user_point_ios
+		drop_table :code_sources
 		drop_table :user_money_ios
 		drop_table :prdocuts
 		drop_table :orders

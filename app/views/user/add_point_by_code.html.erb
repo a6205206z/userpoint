@@ -1,0 +1,12 @@
+<% content_for :application do %>
+	<%= @resultMsg%>
+	<p>浏览器将自动跳转</p>
+	<script type="text/javascript">
+		window.onload=function(){
+			timer = setTimeout(to_index, 2000);
+		}
+		function to_index(){
+			location.href = '/user/index'
+		}
+	</script>
+<% end %>

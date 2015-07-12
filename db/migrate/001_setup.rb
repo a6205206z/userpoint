@@ -10,7 +10,7 @@
 class Setup < ActiveRecord::Migration
 	def self.up
 		create_table :user_infos do |t|
-			t.column :login_name, :string, :limit => 30, :default => "", :null => false
+			t.column :login_name, :string, :limit => 30, :default => "", :null => false, :unique => true
 			t.column :login_password, :string, :default => "", :null =>false
 			t.column :real_name, :string, :default => "", :null => false
 			t.column :sex, :integer, :limit => 2, :default => 0, :null => false

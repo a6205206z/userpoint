@@ -6,15 +6,34 @@
 #description: controller for user
 #
 
-
-
 class UserController < ApplicationController
 	def register
 		@user = UserInfo.new
 	end
 
 	def create_user
-		
+		@resultMsg = ""
+		new_user = UserInfo.new(user_info_params)
+		new_user.login_password = UserInfo.hash_password(new_user.login_password)
+		new_user.create_time = Time.new
+		new_user.user_point = 0
+		new_user.user_money = 0
+		new_user.profile = "profile/system.png"
+
+		if new_user.save
+			new_code_source = CodeSource.new :user_id => new_user.id,
+								  			 :code => UserInfo.get_my_code(new_user.login_name),
+							  				 :add_point => 50,
+							  				 :add_money => 200,
+							  				 :remarks => "Register new User",
+							  				 :create_time => Time.new,
+							  				 :expire_time => Time.mktime(2025)
+			new_code_source.save
+
+			@resultMsg = "用户" << new_user.login_name << "创建成功!!!"
+		else
+			@resultMsg  = "用户" << new_user.login_name << "创建失败!!!"
+		end
 	end
 
 
@@ -77,42 +96,67 @@ class UserController < ApplicationController
 	end
 
 	def add_point_by_code
-		@resultMsg = ""
+		if !current_user_info.nil?
+			@resultMsg = ""
 
-		point_ios = UserPointIO.find_by(code: params[:code])
-		user_code = CodeSource.where("code = '#{params[:code]}' and user_id <> #{current_user_info.id} and ('#{Time.new}' between create_time and expire_time)").first
+			point_ios = UserPointIO.find_by(code: params[:code])
+			user_code = CodeSource.where("code = '#{params[:code]}' and user_id <> #{current_user_info.id} and ('#{Time.new}' between create_time and expire_time)").first
 
-		#if io has no record
-		if !user_code.nil?
-			#get user code
-			
-			#if user code has recorde
-			if point_ios.nil?
+			#if io has no record
+			if !user_code.nil?
+				#get user code
+				
+				#if user code has recorde
+				if point_ios.nil?
 
-				user = UserInfo.find_by(id: current_user_info.id)
-				if !user.nil?
-					user.user_point += user_code.add_point
-					user.save
+					user = UserInfo.find_by(id: current_user_info.id)
+					if !user.nil?
+						user.user_point += user_code.add_point
+						user.save
 
-					#add io
-					point_io = UserPointIO.new :user_id => user.id,
-								:point => user_code.add_point,
-								:remarks => params[:msg],
-								:status => 1,
-								:operate_time => Time.new,
-								:from => "/user/addpoint/#{current_user_info.id}/#{params[:code]}",
-								:code => user_code.code
+						#add point io
+						point_io = UserPointIO.new :user_id => user.id,
+									:point => user_code.add_point,
+									:remarks => params[:msg],
+									:status => 1,
+									:operate_time => Time.new,
+									:from => "/user/addpoint/#{current_user_info.id}/#{params[:code]}",
+									:code => user_code.code
 
-					point_io.save
-					@resultMsg = "成功 + #{user_code.add_point}"
+						point_io.save
+
+						#加现金
+						code_user = UserInfo.find_by(id: user_code.user_id)
+						code_user.user_money +=  user_code.add_money
+						code_user.save
+
+						#add money io
+						money_io = UserMoneyIO.new :user_id => code_user.id,
+										:money => user_code.add_money,
+										:remarks => "from user [" << current_user_info.id.to_s << "] code [" << user_code.code << "]",
+								   		:status => 1,
+								   		:operate_time => Time.new
+
+						money_io.save
+
+						@resultMsg = "成功 + #{user_code.add_point}"
+					else
+						@resultMsg = "该用户不存在"
+					end
 				else
-					@resultMsg = "该用户不存在"
+					@resultMsg = "ERROR:该用户已经使用过 #{params[:code]}"
 				end
 			else
-				@resultMsg = "ERROR:该用户已经使用过 #{params[:code]}"
+				@resultMsg = "ERROR:代码 #{params[:code]} 无效或已经过期"
 			end
 		else
-			@resultMsg = "ERROR:代码 #{params[:code]} 无效或已经过期"
+			redirect_to "/user/login"
 		end
+	end
+
+	private
+
+	def user_info_params
+		params.require(:user_info).permit(:login_name, :login_password, :real_name, :sex, :create_time, :user_point, :user_money, :profile, :persistence_token)
 	end
 end

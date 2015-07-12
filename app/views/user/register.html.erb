@@ -1,11 +1,66 @@
 <% content_for :application do %>
+<style type="text/css">
+	body{
+		background-color: #eee;
+	}
+	#sex1,#sex0{
+		position: absolute;
+		left: -999em;
+	}
+	#sex1:checked + label,#sex0:checked + label{
+		background-color: #3bb4f2;
+		color: white;
+	}
+	.divsex label{
+		width:49%;
+	}
+</style>
 	<%= form_for @user, url: {action: "create_user", :controller=>"user"} do |u| %>
-	  <p>用户名：<%= u.text_field :login_name %></p>
-	  <p>密码：<%= u.password_field :login_password, :id => "login_password" %></p>
-	  <p>密码确认：<input id="login_password_repeat" type="password"></p>
-	  <p>姓名：<%= u.text_field :real_name %></p>
-	  <p>性别：男 <%= u.radio_button :sex, '1' %> 女 <%= u.radio_button :sex, '0' %></p>
-
-	  <button id="submit">添加</button>
+	  	<div class="am-input-group divusername">
+		  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+		  <%= u.text_field :login_name ,:placeholder=>"请输入用户名",:class=>"am-form-field"%>
+		</div>
+		<div class="am-input-group divpass" style="margin-top:-1px;">
+		  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+		  <%= u.password_field :login_password, :id => "login_password" ,:placeholder=>"请输入密码",:class=>"am-form-field"%></p>
+		</div>
+		<div class="am-input-group divpassagain" style="margin-top:-1px;">
+		  <span class="am-input-group-label"><i class="am-icon-wrench am-icon-fw"></i></span>
+		  <input type="password" id="login_password_repeat" class="am-form-field" placeholder="请确认密码">
+		</div>
+		<div class="am-input-group divrealname" style="margin-top:-1px;">
+		  <span class="am-input-group-label"><i class="am-icon-heart am-icon-fw"></i></span>
+		  <%= u.text_field :real_name ,:class=>"am-form-field" ,:placeholder=>"请输入姓名"%>
+		</div>
+		<div class="am-input-group divsex" style="margin-top:-1px;width:100%;text-align:center">
+			<%= u.radio_button :sex,  '1' ,:id=>"sex1", :checked=>"checked"%>
+			<label class="am-btn am-btn-default" for="sex1">男</label>
+			<%= u.radio_button :sex,  '1' ,:id=>"sex0" %>
+			<label class="am-btn am-btn-default" for="sex0">女</label>
+		</div>
+		
+		<button type="submit" class="am-btn am-btn-secondary btnlogin" style="display: block;margin: 20px auto;width: 80%;">注册</button>
 	<% end %>
+	<script type="text/javascript">
+		$("form").submit(function(){
+			if(!$(".divusername input[type=text]").val()){
+				alert("请输入用户名");
+				return false;
+			}
+			if(!$("#login_password").val()){
+				alert("请输入密码");
+				return false;
+			}
+			if($("#login_password").val() != $("#login_password_repeat").val()){
+				alert("两次输入密码不相同");
+				return false;
+			}
+			if(!$(".divrealname input[type=text]").val()){
+				alert("请输入姓名");
+				return false;
+			}
+				
+			
+		});
+	</script>
 <% end %>

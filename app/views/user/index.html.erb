@@ -1,8 +1,6 @@
 <% content_for :application do %>
 	<p>welcome <%= current_user_info && current_user_info.login_name %></p>
 	<a href="/user/signout">退出登录</a>
-	<a href="/user/addpoint/<%= @user.id %>/<%= @user_code_my.code %>?msg=首页测试&return=/user/index">测试我的积分代码</a>
-	<a href="/user/addpoint/<%= @user.id %>/wrz0sz?msg=首页测试&return=/user/index">测试积分代码 wrz0sz</a>
 	<h1>User Info</h1>
 	<p><%= image_tag @user.profile, 'data-turbolinks-track' => true %></p>
 	<p>Name : <%= @user.real_name %></p>
@@ -19,4 +17,5 @@
 	<p>Create Date : <%=@user.create_time %></p>
 	<a href="/user/pointio">我的积分流水</a>
 	<a href="/user/moneyio">我的余额流水</a>
+	<a href="/user/inputcode">输入优惠码</a>
 <% end %>

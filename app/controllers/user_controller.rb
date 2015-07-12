@@ -72,11 +72,15 @@ class UserController < ApplicationController
 		end
 	end
 
+	def user_input_code
+		
+	end
+
 	def add_point_by_code
 		@resultMsg = ""
 
-		point_ios = UserPointIO.find_by(user_id: params[:userid], code: params[:code])
-		user_code = CodeSource.where("code = '#{params[:code]}' and user_id <> #{params[:userid]} and ('#{Time.new}' between create_time and expire_time)").first
+		point_ios = UserPointIO.find_by(code: params[:code])
+		user_code = CodeSource.where("code = '#{params[:code]}' and user_id <> #{current_user_info.id} and ('#{Time.new}' between create_time and expire_time)").first
 
 		#if io has no record
 		if !user_code.nil?
@@ -85,7 +89,7 @@ class UserController < ApplicationController
 			#if user code has recorde
 			if point_ios.nil?
 
-				user = UserInfo.find_by(id: params[:userid])
+				user = UserInfo.find_by(id: current_user_info.id)
 				if !user.nil?
 					user.user_point += user_code.add_point
 					user.save
@@ -96,7 +100,7 @@ class UserController < ApplicationController
 								:remarks => params[:msg],
 								:status => 1,
 								:operate_time => Time.new,
-								:from => "/user/addpoint/#{params[:userid]}/#{params[:code]}",
+								:from => "/user/addpoint/#{current_user_info.id}/#{params[:code]}",
 								:code => user_code.code
 
 					point_io.save

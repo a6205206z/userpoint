@@ -35,9 +35,9 @@ class UserController < ApplicationController
 							  				 :expire_time => Time.mktime(2025)
 			new_code_source.save
 
-			@resultMsg = "用户" << new_user.login_name << "创建成功!!!"
+			@resultMsg = "用户" << new_user.login_name << "创建成功，赶快去体验吧！"
 		else
-			@resultMsg  = "用户" << new_user.login_name << "创建失败!!!"
+			@resultMsg  = "用户" << new_user.login_name << "创建失败,尝试更换用户名！"
 		end
 	end
 

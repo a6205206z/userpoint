@@ -119,17 +119,6 @@ class UserController < ApplicationController
 						user.user_point += user_code.add_point
 						user.save
 
-						#add point io
-						point_io = UserPointIO.new :user_id => user.id,
-									:point => user_code.add_point,
-									:remarks => params[:msg],
-									:status => 1,
-									:operate_time => Time.new,
-									:from => "/user/addpoint/#{current_user_info.id}/#{params[:code]}",
-									:code => user_code.code
-
-						point_io.save
-
 						#加现金
 						code_user = UserInfo.find_by(id: user_code.user_id)
 						code_user.user_money +=  user_code.add_money
@@ -138,11 +127,22 @@ class UserController < ApplicationController
 						#add money io
 						money_io = UserMoneyIO.new :user_id => code_user.id,
 										:money => user_code.add_money,
-										:remarks => "from user [" << current_user_info.id.to_s << "] code [" << user_code.code << "]",
+										:remarks => "来自" << current_user_info.real_name << "的代码",
 								   		:status => 1,
 								   		:operate_time => Time.new
 
 						money_io.save
+
+						#add point io
+						point_io = UserPointIO.new :user_id => user.id,
+									:point => user_code.add_point,
+									:remarks => "使用了" << code_user.real_name << "的代码",
+									:status => 1,
+									:operate_time => Time.new,
+									:from => "/user/addpoint/#{current_user_info.id}/#{params[:code]}",
+									:code => user_code.code
+
+						point_io.save
 
 						@resultMsg = "成功 + #{user_code.add_point}"
 					else

@@ -7,10 +7,12 @@
   <meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag 'amazeui.css', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'jquery.min.js', 'data-turbolinks-track' => true %>
 </head>
 <body>
 
 <%= yield :application %>
+
 <%= javascript_include_tag 'touch.js', 'data-turbolinks-track' => true %>
 <!--
 	<%= javascript_include_tag 'amazeui.js', 'data-turbolinks-track' => true %>

@@ -1,28 +1,29 @@
 
 <% content_for :application do %>
-	<h1>User Money IO</h1>
+<div>
+	<h1 style="text-align:center;">我的余额历史</h1>
 	<% if @money_ios%>
-		<table border=1>
-			 <tr>
-				  <td>状态</td>
-				  <td>金额</td>
-				  <td>备注</td>
-				  <td>操作时间</td>
-			  </tr>
+
 			<% @money_ios.each do |m| %>
-			  <tr>
-				  <td>
-				  	<% if m.status == 1 %>
-				  	<p style="color:green">成功</p>
-				  	<% elsif m_status == 0 %>
-				  	<p style="color:red">失败</p>
-				  	<% end %>
-				  </td>
-				  <td><%= m.money %> 元</td>
-				  <td><%= m.remarks %></td>
-				  <td><%= m.operate_time %></td>
-			  </tr>
+
+			  <div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
+				<div style="overflow:hidden">
+					<span style="font-size:20px;color:red;float:left"><%= m.money %>元</span>
+					
+				</div>
+				<div style="overflow:hidden">
+					<span style="color:red;float:left">
+						<% if m.status == 1 %>
+					  	<font style="color:green">成功</font>
+					  	<% elsif m_status == 0 %>
+					  	<font style="color:red">失败</font>
+					  	<% end %>
+					 </span>
+					 <span style="color:#999;float:left;margin-left:3px;"><%= m.remarks %></span>
+					 <span style="color:#999;float:right"><%= m.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
+				</div>
+			</div>
 			<% end %>
-		</table>
 	<% end %>
+</div>
 <% end %>

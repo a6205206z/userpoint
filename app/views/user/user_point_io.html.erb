@@ -1,31 +1,28 @@
 <% content_for :application do %>
-	<h1>User Point IO</h1>
+<div>
+	<h1 style="text-align:center;">我的积分历史</h1>
 	<% if @point_ios%>
-		<table border=1>
-			 <tr>
-				  <td>状态</td>
-				  <td>积分</td>
-				  <td>备注</td>
-				  <td>操作时间</td>
-				  <td>获取来源</td>
-				  <td>来源代码</td>
-			  </tr>
-			<% @point_ios.each do |io| %>
-			  <tr>
-				  <td>
-				  	<% if io.status == 1 %>
-				  	<p style="color:green">成功</p>
-				  	<% elsif io_status == 0 %>
-				  	<p style="color:red">失败</p>
-				  	<% end %>
-				  </td>
-				  <td><%= io.point %></td>
-				  <td><%= io.remarks %></td>
-				  <td><%= io.operate_time %></td>
-				  <td><%= io.from %></td>
-				  <td><%= io.code %></td>
-			  </tr>
+		<% @point_ios.each do |io| %>
+			<div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
+				<div style="overflow:hidden">
+					<span style="font-size:20px;color:red;float:left;"><%= io.point %></span>
+					
+					<span style="color:#999;float:right">代码:<%= io.code %>(<%= io.from %>)</span>
+				</div>
+				<div style="overflow:hidden">
+
+					<span style="color:red;float:left">
+						<% if io.status == 1 %>
+					  	<font style="color:green">成功</font>
+					  	<% elsif io_status == 0 %>
+					  	<font style="color:red">失败</font>
+					  	<% end %>
+					 </span>
+					 <span style="color:#999;float:left;margin-left:3px;"><%= io.remarks %></span>
+					 <span style="color:#999;float:right"><%= io.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
+				</div>
+			</div>
 			<% end %>
-		</table>
 	<% end %>
+</div>
 <% end %>

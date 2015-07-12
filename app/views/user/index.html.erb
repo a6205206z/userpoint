@@ -38,21 +38,39 @@
 	</div>
 	<div style="width:100%">
 		<ul class="am-list am-list-static m-widget-list">
-			<li style="background-color:rgba(59,180,242,0.67);border:0">
+			<li style="background-color:rgba(59,180,242,0.83);border:0">
 				<a href="/user/pointio " style="color:#333; ">
 					<i class="am-icon-trophy am-icon-fw"></i>
 					<span style="margin-right:5px;">我的积分:</span><%=@user.user_point %>
 				</a>
 			</li>
-			<li style="background-color:rgba(59,180,242,0.33);border:0">
+			<li style="background-color:rgba(59,180,242,0.67);border:0">
 				<a href="/user/moneyio" style="color:#333">
 					<i class="am-icon-money am-icon-fw"></i>
 					<span style="margin-right:5px;">我的余额:</span><%=@user.user_money %>
 				</a>
 			</li>
-
+			<li style="background-color:rgba(59,180,242,0.50);border:0">
+				<a href="/user/moneyio" style="color:#333">
+					<i class="am-icon-truck am-icon-fw"></i>
+					<span style="margin-right:5px;">我的经销商
+				</a>
+			</li>
+			<li style="background-color:rgba(59,180,242,0.33);border:0">
+				<a href="/user/moneyio" style="color:#333">
+					<i class="am-icon-shopping-cart am-icon-fw"></i>
+					<span style="margin-right:5px;">积分商城</span>
+				</a>
+			</li>
+			<li style="background-color:rgba(59,180,242,0.16);border:0">
+				<a href="/user/signout" style="color:#333">
+					<i class="am-icon-sign-out am-icon-fw"></i>
+					<span style="margin-right:5px;">退出登录</span>
+				</a>
+			</li>
 		</ul>
 	</div>
+
 	<div style="width:100%;text-align:center;">
 		<a href="/user/inputcode" style="display:inline-block;margin:0 auto;" class="am-btn am-btn-secondary btnlogin">输入优惠码</a>
 	</div>

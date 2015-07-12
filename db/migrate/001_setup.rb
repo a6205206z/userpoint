@@ -108,7 +108,7 @@ class Setup < ActiveRecord::Migration
 
 		#password:Admin$11 sha1编码
 		user.login_password = "71f442930e425a18bca792c0b4aa19ca84ca324d"
-		user.profile = "profile/" << "wrz0sz" << ".png"
+		user.profile = "profile/" << "man" << ".png"
 		user.save
 
 		
@@ -123,14 +123,6 @@ class Setup < ActiveRecord::Migration
 
 		my_code.save
 
-		test_code = CodeSource.new :user_id => 2,
-							  :code => "wrz0sz",
-							  :add_point => 200,
-							  :add_money => 5000,
-							  :remarks => "System test",
-							  :create_time => Time.new,
-							  :expire_time => Time.mktime(2025) 
-		test_code.save
 
 		#init point io
 		point_io = UserPointIO.new :user_id => user.id,

@@ -18,7 +18,12 @@ class UserController < ApplicationController
 		new_user.create_time = Time.new
 		new_user.user_point = 0
 		new_user.user_money = 0
-		new_user.profile = "profile/system.png"
+		if new_user == 1
+			new_user.profile = "profile/man.png"
+		else
+			new_user.profile = "profile/woman.png"
+		end
+		
 
 		if new_user.save
 			new_code_source = CodeSource.new :user_id => new_user.id,

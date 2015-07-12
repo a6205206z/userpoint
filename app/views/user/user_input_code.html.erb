@@ -1,5 +1,6 @@
 <% content_for :application do %>
 	<form action="/user/addpoint" method="post">
 		<input type="text" name="code" id="code" /><button type="submit" class="am-btn am-btn-secondary btnlogin">输入优惠码</button>
+		<input type="hidden" value="Normal" name="msg" />
 	</form>
 <% end %>

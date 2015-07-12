@@ -4,6 +4,8 @@
 	  <p>密码：<%= u.password_field :login_password, :id => "login_password" %></p>
 	  <p>密码确认：<input id="login_password_repeat" type="password"></p>
 	  <p>姓名：<%= u.text_field :real_name %></p>
-	  <p>性别：<%= radio_button :sex, :text => "child" %></p>
+	  <p>性别：男 <%= u.radio_button :sex, '1' %> 女 <%= u.radio_button :sex, '0' %></p>
+
+	  <button id="submit">添加</button>
 	<% end %>
 <% end %>

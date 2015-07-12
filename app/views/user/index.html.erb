@@ -1,21 +1,23 @@
 <% content_for :application do %>
-	<p>welcome <%= current_user_info && current_user_info.login_name %></p>
-	<a href="/user/signout">退出登录</a>
-	<h1>User Info</h1>
-	<p><%= image_tag @user.profile, 'data-turbolinks-track' => true %></p>
-	<p>Name : <%= @user.real_name %></p>
-	<p>Sex : 
-		<% if @user.sex == 1 %>
-		男
-		<% elsif @user.sex == 0 %>
-		女
-		<% end%>
-	</p>
-	<p>My Code : <font style="color:red"><%=@user_code_my.code %></font>(<%= @user_code_my.create_time%> - <%= @user_code_my.expire_time%>)</p>
-	<p>Point ： <%=@user.user_point %></p>
-	<p>Money ： <%=@user.user_money %> 元</p>
-	<p>Create Date : <%=@user.create_time %></p>
-	<a href="/user/pointio">我的积分流水</a>
-	<a href="/user/moneyio">我的余额流水</a>
-	<a href="/user/inputcode">输入优惠码</a>
+	<div style="text-align:center;height:200px;line-height:200px;width:100%;background-color:#3bb4f2;">
+		<div style="display:inline-block;vertical-align:bottom;margin-bottom:10%;line-height:20px;">
+			<%= image_tag @user.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%"%>
+			<span style="display:block;padding-top:10px;color:white;"><%= @user.real_name %></span>
+			<span style="display:block;padding-top:10px;color:white;"><%=@user_code_my.code %></span>
+			
+		</div>
+	</div>
+	<div style="width:100%">
+		<ul style="padding-left:0">
+			<li style="list-style:none;border-bottom:1px solid #eee;height:40px;line-height:40px;color:#333;">
+				<a href="/user/pointio"><%=@user.user_point %></a>
+			</li>
+			<li style="list-style:none;border-bottom:1px solid #eee;height:40px;line-height:40px;color:#333;">
+				<a href="/user/moneyio"><%=@user.user_money %></a>
+			</li>
+			<li style="list-style:none;border-bottom:1px solid #eee;height:40px;line-height:40px;color:#333;">
+				<a href="/user/inputcode">输入优惠码</a>
+			</li>
+		</ul>
+	</div>
 <% end %>

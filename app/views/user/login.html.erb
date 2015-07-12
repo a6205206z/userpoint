@@ -1,7 +1,27 @@
 <% content_for :application do %>
+<style type="text/css">
+	body{
+		background-color: #eee;
+	}
+	.divpass{
+		margin-top:-1px;
+	}
+	.btnlogin {
+		display: block;
+		margin: 20px auto;
+		width: 80%;
+
+	}
+</style>
 <form action="/user/signin" method="post">
-  <p>用户名：<input id="loginname" name="loginname" type="text" /></p>
-  <p>密码：<input id="password" name="password" type="password" /></p>
-  <input type="submit" value="登陆"/>
+  <div class="am-input-group divusername">
+		  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+		  <input type="text" id="loginname" name="loginname" class="am-form-field" placeholder="情输入用户名">
+		</div>
+		<div class="am-input-group divpass">
+		  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+		  <input type="text" id="password" name="password" class="am-form-field" placeholder="请输入密码">
+		</div>
+		<button type="submit" class="am-btn am-btn-secondary btnlogin">登录</button>
 </form>
 <% end %>

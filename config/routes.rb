@@ -56,9 +56,12 @@ Rails.application.routes.draw do
   get '/' => 'user#index'
   get 'user/index' => 'user#index'
   get 'user/addpoint/:userid/:code' => 'user#add_point_by_code'
-  post 'user/signin' => 'user#sign_in'
   get 'user/signout' => 'user#sign_out'
   get 'user/login'  => 'user#login'
   get 'user/register' => 'user#register'
+  get 'user/pointio' => 'user#user_point_io'
+  get 'user/moneyio' => 'user#user_money_io'
+
+  post 'user/signin' => 'user#sign_in'
   post 'user/createuser' => 'user#create_user'
 end

@@ -50,9 +50,23 @@ class UserController < ApplicationController
 		if !current_user_info.nil?
 			@user = UserInfo.find_by(id: current_user_info.id)
 			@user_code_my = CodeSource.find_by(user_id: current_user_info.id)
-			@point_ios = UserPointIO.where(user_id: current_user_info.id).order('operate_time DESC')
-			@money_ios = UserMoneyIO.where(user_id: current_user_info.id).order('operate_time DESC')
 			#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
+		else
+			redirect_to "/user/login"
+		end
+	end
+
+	def user_point_io
+		if !current_user_info.nil?
+			@point_ios = UserPointIO.where(user_id: current_user_info.id).order('operate_time DESC')
+		else
+			redirect_to "/user/login"
+		end
+	end
+
+	def user_money_io
+		if !current_user_info.nil?
+			@money_ios = UserMoneyIO.where(user_id: current_user_info.id).order('operate_time DESC')
 		else
 			redirect_to "/user/login"
 		end

@@ -9,6 +9,15 @@
 
 
 class UserController < ApplicationController
+	def register
+		@user = UserInfo.new
+	end
+
+	def create_user
+		
+	end
+
+
 	def login
 		
 	end

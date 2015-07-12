@@ -79,4 +79,7 @@ Rails.application.configure do
 
 
   config.action_controller.allow_forgery_protection = false
+
+  config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
 end

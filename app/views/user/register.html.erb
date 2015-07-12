@@ -1,0 +1,9 @@
+<% content_for :application do %>
+	<%= form_for @user, url: {action: "create_user", :controller=>"user"} do |u| %>
+	  <p>用户名：<%= u.text_field :login_name %></p>
+	  <p>密码：<%= u.password_field :login_password, :id => "login_password" %></p>
+	  <p>密码确认：<input id="login_password_repeat" type="password"></p>
+	  <p>姓名：<%= u.text_field :real_name %></p>
+	  <p>性别：<%= radio_button :sex, :text => "child" %></p>
+	<% end %>
+<% end %>

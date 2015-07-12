@@ -59,4 +59,6 @@ Rails.application.routes.draw do
   post 'user/signin' => 'user#sign_in'
   get 'user/signout' => 'user#sign_out'
   get 'user/login'  => 'user#login'
+  get 'user/register' => 'user#register'
+  post 'user/createuser' => 'user#create_user'
 end

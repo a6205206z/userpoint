@@ -13,7 +13,6 @@ class Setup < ActiveRecord::Migration
 			t.column :login_name, :string, :limit => 30, :default => "", :null => false
 			t.column :login_password, :string, :default => "", :null =>false
 			t.column :real_name, :string, :default => "", :null => false
-			t.column :age, :integer, :default => 0,  :null => false
 			t.column :sex, :integer, :limit => 2, :default => 0, :null => false
 			t.column :create_time, :datetime, :null => false
 			t.column :user_point, :integer, :default => 0, :null => false
@@ -100,7 +99,6 @@ class Setup < ActiveRecord::Migration
 		#create sa user
 		user = UserInfo.new :login_name => "sa",
 							:real_name => "系统管理员",
-							:age => 28,
 							:sex => 1,
 							:create_time => Time.new,
 							:user_point => 99999,

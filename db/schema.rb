@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 1) do
     t.string   "login_name",        limit: 30,                           default: "",  null: false
     t.string   "login_password",    limit: 255,                          default: "",  null: false
     t.string   "real_name",         limit: 255,                          default: "",  null: false
-    t.integer  "age",               limit: 4,                            default: 0,   null: false
     t.integer  "sex",               limit: 2,                            default: 0,   null: false
     t.datetime "create_time",                                                          null: false
     t.integer  "user_point",        limit: 4,                            default: 0,   null: false

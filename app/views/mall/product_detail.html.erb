@@ -1,0 +1,19 @@
+<% content_for :application do %>
+	<div>
+		<%= image_tag @product.product_img_url, 'data-turbolinks-track' => true, :style => "width:80px;height:80px;border-radius:100%" %>
+	</div>
+	<div>
+		原价:<%= @product.original_point %>
+	</div>
+	<div>
+		售价:<%= @product.sales_point %>
+	</div>
+	<div>
+		库存:<%= @product.inventory %>
+	</div>
+	<div>
+		商品描述:<%= @product.description %>
+	</div>
+
+	<input type="button" value="点击购买" />
+<% end %>

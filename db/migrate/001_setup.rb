@@ -61,12 +61,14 @@ class Setup < ActiveRecord::Migration
 			t.column :operate_time, :datetime, :null => false
 		end
 
-		create_table :prdocuts do |t|
+		create_table :products do |t|
+			t.column :name, :string, :null => false 
 			t.column :sales_point, :integer, :defualt => 0, :null => false
 			t.column :original_point, :integer, :default => 0, :null => false
 			t.column :product_img_url, :string, :limit => 60, :default => "", :null => false
 			t.column :inventory, :integer, :default => 0, :null => false
 			t.column :description, :string
+			t.column :create_time, :datetime, :null => false
 		end
 
 		create_table :orders do |t|
@@ -143,6 +145,67 @@ class Setup < ActiveRecord::Migration
 								   :operate_time => Time.new
 
 		money_io.save
+
+
+		product = Product.new :name => "商品",
+							  :sales_point => 20,
+							  :original_point => 30,
+							  :product_img_url => "product/default.png",
+							  :inventory => 100,
+							  :description => "系统初始化商品",
+							  :create_time => Time.new
+
+		product.save
+
+		#for i in 0..5
+		#	product = Product.new(product)
+		#	product.name = "商品" << i
+		#	product.save
+		#end
+
+
+		product_1 = Product.new :name => "商品1",
+							  :sales_point => 20,
+							  :original_point => 30,
+							  :product_img_url => "product/default.png",
+							  :inventory => 100,
+							  :description => "系统初始化商品",
+							  :create_time => Time.new
+
+		product_1.save
+
+
+		product_2 = Product.new :name => "商品2",
+							  :sales_point => 20,
+							  :original_point => 30,
+							  :product_img_url => "product/default.png",
+							  :inventory => 100,
+							  :description => "系统初始化商品",
+							  :create_time => Time.new
+
+		product_2.save
+
+
+		product_3 = Product.new :name => "商品3",
+							  :sales_point => 20,
+							  :original_point => 30,
+							  :product_img_url => "product/default.png",
+							  :inventory => 100,
+							  :description => "系统初始化商品",
+							  :create_time => Time.new
+
+		product_3.save
+
+
+		product_4 = Product.new :name => "商品4",
+							  :sales_point => 20,
+							  :original_point => 30,
+							  :product_img_url => "product/default.png",
+							  :inventory => 100,
+							  :description => "系统初始化商品",
+							  :create_time => Time.new
+
+		product_4.save
 	end
 
 	def self.down
@@ -151,7 +214,7 @@ class Setup < ActiveRecord::Migration
 		drop_table :user_point_ios
 		drop_table :code_sources
 		drop_table :user_money_ios
-		drop_table :prdocuts
+		drop_table :products
 		drop_table :orders
 		drop_table :order_shippings
 		drop_table :order_items

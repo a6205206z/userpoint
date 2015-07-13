@@ -50,12 +50,14 @@ ActiveRecord::Schema.define(version: 1) do
     t.string   "remarks",     limit: 200
   end
 
-  create_table "prdocuts", force: :cascade do |t|
-    t.integer "sales_point",     limit: 4,                null: false
-    t.integer "original_point",  limit: 4,   default: 0,  null: false
-    t.string  "product_img_url", limit: 60,  default: "", null: false
-    t.integer "inventory",       limit: 4,   default: 0,  null: false
-    t.string  "description",     limit: 255
+  create_table "products", force: :cascade do |t|
+    t.string   "name",            limit: 255,              null: false
+    t.integer  "sales_point",     limit: 4,                null: false
+    t.integer  "original_point",  limit: 4,   default: 0,  null: false
+    t.string   "product_img_url", limit: 60,  default: "", null: false
+    t.integer  "inventory",       limit: 4,   default: 0,  null: false
+    t.string   "description",     limit: 255
+    t.datetime "create_time",                              null: false
   end
 
   create_table "user_addresses", force: :cascade do |t|

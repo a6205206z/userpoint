@@ -1,0 +1,15 @@
+<% content_for :application do %>
+	<div style="width:100%">
+		<ul class="am-list am-list-static m-widget-list">
+			<% @products.each do |p| %>
+				<li style="border-bottom:1px solid #eee;">
+					<a href="/mall/product/<%=p.id %>" style="color:#333; ">
+						<i><%= image_tag p.product_img_url, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%"%></i>
+						<span style="margin-right:5px;"><%=p.name %></span>
+						<span style="margin-right:5px; float:right;"><%=p.sales_point %>元</span>
+					</a>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

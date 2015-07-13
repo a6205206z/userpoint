@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   get 'user/pointio' => 'user#user_point_io'
   get 'user/moneyio' => 'user#user_money_io'
   get 'user/inputcode' => 'user#user_input_code'
+  get 'mall/index' => 'mall#index'
+  get 'mall/product/:id' => 'mall#product_detail'
 
   post 'user/signin' => 'user#sign_in'
   post 'user/createuser' => 'user#create_user'

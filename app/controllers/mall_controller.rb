@@ -8,7 +8,11 @@
 
 class MallController < ApplicationController
 	def index
-		offset = params[:page].to_i.*(5)
+		offset = (params[:page].to_i.-(1)).*(5)
+		if offset < 0 
+			offset = 0
+		end
+		
 		@products = Product.order("create_time DESC").limit(5).offset(offset)
 	end
 

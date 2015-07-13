@@ -1,12 +1,46 @@
 <% content_for :application do %>
-	<div style="width:100%">
-		<ul class="am-list am-list-static m-widget-list">
+<style type="text/css">
+
+	.productslist{
+		padding: 0;
+	}
+	.productslist li{
+		border: 0;
+		display: inline-block;
+		width: 50%;
+		list-style:none;
+		float: left;
+		padding: 3px;
+	}
+	.productslist li a{
+		display: block;
+		border: 1px solid #ddd;
+	}
+	.productslist img{
+		display: block;
+		margin: 10px auto;
+		width:90%;
+	}
+	.productslist span{
+		display: block;
+		text-align: center;
+	}
+	.pname{
+		color:#666;
+		font-size: 120%
+	}
+	.pprice{
+		color:#333;
+	}
+</style>
+	<div style="width:100%;overflow:hidden;">
+		<ul class="productslist">
 			<% @products.each do |p| %>
-				<li style="border-bottom:1px solid #eee;">
+				<li>
 					<a href="/mall/product/<%=p.id %>" style="color:#333; ">
-						<i><%= image_tag p.product_img_url, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%"%></i>
-						<span style="margin-right:5px;"><%=p.name %></span>
-						<span style="margin-right:5px; float:right;"><%=p.sales_point %>元</span>
+						<%= image_tag p.product_img_url, 'data-turbolinks-track' => true %>
+						<span class="pname"><%=p.name %></span>
+						<span class="pprice"><%=p.sales_point %>积分</span>
 					</a>
 				</li>
 			<% end %>

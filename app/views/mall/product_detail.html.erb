@@ -1,19 +1,92 @@
 <% content_for :application do %>
-	<div>
-		<%= image_tag @product.product_img_url, 'data-turbolinks-track' => true, :style => "width:80px;height:80px;border-radius:100%" %>
+<style type="text/css">
+	.productcontainer{
+		width: 100%;
+		background-color: #eee;
+		padding-top: 1em;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow: auto;
+
+	}
+
+	.divimg{
+		width:80%;
+		margin: 0 auto;
+		border: 1px solid #ccc;
+		position: relative;
+	}
+	.divimg img{
+		width: 100%;
+	}
+	.divimg span{
+		display: inline-block;
+		background-color: red;
+		color: white;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 5px 10px;
+		font-size: 14px;
+	}
+	.name{
+		text-align: center;
+		margin-top: 10px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.price{
+		text-align: center;
+		margin-top: 10px;
+	}
+	.pricetitle{
+		font-size: 14px;
+		margin-right: 10px;
+	}
+	.saleprice{
+		font-size: 16px;
+		font-weight: bold;
+		margin-right: 10px;
+	}
+	.originprice{
+		text-decoration: line-through;
+		color: #aaa;
+	}
+	.description{
+		width:80%;
+		margin: 0 auto;
+		margin-top:10px;
+		margin-bottom: 100px;
+	}
+	#btnbuy{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
+</style>
+<div class="productcontainer">
+	<div class="divimg">
+		<%= image_tag @product.product_img_url, 'data-turbolinks-track' => true%>
+		<span>库存:<%= @product.inventory %></span>
+	</div>
+	<div class="name"><%= @product.name %></div>
+	<div class="price">
+		<span class="pricetitle">售价:</span>
+		<span class="saleprice"><%= @product.sales_point %>积分</span>
+		<span class="originprice"><%= @product.original_point %>积分</span>
 	</div>
 	<div>
-		原价:<%= @product.original_point %>
+		
 	</div>
-	<div>
-		售价:<%= @product.sales_point %>
-	</div>
-	<div>
-		库存:<%= @product.inventory %>
-	</div>
-	<div>
+	<div class="description">
 		商品描述:<%= @product.description %>
 	</div>
 
-	<input type="button" value="点击购买" />
+	<input type="button" class="am-btn am-btn-secondary" id="btnbuy" value="点击购买" />
+</div>
+	
 <% end %>

@@ -63,8 +63,11 @@ Rails.application.routes.draw do
   get 'user/inputcode' => 'user#user_input_code'
   get 'mall/index' => 'mall#index'
   get 'mall/product/:id' => 'mall#product_detail'
+  get 'mall/makeorder' => 'mall#make_order'
+  get 'mall/shipping' => 'mall#shipping'
 
   post 'user/signin' => 'user#sign_in'
   post 'user/createuser' => 'user#create_user'
   post 'user/addpoint' => 'user#add_point_by_code'
+  post 'mall/createshipping' => 'mall#create_shipping'
 end

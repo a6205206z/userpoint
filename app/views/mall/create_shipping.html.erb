@@ -1,0 +1,8 @@
+<% content_for :application do %>
+	<script type="text/javascript">
+		window.onload=function(){
+			alert('<%= @resultMsg%>');
+			location.href = '/user/index'
+		}
+	</script>
+<% end %>

@@ -1,0 +1,42 @@
+<% content_for :application do %>
+<style type="text/css">
+	body{
+		background-color: #eee;
+	}
+</style>
+	<% if @error_msg %>
+		<script type="text/javascript">
+			window.onload=function(){
+				alert('<%= @error_msg%>');
+				location.href = '/user/index'
+			}
+		</script>
+	<% else %>
+		<form action="/mall/createshipping" method="post">
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">联系人：</span><input name="real_name" type="text" value="<%= @user.real_name%>">
+			</div>
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">联系电话：</span><input name="mobile" type="text" value="<%= @shipping.mobile%>">
+			</div>
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">国家：</span><input name="country" type="text" value="<%= @shipping.country%>">
+			</div>
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">省份：</span><input name="province" type="text" value="<%= @shipping.province%>">
+			</div>
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">城市：</span><input name="city" type="text" value="<%= @shipping.city%>">
+			</div>
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">街道：</span><input name="address" type="text" value="<%= @shipping.address%>">
+			</div>
+			<div class="am-input-group divusername">
+			  <span class="am-input-group-label">邮编：</span><input name="post_code" type="text" value="<%= @shipping.post_code%>">
+			</div>
+
+			<input type="submit" class="am-btn am-btn-secondary" id="btnbuy" value="确认">
+			<input name="orderid" type="hidden" value="<%= @order.id %>">
+		</form>
+	<% end %>
+<% end %>

@@ -86,7 +86,7 @@
 		商品描述:<%= @product.description %>
 	</div>
 
-	<input type="button" class="am-btn am-btn-secondary" id="btnbuy" value="点击购买" />
+	<a type="button" href="/mall/makeorder?pid=<%= @product.id %>" class="am-btn am-btn-secondary" id="btnbuy">点击购买</a>
 </div>
 	
 <% end %>

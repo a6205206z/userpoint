@@ -54,8 +54,8 @@ class MallController < ApplicationController
 	end
 
 	def shipping
-		@order = Order.find(params[:orderid])
-		if @order.status == 0
+		@order = Order.find_by(id: params[:orderid])
+		if !@order.nil? and @order.status == 0
 			@shipping = UserAddresses.find_by(user_id: current_user_info.id)
 			if @shipping.nil?
 				@shipping = UserAddresses.new
@@ -77,6 +77,7 @@ class MallController < ApplicationController
 										  :country => params[:country],
 										  :province => params[:province],
 										  :city => params[:city],
+										  :area => params[:area],
 										  :post_code => params[:post_code],
 										  :address => params[:address]
 
@@ -90,6 +91,7 @@ class MallController < ApplicationController
 											    :country => params[:country],
 											    :province => params[:province],
 											    :city => params[:city],
+											    :area => params[:area],
 											    :post_code => params[:post_code],
 											    :address => params[:address]
 				useraddress.save
@@ -99,6 +101,7 @@ class MallController < ApplicationController
 			    useraddress.country = params[:country]
 			    useraddress.province = params[:province]
 			    useraddress.city = params[:city]
+			    useraddress.area = params[:area]
 			    useraddress.post_code = params[:post_code]
 			    useraddress.address = params[:address]
 

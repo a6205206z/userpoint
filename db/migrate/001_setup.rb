@@ -29,6 +29,7 @@ class Setup < ActiveRecord::Migration
 			t.column :country, :string, :defualt => "", :null => false
 			t.column :province, :string, :defualt => "", :null => false
 			t.column :city, :string, :defualt => "", :null => false
+			t.column :area, :string, :defualt => "", :null => false
 			t.column :post_code, :string, :defualt => "", :null => false
 			t.column :address, :string, :defualt => "", :null => false
 		end
@@ -86,6 +87,7 @@ class Setup < ActiveRecord::Migration
 			t.column :country, :string, :defualt => "", :null => false
 			t.column :province, :string, :defualt => "", :null => false
 			t.column :city, :string, :defualt => "", :null => false
+			t.column :area, :string, :defualt => "", :null => false
 			t.column :post_code, :string, :defualt => "", :null => false
 			t.column :address, :string, :defualt => "", :null => false
 		end

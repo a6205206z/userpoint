@@ -101,7 +101,11 @@ class UserController < ApplicationController
 	end
 
 	def order_list
-		@orderlist = Order.where(user_id: current_user_info.id).order("create_time DESC")
+		if !current_user_info.nil?
+			@orderlist = Order.where(user_id: current_user_info.id).order("create_time DESC")
+		else
+			redirect_to "/user/login"
+		end
 	end
 
 	def order_detail

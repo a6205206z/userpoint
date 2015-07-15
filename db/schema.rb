@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string  "country",   limit: 255,              null: false
     t.string  "province",  limit: 255,              null: false
     t.string  "city",      limit: 255,              null: false
+    t.string  "area",      limit: 255,              null: false
     t.string  "post_code", limit: 255,              null: false
     t.string  "address",   limit: 255,              null: false
   end
@@ -67,6 +68,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string  "country",   limit: 255,              null: false
     t.string  "province",  limit: 255,              null: false
     t.string  "city",      limit: 255,              null: false
+    t.string  "area",      limit: 255,              null: false
     t.string  "post_code", limit: 255,              null: false
     t.string  "address",   limit: 255,              null: false
   end

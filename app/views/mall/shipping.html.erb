@@ -20,13 +20,10 @@
 			  <span class="am-input-group-label">联系电话：</span><input name="mobile" type="text" value="<%= @shipping.mobile%>">
 			</div>
 			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">国家：</span><input name="country" type="text" value="<%= @shipping.country%>">
-			</div>
-			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">省份：</span><input name="province" type="text" value="<%= @shipping.province%>">
-			</div>
-			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">城市：</span><input name="city" type="text" value="<%= @shipping.city%>">
+			  <select name="country" id="country"><option value="中国">中国</option></select>
+			  <select name="province" id="province_id"></select>
+			  <select name="city" id="city_id"></select>
+			  <select name="area" id="area_id"></select>
 			</div>
 			<div class="am-input-group divusername">
 			  <span class="am-input-group-label">街道：</span><input name="address" type="text" value="<%= @shipping.address%>">
@@ -37,6 +34,12 @@
 
 			<input type="submit" class="am-btn am-btn-secondary" id="btnbuy" value="确认">
 			<input name="orderid" type="hidden" value="<%= @order.id %>">
+
+			<script type="text/javascript">
+			$(document).ready(function(){
+				$.address("province_id","city_id","area_id","<%= @shipping.province%>","<%= @shipping.city%>","<%= @shipping.area%>");
+			});
+			</script>
 		</form>
 	<% end %>
 <% end %>

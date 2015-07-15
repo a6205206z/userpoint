@@ -100,6 +100,18 @@ class UserController < ApplicationController
 		
 	end
 
+	def order_list
+		@orderlist = Order.where(user_id: current_user_info.id).order("create_time DESC")
+	end
+
+	def order_detail
+		@order = Order.find_by(id: params[:id])
+		if !@order.nil?
+			@itemlist = OrderItem.where(order_id: @order.id)
+			@shipping = OrderShipping.find_by(order_id: @order.id)
+		end
+	end
+
 	def add_point_by_code
 		if !current_user_info.nil?
 			@resultMsg = ""

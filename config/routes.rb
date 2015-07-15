@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   get 'mall/product/:id' => 'mall#product_detail'
   get 'mall/makeorder' => 'mall#make_order'
   get 'mall/shipping' => 'mall#shipping'
+  get 'user/orderlist' => 'user#order_list'
+  get 'user/order/:id' => 'user#order_detail'
 
   post 'user/signin' => 'user#sign_in'
   post 'user/createuser' => 'user#create_user'

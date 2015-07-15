@@ -1,11 +1,31 @@
 <% content_for :application do %>
-<div>
-	<h1 style="text-align:center;">我的积分历史</h1>
+<style type="text/css">
+	.pointio{
+		width: 100%;
+		background-color: rgba(254,255,178,0.857);
+		padding-top: 1em;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow: auto;
+
+	}
+	#return{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
+</style>
+<div class="pointio">
+	<h1 style="text-align:center; color:"><i class="am-icon-trophy am-icon-fw"></i>我的积分历史</h1>
 	<% if @point_ios%>
 		<% @point_ios.each do |io| %>
 			<div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
 				<div style="overflow:hidden">
-					<span style="font-size:20px;color:red;float:left;"><%= io.point %></span>
+					<span style="font-size:20px;color:red;float:left;"><%= io.point %>积分</span>
 				</div>
 				<div style="overflow:hidden">
 
@@ -22,5 +42,6 @@
 			</div>
 			<% end %>
 	<% end %>
+	<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
 </div>
 <% end %>

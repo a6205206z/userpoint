@@ -32,18 +32,40 @@
 	.pprice{
 		color:#333;
 	}
+	.product{
+		width: 100%;
+		background-color: rgba(254,255,178,0.857);
+		padding-top: 1em;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow: auto;
+
+	}
+	#return{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
 </style>
-	<div style="width:100%;overflow:hidden;">
-		<ul class="productslist">
-			<% @products.each do |p| %>
-				<li>
-					<a href="/mall/product/<%=p.id %>" style="color:#333; ">
-						<%= image_tag p.product_img_url, 'data-turbolinks-track' => true %>
-						<span class="pname"><%=p.name %></span>
-						<span class="pprice"><%=p.sales_point %>积分</span>
-					</a>
-				</li>
-			<% end %>
-		</ul>
+	<div class="product">
+		<div style="width:100%;overflow:hidden;margin-bottom:45px;">
+			<ul class="productslist">
+				<% @products.each do |p| %>
+					<li>
+						<a href="/mall/product/<%=p.id %>" style="color:#333; ">
+							<%= image_tag p.product_img_url, 'data-turbolinks-track' => true %>
+							<span class="pname"><%=p.name %></span>
+							<span class="pprice"><%=p.sales_point %>积分</span>
+						</a>
+					</li>
+				<% end %>
+			</ul>
+			
+		</div>
+		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
 	</div>
 <% end %>

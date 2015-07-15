@@ -1,9 +1,9 @@
 
 <% content_for :application do %>
 <style type="text/css">
-	.moneyios{
+	.orderlist{
 		width: 100%;
-		background-color: rgba(254,255,178,0.714);
+		background-color: rgba(254,255,178,0.900);
 		padding-top: 1em;
 		position: fixed;
 		top: 0;
@@ -20,27 +20,27 @@
 		bottom:0;
 	}
 </style>
-<div class="moneyios">
-	<h1 style="text-align:center;">我的余额历史</h1>
-	<% if @money_ios%>
+<div class="orderlist">
+	<h1 style="text-align:center;">我的订单</h1>
+	<% if @orderlist%>
 
-			<% @money_ios.each do |m| %>
+			<% @orderlist.each do |o| %>
 
 			  <div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
 				<div style="overflow:hidden">
-					<span style="font-size:20px;color:red;float:left"><%= m.money %>元</span>
-					
+					<span style="font-size:20px;color:red;float:left"><%= o.order_point %>积分</span>
 				</div>
 				<div style="overflow:hidden">
 					<span style="color:red;float:left">
-						<% if m.status == 1 %>
+						<% if o.status == 1 %>
 					  	<font style="color:green">成功</font>
-					  	<% elsif m.status == 0 %>
+					  	<% elsif o.status == 0 %>
 					  	<font style="color:red">失败</font>
 					  	<% end %>
 					 </span>
-					 <span style="color:#999;float:left;margin-left:3px;"><%= m.remarks %></span>
-					 <span style="color:#999;float:right"><%= m.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
+					 <span style="color:#999;float:left;margin-left:3px;"><%= o.remarks %></span>
+					 <span style="color:#999;">(<%= o.create_time.strftime("%Y-%m-%d %H:%M:%S") %>)</span>
+					 <span style="color:#999;float:right;"><a href="/user/order/<%=o.id %>">订单详情</a></span>
 				</div>
 			</div>
 			<% end %>

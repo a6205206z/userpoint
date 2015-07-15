@@ -7,7 +7,7 @@
 		bottom:0;
 	}
 </style>
-	<% if @order.nil?  and @order.status == 1 %>
+	<% if @order.nil?  and @order.status <> 1 %>
 		<script type="text/javascript">
 			window.onload=function(){
 				alert('无效订单');

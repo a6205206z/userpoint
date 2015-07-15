@@ -110,7 +110,7 @@ class UserController < ApplicationController
 
 	def order_detail
 		@order = Order.find_by(id: params[:id])
-		if !@order.nil?
+		if !@order.nil? and @order.status == 1
 			@itemlist = OrderItem.where(order_id: @order.id)
 			@shipping = OrderShipping.find_by(order_id: @order.id)
 		end

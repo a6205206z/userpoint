@@ -1,0 +1,58 @@
+<% content_for :application do %>
+	<style type="text/css">
+		.moneyios{
+			width: 100%;
+			background-color: rgba(254,255,178,0.714);
+			padding-top: 1em;
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			overflow: auto;
+
+		}
+		#btn_commit{
+			width: 50%;
+			position: fixed;
+			font-size: 20px;
+			bottom:0;
+		}
+		#btn_return{
+			width: 50%;
+			position: fixed;
+			left: 50%;
+			font-size: 20px;
+			bottom:0;
+		}
+	</style>
+	<% if @agency.nil? %>
+		<script type="text/javascript">
+			window.onload=function(){
+				alert('经销商无效');
+				location.href = '/user/moneyio'
+			}
+		</script>
+	<% else %>
+	<h1>经销商介绍</h1>
+	<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%"%><br/>
+	经销商名：<%= @agency.name %><br/>
+	地址：<%= @agency.address %><br/>
+	联系人：<%= @agency.contact %><br/>
+	联系电话：<%= @agency.phone %><br/>
+	<h1>选择使用的购车基金</h1>
+	<form action="/agency/inputbuycarinfo?agencyid=<%= @agency.id %>" method="post">
+		<ul>
+			<% @moneyio.each do |m| %>
+			<li><input name="moneyioids" value="<%= m.id%>" type="checkbox"/><%= m.money%>元[<%= m.remarks%>]</li>
+			<% end %>
+			车辆品牌：<input type="text" name="brand" /><br/>
+			车辆型号：<input type="text" name="model" /><br/>
+			车辆配置：<input type="text" name="type" /><br/>
+			身份证：<input type="text" name="idnumber" /><br/>
+		</ul>
+		<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>
+		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return">返回</a>
+	</form>
+	<% end %>
+<% end %>

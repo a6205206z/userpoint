@@ -47,19 +47,19 @@
 			<li style="background-color:rgba(254,255,178,0.857);border-bottom:1px solid #eee;">
 				<a href="/user/pointio " style="color:#333; ">
 					<i class="am-icon-trophy am-icon-fw"></i>
-					<span style="margin-right:5px;">我的积分:</span><%=@user.user_point %>
+					<span style="margin-right:5px;">我的积分:</span><%=@user.user_point %> Point
 				</a>
 			</li>
 			<li style="background-color:rgba(254,255,178,0.714);border-bottom:1px solid #eee;">
 				<a href="/user/moneyio" style="color:#333">
 					<i class="am-icon-money am-icon-fw"></i>
-					<span style="margin-right:5px;">我的余额:</span><%=@user.user_money %>
+					<span style="margin-right:5px;">我的购车基金:</span><%=@user.user_money %>元
 				</a>
 			</li>
 			<li style="background-color:rgba(254,255,178,0.571);border-bottom:1px solid #eee;">
-				<a href="/user/moneyio" style="color:#333">
+				<a href="/user/buycarrequest" style="color:#333">
 					<i class="am-icon-truck am-icon-fw"></i>
-					<span style="margin-right:5px;">我的经销商
+					<span style="margin-right:5px;">我的购车记录
 				</a>
 			</li>
 			<li style="background-color:rgba(254,255,178,0.428);border-bottom:1px solid #eee;">
@@ -84,9 +84,15 @@
 	</div>
 	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
 	  <div class="am-modal-dialog">
-	    <div class="am-modal-hd">我的代码</div>
+	    <div class="am-modal-hd">
+	    我的代码
+	    </div>
 	    <div class="am-modal-bd">
+	    <% if !@user_code_my.nil? %>
 	      <%=@user_code_my.code %>
+	    <% else %>
+	   		还没有代码，赶紧成为车主获取代码吧！
+	    <% end %>
 	    </div>
 	    <div class="am-modal-footer">
 	      <span class="am-modal-btn">确定</span>

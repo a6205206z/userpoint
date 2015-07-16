@@ -13,14 +13,35 @@
 
 ActiveRecord::Schema.define(version: 1) do
 
+  create_table "agencies", force: :cascade do |t|
+    t.string "login_name",     limit: 30,  default: "", null: false
+    t.string "login_password", limit: 255, default: "", null: false
+    t.string "name",           limit: 255, default: "", null: false
+    t.string "address",        limit: 255, default: "", null: false
+    t.string "contact",        limit: 255, default: "", null: false
+    t.string "phone",          limit: 255, default: "", null: false
+    t.string "profile",        limit: 255, default: "", null: false
+  end
+
+  create_table "buy_car_requests", force: :cascade do |t|
+    t.integer  "user_id",        limit: 4,                null: false
+    t.string   "user_id_number", limit: 255, default: "", null: false
+    t.integer  "agency_id",      limit: 4,                null: false
+    t.string   "req_info",       limit: 255, default: "", null: false
+    t.string   "money_io_ids",   limit: 255, default: "", null: false
+    t.datetime "create_time",                             null: false
+    t.integer  "status",         limit: 4,   default: 0,  null: false
+  end
+
   create_table "code_sources", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4,                                          null: false
-    t.string   "code",        limit: 255,                          default: "0", null: false
-    t.integer  "add_point",   limit: 4,                            default: 0,   null: false
-    t.decimal  "add_money",               precision: 12, scale: 2, default: 0.0, null: false
-    t.string   "remarks",     limit: 200
-    t.datetime "create_time",                                                    null: false
-    t.datetime "expire_time",                                                    null: false
+    t.integer  "user_id",        limit: 4,                                          null: false
+    t.string   "code",           limit: 255,                          default: "0", null: false
+    t.integer  "add_point",      limit: 4,                            default: 0,   null: false
+    t.decimal  "add_money",                  precision: 12, scale: 2, default: 0.0, null: false
+    t.integer  "from_agency_id", limit: 4,                                          null: false
+    t.string   "remarks",        limit: 200
+    t.datetime "create_time",                                                       null: false
+    t.datetime "expire_time",                                                       null: false
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -86,11 +107,12 @@ ActiveRecord::Schema.define(version: 1) do
   end
 
   create_table "user_money_ios", force: :cascade do |t|
-    t.integer  "user_id",      limit: 4,                                        null: false
-    t.decimal  "money",                    precision: 12, scale: 2,             null: false
-    t.string   "remarks",      limit: 125,                                      null: false
-    t.integer  "status",       limit: 4,                            default: 0, null: false
-    t.datetime "operate_time",                                                  null: false
+    t.integer  "user_id",        limit: 4,                                        null: false
+    t.decimal  "money",                      precision: 12, scale: 2,             null: false
+    t.string   "remarks",        limit: 125,                                      null: false
+    t.integer  "status",         limit: 4,                            default: 0, null: false
+    t.datetime "operate_time",                                                    null: false
+    t.integer  "from_agency_id", limit: 4,                                        null: false
   end
 
   create_table "user_point_ios", force: :cascade do |t|

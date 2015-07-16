@@ -21,7 +21,7 @@
 	}
 </style>
 <div class="moneyios">
-	<h1 style="text-align:center;">我的余额历史</h1>
+	<h1 style="text-align:center;"><i class="am-icon-money am-icon-fw"></i>我的购车基金</h1>
 	<% if @money_ios%>
 
 			<% @money_ios.each do |m| %>
@@ -34,13 +34,18 @@
 				<div style="overflow:hidden">
 					<span style="color:red;float:left">
 						<% if m.status == 1 %>
-					  	<font style="color:green">成功</font>
-					  	<% elsif m.status == 0 %>
-					  	<font style="color:red">失败</font>
+					  	<font style="color:green">未使用</font>
+					  	<% elsif m.status == 2 %>
+					  	<font style="color:red">已使用</font>
+					  	<% else %>
+					  	<font style="color:red">异常</font>
 					  	<% end %>
 					 </span>
 					 <span style="color:#999;float:left;margin-left:3px;"><%= m.remarks %></span>
-					 <span style="color:#999;float:right"><%= m.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
+					 <span style="color:#999;float:left;"><%= m.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
+					 <% if m.status == 1 %>
+					 	<span style="color:#999;float:right"><a href="/agency/buycar?agencyid=<%= m.from_agency_id%>">使用</a></span>
+					 <% end %>
 				</div>
 			</div>
 			<% end %>

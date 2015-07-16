@@ -26,15 +26,6 @@ class UserController < ApplicationController
 		
 
 		if new_user.save
-			new_code_source = CodeSource.new :user_id => new_user.id,
-								  			 :code => UserInfo.get_my_code(new_user.login_name),
-							  				 :add_point => 50,
-							  				 :add_money => 200,
-							  				 :remarks => "Register new User",
-							  				 :create_time => Time.new,
-							  				 :expire_time => Time.mktime(2025)
-			new_code_source.save
-
 			@resultMsg = "用户" << new_user.login_name << "创建成功，赶快去体验吧！"
 		else
 			@resultMsg  = "用户" << new_user.login_name << "创建失败,尝试更换用户名！"
@@ -116,6 +107,14 @@ class UserController < ApplicationController
 		end
 	end
 
+	def buy_car_request
+		if !current_user_info.nil?
+	 		@buycarrequests = BuyCarRequest.where(user_id: current_user_info.id).order("create_time DESC")
+	 	else
+			redirect_to "/user/login"
+		end
+	end
+
 	def add_point_by_code
 		if !current_user_info.nil?
 			@resultMsg = ""
@@ -125,47 +124,52 @@ class UserController < ApplicationController
 
 			#if io has no record
 			if !user_code.nil?
-				#get user code
-				
-				#if user code has recorde
-				if point_ios.nil?
+				#get agency
+				agency = Agency.find_by(id: user_code.from_agency_id)
+				if !agency.nil?
+					#if user code has recorde
+					if point_ios.nil?
 
-					user = UserInfo.find_by(id: current_user_info.id)
-					if !user.nil?
-						user.user_point += user_code.add_point
-						user.save
+						user = UserInfo.find_by(id: current_user_info.id)
+						if !user.nil?
+							user.user_money += user_code.add_money
+							user.save
 
-						#加现金
-						code_user = UserInfo.find_by(id: user_code.user_id)
-						code_user.user_money +=  user_code.add_money
-						code_user.save
+							#加积分
+							code_user = UserInfo.find_by(id: user_code.user_id)
+							code_user.user_point +=  user_code.add_point
+							code_user.save
 
-						#add money io
-						money_io = UserMoneyIO.new :user_id => code_user.id,
-										:money => user_code.add_money,
-										:remarks => "来自" << current_user_info.real_name << "的代码",
-								   		:status => 1,
-								   		:operate_time => Time.new
+							#add money io
+							money_io = UserMoneyIO.new :user_id => user.id,
+											:money => user_code.add_money,
+											:remarks => "来自" << user.real_name << "的代码",
+									   		:status => 1,
+									   		:from_agency_id => agency.id,
+									   		:operate_time => Time.new
 
-						money_io.save
+							money_io.save
 
-						#add point io
-						point_io = UserPointIO.new :user_id => user.id,
-									:point => user_code.add_point,
-									:remarks => "使用了" << code_user.real_name << "的代码",
-									:status => 1,
-									:operate_time => Time.new,
-									:from => "/user/addpoint/#{current_user_info.id}/#{params[:code]}",
-									:code => user_code.code
+							#add point io
+							point_io = UserPointIO.new :user_id => code_user.id,
+										:point => user_code.add_point,
+										:remarks => "使用了" << code_user.real_name << "的代码，来自[" << agency.name << "]",
+										:status => 1,
+										:operate_time => Time.new,
+										:from => "/user/addpoint/#{user.id}/#{params[:code]}",
+										:code => user_code.code
 
-						point_io.save
+							point_io.save
 
-						@resultMsg = "成功 + #{user_code.add_point}"
+							@resultMsg = "获得#{agency.name}的#{user_code.add_money}元购车基金,赶紧去购车吧"
+						else
+							@resultMsg = "该用户不存在"
+						end
 					else
-						@resultMsg = "该用户不存在"
+						@resultMsg = "ERROR:该用户已经使用过 #{params[:code]}"
 					end
 				else
-					@resultMsg = "ERROR:该用户已经使用过 #{params[:code]}"
+					@resultMsg = "ERROR:无效经销商"
 				end
 			else
 				@resultMsg = "ERROR:代码 #{params[:code]} 无效或已经过期"

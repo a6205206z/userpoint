@@ -1,0 +1,42 @@
+<% content_for :application do %>
+<style type="text/css">
+	#return{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
+</style>
+	<% if !@buycarrequests.nil? %>
+		<% @buycarrequests.each do |req| %>
+			<ul>
+				<li>申请信息:<%=req.req_info %></li>
+				<li>申请时间:<%=req.create_time %></li>
+				<li>
+					<ul>
+						<% req.money_io_ids.split(',').each do |mid| %>
+							<% @moneyio = UserMoneyIO.find_by(id: mid)
+							if !@moneyio.nil? %>
+							<li><%= @moneyio.money %></li>
+							<li><%= @moneyio.remarks %></li>
+							<% end %>
+						<% end %>
+					</ul>
+				</li>
+				<li>
+				状态:
+					<% if req.status == 0 %>
+				  		<font style="color:red">待审核</font>
+				  	<% elsif req.status == 1 %>
+				  		<font style="color:green">审核通过</font>
+				  	<% elsif req.status == 1 %>
+				  		<font style="color:red">审核未通过</font>
+				  	<% else %>
+				  		<font style="color:red">异常</font>
+					<% end %>
+				</li>
+			</ul>
+		<% end %>
+		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
+	<% end %>
+<% end %>

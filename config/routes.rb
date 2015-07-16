@@ -67,9 +67,13 @@ Rails.application.routes.draw do
   get 'mall/shipping' => 'mall#shipping'
   get 'user/orderlist' => 'user#order_list'
   get 'user/order/:id' => 'user#order_detail'
+  get 'agency/buycar' => 'agency#buy_car'
+  get 'user/buycarrequest' => 'user#buy_car_request'
 
   post 'user/signin' => 'user#sign_in'
   post 'user/createuser' => 'user#create_user'
   post 'user/addpoint' => 'user#add_point_by_code'
   post 'mall/createshipping' => 'mall#create_shipping'
+  post 'agency/inputbuycarinfo' => 'agency#input_buy_car_info'
+
 end

@@ -44,7 +44,7 @@
 	<form action="/agency/inputbuycarinfo?agencyid=<%= @agency.id %>" method="post">
 		<ul>
 			<% @moneyio.each do |m| %>
-			<li><input name="moneyioids" value="<%= m.id%>" type="checkbox"/><%= m.money%>元[<%= m.remarks%>]</li>
+			<li><input name="moneyioids[]" value="<%= m.id%>" type="checkbox"/><%= m.money%>元[<%= m.remarks%>]</li>
 			<% end %>
 			车辆品牌：<input type="text" name="brand" /><br/>
 			车辆型号：<input type="text" name="model" /><br/>

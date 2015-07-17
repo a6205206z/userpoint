@@ -14,13 +14,14 @@
 ActiveRecord::Schema.define(version: 1) do
 
   create_table "agencies", force: :cascade do |t|
-    t.string "login_name",     limit: 30,  default: "", null: false
-    t.string "login_password", limit: 255, default: "", null: false
-    t.string "name",           limit: 255, default: "", null: false
-    t.string "address",        limit: 255, default: "", null: false
-    t.string "contact",        limit: 255, default: "", null: false
-    t.string "phone",          limit: 255, default: "", null: false
-    t.string "profile",        limit: 255, default: "", null: false
+    t.string "login_name",        limit: 30,  default: "", null: false
+    t.string "login_password",    limit: 255, default: "", null: false
+    t.string "name",              limit: 255, default: "", null: false
+    t.string "address",           limit: 255, default: "", null: false
+    t.string "contact",           limit: 255, default: "", null: false
+    t.string "phone",             limit: 255, default: "", null: false
+    t.string "profile",           limit: 255, default: "", null: false
+    t.string "persistence_token", limit: 255,              null: false
   end
 
   create_table "buy_car_requests", force: :cascade do |t|
@@ -107,12 +108,13 @@ ActiveRecord::Schema.define(version: 1) do
   end
 
   create_table "user_money_ios", force: :cascade do |t|
-    t.integer  "user_id",        limit: 4,                                        null: false
-    t.decimal  "money",                      precision: 12, scale: 2,             null: false
-    t.string   "remarks",        limit: 125,                                      null: false
-    t.integer  "status",         limit: 4,                            default: 0, null: false
-    t.datetime "operate_time",                                                    null: false
-    t.integer  "from_agency_id", limit: 4,                                        null: false
+    t.integer  "user_id",        limit: 4,                                         null: false
+    t.decimal  "money",                      precision: 12, scale: 2,              null: false
+    t.string   "remarks",        limit: 125,                                       null: false
+    t.integer  "status",         limit: 4,                            default: 0,  null: false
+    t.datetime "operate_time",                                                     null: false
+    t.string   "code",           limit: 255,                          default: "", null: false
+    t.integer  "from_agency_id", limit: 4,                                         null: false
   end
 
   create_table "user_point_ios", force: :cascade do |t|

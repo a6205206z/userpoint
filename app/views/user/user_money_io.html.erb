@@ -34,11 +34,13 @@
 				<div style="overflow:hidden">
 					<span style="color:red;float:left">
 						<% if m.status == 1 %>
-					  	<font style="color:green">未使用</font>
+					  		<font style="color:green">未使用</font>
 					  	<% elsif m.status == 2 %>
-					  	<font style="color:red">已使用</font>
+					  		<font style="color:red">使用中</font>
+					  	<% elsif m.status == 3 %>
+					  		<font style="color:red">已使用</font>
 					  	<% else %>
-					  	<font style="color:red">异常</font>
+					  		<font style="color:red">异常</font>
 					  	<% end %>
 					 </span>
 					 <span style="color:#999;float:left;margin-left:3px;"><%= m.remarks %></span>

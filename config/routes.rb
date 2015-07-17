@@ -76,4 +76,14 @@ Rails.application.routes.draw do
   post 'mall/createshipping' => 'mall#create_shipping'
   post 'agency/inputbuycarinfo' => 'agency#input_buy_car_info'
 
+
+  #admin
+  get 'panda/login' => 'panda#login'
+  get 'panda/index' => 'panda#index'
+  get 'panda/generatecode' => "panda#generate_code"
+  get 'panda/passbuycarrequest' => 'panda#pass_buy_car_request'
+
+  
+  post 'panda/signin' => 'panda#sign_in'
+
 end

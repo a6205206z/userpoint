@@ -1,13 +1,27 @@
 <% content_for :application do %>
-<style type="text/css">
-	#return{
-		width: 100%;
-		position: fixed;
-		font-size: 20px;
-		bottom:0;
-	}
-</style>
-	<% if !@buycarrequests.nil? %>
+<h1>生成用户代码</h1>
+<ul>
+	<% @userlist.each do |u| %>
+		<li>
+		<%= image_tag u.profile, 'data-turbolinks-track' => true , :style => "width:40px;height:40px;border-radius:100%"%>
+		登录名:<%= u.login_name%>&nbsp;
+		姓名:<%= u.real_name%>&nbsp;
+		用户积分:<%= u.user_point%>&nbsp;
+		购车基金:<%= u.user_money%>&nbsp;
+		<% @user_code = CodeSource.find_by(user_id: u.id) %>
+		<% if @user_code.nil? %>
+			<a href="/panda/generatecode?userid=<%= u.id%>">生成代码</a>
+		<% else %>
+			<%=@user_code.code %>
+		<% end %>
+
+
+		</li>
+	<% end %>
+</ul>
+
+<h1>审核购车基金</h1>
+<% if !@buycarrequests.nil? %>
 		<% @buycarrequests.each do |req| %>
 			<ul>
 				<li>申请信息:<%=req.req_info %></li>
@@ -35,8 +49,13 @@
 				  		<font style="color:red">异常</font>
 					<% end %>
 				</li>
+				<li>
+				<% if req.status == 0 %>
+					<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=1">通过</a>
+					<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=2">拒绝</a>
+				<% end %>
+				</li>
 			</ul>
 		<% end %>
-		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
 	<% end %>
 <% end %>

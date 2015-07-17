@@ -46,7 +46,7 @@ class Setup < ActiveRecord::Migration
 
 		create_table :code_sources do |t|
 			t.column :user_id, :integer, :defualt => 0, :null => false, :unique => true
-			t.column :code, :string, :default => 0, :null => false
+			t.column :code, :string, :default => 0, :null => false, :unique => true
 			t.column :add_point, :integer, :default =>0, :null => false
 			t.column :add_money, :decimal, :default => 0.0, :null => false, precision: 12, scale: 2
 			t.column :from_agency_id, :integer, :defualt => 0, :null => false 
@@ -63,6 +63,7 @@ class Setup < ActiveRecord::Migration
 			t.column :contact, :string, :default => "", :null => false
 			t.column :phone, :string, :default => "", :null => false
 			t.column :profile, :string, :default => "", :null => false
+			t.column :persistence_token, :string, :null => false
 		end
 
 		create_table :buy_car_requests do |t|
@@ -83,6 +84,7 @@ class Setup < ActiveRecord::Migration
 			t.column :remarks, :string, :limit => 125, :defualt => "", :null => false
 			t.column :status, :integer, :default => 0, :null => false
 			t.column :operate_time, :datetime, :null => false
+			t.column :code, :string, :default => "", :null =>false
 			t.column :from_agency_id, :integer, :defualt => 0, :null => false 
 		end
 
@@ -133,7 +135,8 @@ class Setup < ActiveRecord::Migration
 							 :address => "四川省 成都市 锦江区 中环广场35层",
 							 :contact => "李先生",
 							 :phone => "13545678954",
-							 :profile => "profile/man.png"
+							 :profile => "profile/man.png",
+							 :persistence_token => ""
 		agency.save
 
 

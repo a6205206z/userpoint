@@ -119,24 +119,27 @@ class UserController < ApplicationController
 		if !current_user_info.nil?
 			@resultMsg = ""
 
-			point_ios = UserPointIO.find_by(code: params[:code])
+			
 			user_code = CodeSource.where("code = '#{params[:code]}' and user_id <> #{current_user_info.id} and ('#{Time.new}' between create_time and expire_time)").first
+			
 
 			#if io has no record
 			if !user_code.nil?
 				#get agency
 				agency = Agency.find_by(id: user_code.from_agency_id)
 				if !agency.nil?
+
+					code_user = UserInfo.find_by(id: user_code.user_id)
+				 	money_ios = UserMoneyIO.find_by(code: params[:code], user_id: current_user_info.id)
 					#if user code has recorde
-					if point_ios.nil?
+					if money_ios.nil?
 
 						user = UserInfo.find_by(id: current_user_info.id)
 						if !user.nil?
 							user.user_money += user_code.add_money
 							user.save
 
-							#加积分
-							code_user = UserInfo.find_by(id: user_code.user_id)
+
 							code_user.user_point +=  user_code.add_point
 							code_user.save
 
@@ -145,6 +148,7 @@ class UserController < ApplicationController
 											:money => user_code.add_money,
 											:remarks => "来自" << user.real_name << "的代码",
 									   		:status => 1,
+									   		:code => user_code.code,
 									   		:from_agency_id => agency.id,
 									   		:operate_time => Time.new
 

@@ -84,6 +84,7 @@ Rails.application.routes.draw do
   get 'panda/passbuycarrequest' => 'panda#pass_buy_car_request'
   get 'panda/orderlist' => 'panda#order_list'
   get 'panda/order/:id' => 'panda#order_detail'
+  get 'panda/signout' => 'panda#sign_out'
 
   
   post 'panda/signin' => 'panda#sign_in'

@@ -28,6 +28,14 @@ class PandaController < ApplicationController
 		end
 	end
 
+	def sign_out
+		if !current_agency_session.nil?
+			current_agency_session.destroy
+		end
+
+		redirect_to "/panda/login"
+	end
+
 	def index
 		if !current_agency.nil?
 			@userlist = UserInfo.order("real_name")

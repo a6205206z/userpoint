@@ -71,7 +71,7 @@ class Setup < ActiveRecord::Migration
 			t.column :user_id_number, :string, :default => "", :null => false
 			t.column :agency_id, :integer, :defualt => 0, :null => false 
 			t.column :req_info, :string, :default => "", :null => false
-			t.column :money_io_ids, :string, :default => "", :null => false
+			t.column :money_io_id, :integer, :default => 0, :null => false
 			t.column :create_time, :datetime, :null => false
 			t.column :status, :integer, :default => 0, :null => false
 		end

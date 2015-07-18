@@ -22,11 +22,9 @@
 				<li>申请时间:<%=req.create_time.strftime("%Y-%m-%d %H:%M:%S") %></li>
 				<li>
 					<ul style="margin: 0;">
-						<% req.money_io_ids.split(',').each do |mid| %>
-							<% @moneyio = UserMoneyIO.find_by(id: mid)
-							if !@moneyio.nil? %>
-							<li><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
-							<% end %>
+						<% @moneyio = UserMoneyIO.find_by(id: req.money_io_id)
+						if !@moneyio.nil? %>
+						<li><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
 						<% end %>
 					</ul>
 				</li>

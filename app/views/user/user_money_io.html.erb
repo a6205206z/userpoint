@@ -46,7 +46,7 @@
 					 <span style="color:#999;float:left;margin-left:3px;"><%= m.remarks %></span>
 					 <span style="color:#999;float:left;"><%= m.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
 					 <% if m.status == 1 %>
-					 	<span style="color:#999;float:right"><a href="/agency/buycar?agencyid=<%= m.from_agency_id%>">使用</a></span>
+					 	<span style="color:#999;float:right"><a href="/agency/buycar?agencyid=<%= m.from_agency_id%>&moneyioid=<%= m.id%>">使用</a></span>
 					 <% end %>
 				</div>
 			</div>

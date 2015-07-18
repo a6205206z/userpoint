@@ -75,28 +75,44 @@ class PandaController < ApplicationController
 					if request.status == 1
 						moneyio_status = 3
 					end
-					totalmoney = 0
-					request.money_io_ids.split(',').each do |mid|
-						moneyio = UserMoneyIO.find_by(id: mid, status: 2)
-						if !moneyio.nil?
-							moneyio.status = moneyio_status
-							if moneyio.save
-								totalmoney += moneyio.money
-							end
-						end
+
+					moneyio = UserMoneyIO.find_by(id: request.money_io_id, status: 2)
+					if !moneyio.nil?
+						moneyio.status = moneyio_status
+						moneyio.save
 					end
 
+					user = UserInfo.find_by(id: request.user_id)
 					if moneyio_status == 1
-						user = UserInfo.find_by(id: request.user_id)
-						user.user_money += totalmoney
+						user.user_money += moneyio.money
 						user.save
+
+					elsif moneyio_status ==3
+						user_code = CodeSource.find_by(code: moneyio.code)
+						if !user_code.nil?
+							#add point to code user
+							code_user = UserInfo.find_by(id: user_code.user_id)
+							code_user.user_point +=  user_code.add_point
+							code_user.save
+
+														#add point io
+							point_io = UserPointIO.new :user_id => code_user.id,
+										:point => user_code.add_point,
+										:remarks => "来自" << user.real_name << "的代码",
+										:status => 1,
+										:operate_time => Time.new,
+										:from => "/user/addpoint/#{user.id}/#{params[:code]}",
+										:code => user_code.code
+
+							point_io.save
+						end
 					end
 				end
 
 
-				@resultMsg = "修改成功"
+				@resultMsg = "操作成功"
 			else
-				@resultMsg = "找不到记录，或记录无效"
+				@resultMsg = "操作成功"
 			end
 		else
 			redirect_to "/panda/login"

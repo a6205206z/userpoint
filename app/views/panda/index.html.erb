@@ -74,15 +74,16 @@
 					    <tbody>
 					<% @buycarrequests.each do |req| %>
 						<tr>
-							<td><%=req.req_info %></td>
-							<td><%=req.create_time %></td>
+							<td>
+							<%=req.req_info %>
+							<p style="color:green">[身份证 : <%=req.user_id_number %>]</p>
+							</td>
+							<td><%=req.create_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
 							<td>
 								<ul style="padding-left:0;">
-									<% req.money_io_ids.split(',').each do |mid| %>
-										<% @moneyio = UserMoneyIO.find_by(id: mid)
-										if !@moneyio.nil? %>
-										<li style="list-style:none;"><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
-										<% end %>
+									<% @moneyio = UserMoneyIO.find_by(id: req.money_io_id)
+									if !@moneyio.nil? %>
+									<li style="list-style:none;"><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
 									<% end %>
 								</ul>
 							</td>

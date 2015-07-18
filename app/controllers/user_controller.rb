@@ -140,13 +140,12 @@ class UserController < ApplicationController
 							user.save
 
 
-							code_user.user_point +=  user_code.add_point
-							code_user.save
+
 
 							#add money io
 							money_io = UserMoneyIO.new :user_id => user.id,
 											:money => user_code.add_money,
-											:remarks => "使用了" << code_user.real_name << "的代码，来自[" << agency.name << "]",
+											:remarks => "使用了" << code_user.real_name << "的代码[" << user_code.code << "]，来自[" << agency.name << "]",
 									   		:status => 1,
 									   		:code => user_code.code,
 									   		:from_agency_id => agency.id,
@@ -154,16 +153,6 @@ class UserController < ApplicationController
 
 							money_io.save
 
-							#add point io
-							point_io = UserPointIO.new :user_id => code_user.id,
-										:point => user_code.add_point,
-										:remarks => "来自" << user.real_name << "的代码",
-										:status => 1,
-										:operate_time => Time.new,
-										:from => "/user/addpoint/#{user.id}/#{params[:code]}",
-										:code => user_code.code
-
-							point_io.save
 
 							@resultMsg = "获得#{agency.name}的#{user_code.add_money}元购车基金,赶紧去购车吧"
 						else

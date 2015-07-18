@@ -3,7 +3,7 @@ class AgencyController < ApplicationController
 		if !current_user_info.nil?
 			@agency = Agency.find_by(id: params[:agencyid])
 			if !@agency.nil?
-				@moneyio = UserMoneyIO.where(user_id: current_user_info.id,status: 1,from_agency_id: @agency.id)
+				@moneyio = UserMoneyIO.find_by(id: params[:moneyioid], user_id: current_user_info.id)
 			end
 		else
 			redirect_to "/user/login"
@@ -15,26 +15,24 @@ class AgencyController < ApplicationController
 
 		if !current_user_info.nil?
 			mids = ""
-			params[:moneyioids].each do |mid|
-				mids += mid << ","
-			end
+			moneyioid = params[:moneyioid]
+
 			buycarreq = BuyCarRequest.new :user_id => current_user_info.id,
 									  	  :agency_id => params[:agencyid],
 									  	  :user_id_number => params[:idnumber],
-									  	  :req_info => "用户[" << current_user_info.real_name << "]使用购车基金,购买[" << params[:brand] << params[:model] << params[:type] << "]",
-									  	  :money_io_ids => mids,
+									  	  :req_info => "用户[" << current_user_info.real_name << "]电话[" << params[:phonenumber] << "]使用购车基金,购买[" << params[:brand] << params[:model] << params[:type] << "]",
+									  	  :money_io_id => moneyioid,
 									  	  :create_time => Time.new,
 									  	  :status => 0
 			if buycarreq.save
 				totalmoney = 0.00
-				buycarreq.money_io_ids.split(',').each do |mid|
-					moneyio = UserMoneyIO.find_by(id: mid, status: 1)
-					if !moneyio.nil?
-						totalmoney += moneyio.money
-						moneyio.status = 2
-						moneyio.save
-					end
+				moneyio = UserMoneyIO.find_by(id: moneyioid, status: 1)
+				if !moneyio.nil?
+					totalmoney += moneyio.money
+					moneyio.status = 2
+					moneyio.save
 				end
+
 				user = UserInfo.find_by(id: current_user_info.id)
 				user.user_money -= totalmoney
 				user.save

@@ -54,15 +54,14 @@
 						<div class="am-panel-hd">选择使用的购车基金</div>
 			    			<div class="am-panel-bd">
 								<ul style="padding-left:0;">
-									<% @moneyio.each do |m| %>
-									<li style="list-style:none;"><input name="moneyioids[]" value="<%= m.id%>" type="checkbox"/><%= m.money%>元[<%= m.remarks%>]</li>
-									<% end %>
+									<li style="list-style:none;"><input checked name="moneyioid" value="<%= @moneyio.id%>" type="radio"/><%= @moneyio.money%>元[<%= @moneyio.remarks%>]</li>
 								</ul>
 							</div>
 						</div>
 						车辆品牌：<input type="text" name="brand" /><br/>
 						车辆型号：<input type="text" name="model" /><br/>
 						车辆配置：<input type="text" name="type" /><br/>
+						联系电话 ：<input type="text" name="phonenumber" /><br/>
 						身份证：<input type="text" name="idnumber" /><br/>
 					
 					<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>

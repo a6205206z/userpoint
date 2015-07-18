@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.string   "user_id_number", limit: 255, default: "", null: false
     t.integer  "agency_id",      limit: 4,                null: false
     t.string   "req_info",       limit: 255, default: "", null: false
-    t.string   "money_io_ids",   limit: 255, default: "", null: false
+    t.integer  "money_io_id",    limit: 4,   default: 0,  null: false
     t.datetime "create_time",                             null: false
     t.integer  "status",         limit: 4,   default: 0,  null: false
   end

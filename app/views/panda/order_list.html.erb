@@ -1,0 +1,51 @@
+<% content_for :application do %>
+<style type="text/css">
+	.content{
+		border-left: 1px solid #ccc;
+	}
+</style>
+	<%=render "shared/panda_menu" %>
+	<div class="am-u-sm-10 content">
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-hd">生成用户代码</div>
+			  <div class="am-panel-bd">
+			  	<table class="am-table am-table-striped am-table-hover">
+					  <thead>
+			        <tr>
+		            <th>时间</th>
+		            <th>使用积分额度</th>
+		            <th>状态</th>
+		            <th>备注</th>
+		            <th>操作</th>
+			        </tr>
+				    </thead>
+				    <tbody>
+				    	<% @orderlist.each do |o| %>
+								<tr>
+									<td>
+										<%= o.create_time.strftime("%Y-%m-%d %H:%M:%S") %>
+									</td>
+									<td>
+										<%= o.order_point %>积分
+									</td>
+									<td>
+										<% if o.status == 1 %>
+										  	<font style="color:green">成功</font>
+										  	<% elsif o.status == 0 %>
+										  	<font style="color:red">失败</font>
+										<% end %>
+									</td>
+									<td>
+										<%= o.remarks %>
+									</td>
+									<td>
+										<a href="/panda/order/<%=o.id %>">订单详情</a>
+									</td>
+								</tr>
+				    	<% end %>
+				    </tbody>
+					</table>
+			  </div>
+		</div>	
+	</div>
+<% end %>

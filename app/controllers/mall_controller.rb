@@ -13,7 +13,7 @@ class MallController < ApplicationController
 			offset = 0
 		end
 		
-		@products = Product.order("create_time DESC").limit(5).offset(offset)
+		@products = Product.order("create_time DESC")#.limit(5).offset(offset)
 	end
 
 	def product_detail

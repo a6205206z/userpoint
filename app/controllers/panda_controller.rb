@@ -37,6 +37,26 @@ class PandaController < ApplicationController
 		end
 	end
 
+	def order_list
+		if !current_agency.nil?
+			@orderlist = Order.order("create_time DESC")
+		else
+			redirect_to "/panda/login"
+		end
+	end
+
+	def order_detail
+		if !current_agency.nil?
+			@order = Order.find_by(id: params[:id])
+			if !@order.nil? and @order.status == 1
+				@itemlist = OrderItem.where(order_id: @order.id)
+				@shipping = OrderShipping.find_by(order_id: @order.id)
+			end
+		else
+			redirect_to "/panda/login"
+		end
+	end
+
 	def generate_code
 		if !current_agency.nil?
 			user = UserInfo.find_by(id: params[:userid])

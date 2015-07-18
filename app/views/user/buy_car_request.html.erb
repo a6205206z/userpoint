@@ -6,25 +6,31 @@
 		font-size: 20px;
 		bottom:0;
 	}
+	ul{padding-left: 0;}
+	li{list-style: none;}
 </style>
+<div>
+	<h1 style="text-align:center;"><i class="am-icon-truck am-icon-fw"></i>我的购车记录</h1>
+
 	<% if !@buycarrequests.nil? %>
 		<% @buycarrequests.each do |req| %>
+			<div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
+		
+			
 			<ul>
 				<li>申请信息:<%=req.req_info %></li>
-				<li>申请时间:<%=req.create_time %></li>
+				<li>申请时间:<%=req.create_time.strftime("%Y-%m-%d %H:%M:%S") %></li>
 				<li>
-					<ul>
+					<ul style="margin: 0;">
 						<% req.money_io_ids.split(',').each do |mid| %>
 							<% @moneyio = UserMoneyIO.find_by(id: mid)
 							if !@moneyio.nil? %>
-							<li><%= @moneyio.money %></li>
-							<li><%= @moneyio.remarks %></li>
+							<li><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
 							<% end %>
 						<% end %>
 					</ul>
 				</li>
-				<li>
-				状态:
+				<li style="text-align:right;">
 					<% if req.status == 0 %>
 				  		<font style="color:red">待审核</font>
 				  	<% elsif req.status == 1 %>
@@ -36,7 +42,9 @@
 					<% end %>
 				</li>
 			</ul>
+			</div>
 		<% end %>
 		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
 	<% end %>
+</div>
 <% end %>

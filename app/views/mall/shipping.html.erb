@@ -3,6 +3,15 @@
 	body{
 		background-color: #eee;
 	}
+	#btnbuy{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
+	fieldset{
+		margin-bottom: 50px;
+	}
 </style>
 	<% if @error_msg %>
 		<script type="text/javascript">
@@ -12,29 +21,36 @@
 			}
 		</script>
 	<% else %>
-		<form action="/mall/createshipping" method="post">
-			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">联系人：</span><input name="real_name" type="text" value="<%= @user.real_name%>">
-			</div>
-			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">联系电话：</span><input name="mobile" type="text" value="<%= @shipping.mobile%>">
-			</div>
-			<div class="am-input-group divusername">
-			  <select name="country" id="country"><option value="中国">中国</option></select>
-			  <select name="province" id="province_id"></select>
-			  <select name="city" id="city_id"></select>
-			  <select name="area" id="area_id"></select>
-			</div>
-			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">街道：</span><input name="address" type="text" value="<%= @shipping.address%>">
-			</div>
-			<div class="am-input-group divusername">
-			  <span class="am-input-group-label">邮编：</span><input name="post_code" type="text" value="<%= @shipping.post_code%>">
-			</div>
-
-			<input type="submit" class="am-btn am-btn-secondary" id="btnbuy" value="确认">
-			<input name="orderid" type="hidden" value="<%= @order.id %>">
-
+		<form action="/mall/createshipping" method="post" class="am-form">
+			<fieldset>
+    			<legend>地址信息</legend>
+				<div class="am-form-group">
+					<label for="real_name">联系人</label>
+				  	<input id="real_name" name="real_name" type="text" value="<%= @user.real_name%>">
+				</div>
+				<div class="am-form-group">
+					<label for="real_name">联系电话</label>
+					<input id="mobile" name="mobile" type="text" value="<%= @shipping.mobile%>">
+				</div>
+				<div class="am-form-group">
+					 <label for="area_id">地区</label>
+				  <select name="country" id="country"><option value="中国">中国</option></select>
+				  <select name="province" id="province_id"></select>
+				  <select name="city" id="city_id"></select>
+				  <select name="area" id="area_id"></select>
+				</div>
+				<div class="am-form-group">
+					<label for="address">街道</label>
+				  	<input id="address" name="address" type="text" value="<%= @shipping.address%>">
+				</div>
+				<div class="am-form-group">
+					<label for="real_name">邮编</label>
+				  	<input id="post_code" name="post_code" type="text" value="<%= @shipping.post_code%>">
+				</div>
+			</fieldset>
+				<input type="submit" class="am-btn am-btn-secondary" id="btnbuy" value="确认">
+				<input name="orderid" type="hidden" value="<%= @order.id %>">
+ 			
 			<script type="text/javascript">
 			$(document).ready(function(){
 				$.address("province_id","city_id","area_id","<%= @shipping.province%>","<%= @shipping.city%>","<%= @shipping.area%>");

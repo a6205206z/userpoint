@@ -1,61 +1,115 @@
 <% content_for :application do %>
-<h1>生成用户代码</h1>
-<ul>
-	<% @userlist.each do |u| %>
-		<li>
-		<%= image_tag u.profile, 'data-turbolinks-track' => true , :style => "width:40px;height:40px;border-radius:100%"%>
-		登录名:<%= u.login_name%>&nbsp;
-		姓名:<%= u.real_name%>&nbsp;
-		用户积分:<%= u.user_point%>&nbsp;
-		购车基金:<%= u.user_money%>&nbsp;
-		<% @user_code = CodeSource.find_by(user_id: u.id) %>
-		<% if @user_code.nil? %>
-			<a href="/panda/generatecode?userid=<%= u.id%>">生成代码</a>
-		<% else %>
-			<%=@user_code.code %>
-		<% end %>
-
-
-		</li>
-	<% end %>
-</ul>
-
-<h1>审核购车基金</h1>
-<% if !@buycarrequests.nil? %>
-		<% @buycarrequests.each do |req| %>
-			<ul>
-				<li>申请信息:<%=req.req_info %></li>
-				<li>申请时间:<%=req.create_time %></li>
-				<li>
-					<ul>
-						<% req.money_io_ids.split(',').each do |mid| %>
-							<% @moneyio = UserMoneyIO.find_by(id: mid)
-							if !@moneyio.nil? %>
-							<li><%= @moneyio.money %></li>
-							<li><%= @moneyio.remarks %></li>
+<style type="text/css">
+	.content{
+		border-left: 1px solid #ccc;
+	}
+</style>
+<div class="am-cf">
+  	<div class="am-u-sm-2 ">
+  		<ul class="am-list">
+        <li><a href="index.html"><span class="am-icon-home"></span> 首页</a></li>
+      </ul>
+  	</div>
+  	<div class="am-u-sm-10 content">
+  		<div class="am-panel am-panel-default">
+			  <div class="am-panel-hd">生成用户代码</div>
+			  <div class="am-panel-bd">
+			  	<table class="am-table am-table-striped am-table-hover">
+					  <thead>
+			        <tr>
+			        	<th></th>
+		            <th>登录名</th>
+		            <th>姓名</th>
+		            <th>用户积分</th>
+		            <th>购车基金</th>
+		            <th>代码</th>
+			        </tr>
+				    </thead>
+				    <tbody>
+				    	<% @userlist.each do |u| %>
+								<tr>
+									<td>
+										<%= image_tag u.profile, 'data-turbolinks-track' => true , :style => "width:40px;height:40px;border-radius:100%"%>
+									</td>
+									<td>
+										<%= u.login_name%>
+									</td>
+									<td>
+										<%= u.real_name%>
+									</td>
+									<td>
+										<%= u.user_point%>
+									</td>
+									<td>
+										<%= u.user_money%>
+									</td>
+									<td>
+										<% @user_code = CodeSource.find_by(user_id: u.id) %>
+										<% if @user_code.nil? %>
+											<a href="/panda/generatecode?userid=<%= u.id%>">生成代码</a>
+										<% else %>
+											<%=@user_code.code %>
+										<% end %>
+									</td>
+								</tr>
+				    	<% end %>
+				    </tbody>
+					</table>
+			  </div>
+		</div>
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-hd">审核购车基金</div>
+		    <div class="am-panel-bd">
+				<% if !@buycarrequests.nil? %>
+				<table class="am-table am-table-striped am-table-hover">
+					<thead>
+				        <tr>
+			            <th>申请信息</th>
+			            <th>申请时间</th>
+			            <th>基金</th>
+			            <th>状态</th>
+			            <th>操作</th>
+				        </tr>
+					    </thead>
+					    <tbody>
+					<% @buycarrequests.each do |req| %>
+						<tr>
+							<td><%=req.req_info %></td>
+							<td><%=req.create_time %></td>
+							<td>
+								<ul style="padding-left:0;">
+									<% req.money_io_ids.split(',').each do |mid| %>
+										<% @moneyio = UserMoneyIO.find_by(id: mid)
+										if !@moneyio.nil? %>
+										<li style="list-style:none;"><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
+										<% end %>
+									<% end %>
+								</ul>
+							</td>
+							<td>
+								<% if req.status == 0 %>
+							  		<font style="color:red">待审核</font>
+							  	<% elsif req.status == 1 %>
+							  		<font style="color:green">审核通过</font>
+							  	<% elsif req.status == 2 %>
+							  		<font style="color:red">审核未通过</font>
+							  	<% else %>
+							  		<font style="color:red">异常</font>
+								<% end %>
+							</td>
+							<td>
+							<% if req.status == 0 %>
+								<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=1">通过</a>
+								<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=2">拒绝</a>
 							<% end %>
-						<% end %>
-					</ul>
-				</li>
-				<li>
-				状态:
-					<% if req.status == 0 %>
-				  		<font style="color:red">待审核</font>
-				  	<% elsif req.status == 1 %>
-				  		<font style="color:green">审核通过</font>
-				  	<% elsif req.status == 2 %>
-				  		<font style="color:red">审核未通过</font>
-				  	<% else %>
-				  		<font style="color:red">异常</font>
+							</td>
+						</tr>
 					<% end %>
-				</li>
-				<li>
-				<% if req.status == 0 %>
-					<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=1">通过</a>
-					<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=2">拒绝</a>
-				<% end %>
-				</li>
-			</ul>
-		<% end %>
-	<% end %>
+					</tbody>
+					</table>
+				<% end %>  
+			</div>
+	    </div>		
+  	</div>
+</div>
 <% end %>

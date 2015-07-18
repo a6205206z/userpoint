@@ -16,57 +16,77 @@
 		</script>
 	<% else %>
 	<div style="margin-bottom:45px;">
-		<h1>订单信息</h1>
-		<span>订单总积分:<%=@order.order_point %></span><br/>
-		<span>订单创建时间:<%=@order.create_time %></span><br/>
-		<span>订单状态:			
-			<% if @order.status == 1 %>
-		  		<font style="color:green">成功</font>
-		  	<% elsif @order.status == 0 %>
-		  		<font style="color:red">失败</font>
-		  	<% end %>
-		 </span><br/>
-		<h1>item信息</h1>
-		<% if !@itemlist.nil? %>
-			<table>
-				<% @itemlist.each do |item| %>
-					<% @product = Product.find_by(id: item.product_id) %>
-						<tr>
-							<td>
-							<% if !@product.nil? %>
-								<%= image_tag @product.product_img_url, 'data-turbolinks-track' => true , :style => "width:30px;height:30px;border-radius:100%"%>
-							<% end %>
-							</td>
-							<td>
-							<% if !@product.nil? %>
-								商品名称：<%=@product.name %>
-							<% end %>
-							</td>
-							<td>
-								单价：<%=item.pre_point %> 积分
-							</td>
-							<td>
-								数量：<%=item.count %>
-							</td>
-							<td>
-								合计 : <%=item.total_point %>
-							</td>
-						</tr>
-				<% end %>
-			</table>
-		<% end %>
-
-		<h1>订单地址信息</h1>
-		<span>联系人:<%=@shipping.real_name %></span><br/>
-		<span>联系电话:<%=@shipping.mobile %></span><br/>
-
-		<span>国家:<%=@shipping.country %></span><br/>
-		<span>省:<%=@shipping.province %></span><br/>
-		<span>市:<%=@shipping.city %></span><br/>
-		<span>区:<%=@shipping.area %></span><br/>
-		<span>街道：<%=@shipping.address %></span><br/>
-		<span>邮编：<%=@shipping.post_code %></span><br/>
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-hd">订单信息</div>
+		    <div class="am-panel-bd">
+				<span>订单总积分:<%=@order.order_point %></span><br/>
+				<span>订单创建时间:<%=@order.create_time.strftime("%Y-%m-%d %H:%M:%S") %></span><br/>
+				<span>订单状态:			
+					<% if @order.status == 1 %>
+				  		<font style="color:green">成功</font>
+				  	<% elsif @order.status == 0 %>
+				  		<font style="color:red">失败</font>
+				  	<% end %>
+				 </span><br/>
+		    </div>
 		</div>
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-hd">商品信息</div>
+		    <div class="am-panel-bd">
+		    	<% if !@itemlist.nil? %>
+					<table class="am-table">
+						<thead>
+							<td></td>
+							<td>商品名称</td>
+							<td>单价</td>
+							<td>数量</td>
+							<td>合计</td>
+						</thead>
+						<tbody>
+						<% @itemlist.each do |item| %>
+							<% @product = Product.find_by(id: item.product_id) %>
+								<tr>
+									<td>
+									<% if !@product.nil? %>
+										<%= image_tag @product.product_img_url, 'data-turbolinks-track' => true , :style => "width:30px;height:30px;border-radius:100%"%>
+									<% end %>
+									</td>
+									<td>
+									<% if !@product.nil? %>
+										<%=@product.name %>
+									<% end %>
+									</td>
+									<td>
+										<%=item.pre_point %> 积分
+									</td>
+									<td>
+										<%=item.count %>
+									</td>
+									<td>
+										<%=item.total_point %>
+									</td>
+								</tr>
+						<% end %>
+						</tbody>
+					</table>
+				<% end %>
+		    </div>
+		</div>
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-hd">订单地址信息</div>
+		    <div class="am-panel-bd">
+				<span>联系人:<%=@shipping.real_name %></span><br/>
+				<span>联系电话:<%=@shipping.mobile %></span><br/>
+
+				<span>国家:<%=@shipping.country %></span><br/>
+				<span>省:<%=@shipping.province %></span><br/>
+				<span>市:<%=@shipping.city %></span><br/>
+				<span>区:<%=@shipping.area %></span><br/>
+				<span>街道：<%=@shipping.address %></span><br/>
+				<span>邮编：<%=@shipping.post_code %></span><br/>
+			</div>
+		</div>
+	</div>
 	<% end %>
-		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
+	<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="return">返回</a>
 <% end %>

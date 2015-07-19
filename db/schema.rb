@@ -13,6 +13,12 @@
 
 ActiveRecord::Schema.define(version: 1) do
 
+  create_table "admins", force: :cascade do |t|
+    t.string "login_name",        limit: 30,  default: "", null: false
+    t.string "login_password",    limit: 255, default: "", null: false
+    t.string "persistence_token", limit: 255,              null: false
+  end
+
   create_table "agencies", force: :cascade do |t|
     t.string "login_name",        limit: 30,  default: "", null: false
     t.string "login_password",    limit: 255, default: "", null: false
@@ -28,10 +34,24 @@ ActiveRecord::Schema.define(version: 1) do
     t.integer  "user_id",        limit: 4,                null: false
     t.string   "user_id_number", limit: 255, default: "", null: false
     t.integer  "agency_id",      limit: 4,                null: false
-    t.string   "req_info",       limit: 255, default: "", null: false
+    t.string   "user_name",      limit: 255, default: "", null: false
+    t.string   "phonenumber",    limit: 255, default: "", null: false
+    t.string   "invoice_url",    limit: 255, default: "", null: false
     t.integer  "money_io_id",    limit: 4,   default: 0,  null: false
     t.datetime "create_time",                             null: false
     t.integer  "status",         limit: 4,   default: 0,  null: false
+  end
+
+  create_table "car_owners", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4,   default: 0,  null: false
+    t.integer  "agency_id",   limit: 4,                null: false
+    t.string   "car_number",  limit: 255,              null: false
+    t.string   "invoice_url", limit: 255, default: "", null: false
+    t.string   "car_brand",   limit: 255, default: "", null: false
+    t.string   "car_model",   limit: 255, default: "", null: false
+    t.string   "car_type",    limit: 255, default: "", null: false
+    t.integer  "status",      limit: 4,                null: false
+    t.datetime "create_time",                          null: false
   end
 
   create_table "code_sources", force: :cascade do |t|

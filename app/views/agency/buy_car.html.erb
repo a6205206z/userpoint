@@ -25,17 +25,18 @@
 			font-size: 20px;
 			bottom:0;
 		}
+		#btn_return_full{
+			width: 100%;
+			position: fixed;
+			font-size: 20px;
+			bottom:0;
+		}
 	</style>
-	<% if @agency.nil? %>
-		<script type="text/javascript">
-			window.onload=function(){
-				alert('经销商无效');
-				location.href = '/user/moneyio'
-			}
-		</script>
-	<% else %>
+		<% if !@agency.nil? and @moneyio.from_agency_id != 0 %>
 		<div class="am-panel am-panel-default">
-			<div class="am-panel-hd">经销商介绍</div>
+			<div class="am-panel-hd">
+				<select><option><%= @agency.name %></option></select>
+			</div>
 		    <div class="am-panel-bd" >
 		    	<div style="text-align:center;">
 					<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>
@@ -46,28 +47,70 @@
 				联系电话：<%= @agency.phone %><br/>
 			</div>
 		</div>
+		<% elsif !@agency.nil? and @moneyio.from_agency_id == 0 %>
 		<div class="am-panel am-panel-default">
-			<div class="am-panel-hd">车辆信息</div>
-		    <div class="am-panel-bd">
-				<form class="am-form" action="/agency/inputbuycarinfo?agencyid=<%= @agency.id %>" method="post">
-					<div class="am-panel am-panel-default">
-						<div class="am-panel-hd">选择使用的购车基金</div>
+			<div class="am-panel-hd">
+				<select onchange="window.location.href = options[selectedIndex].value">
+				<option value="/agency/buycar?agencyid=0&moneyioid=<%= @moneyio.id%>">请选择经销商</option>
+					<% if !@agencylist.nil? %>
+						<% @agencylist.each do |a| %>
+							<% if a.id == @agency.id %>
+								<option selected="true" value="/agency/buycar?agencyid=<%= a.id %>&moneyioid=<%= @moneyio.id%>"><%= a.name %></option>
+							<% else %>
+								<option value="/agency/buycar?agencyid=<%= a.id %>&moneyioid=<%= @moneyio.id%>"><%= a.name %></option>
+							<% end %>
+						<% end %>
+					<% end %>
+				</select>
+			</div>
+			<div class="am-panel-bd" >
+		    	<div style="text-align:center;">
+					<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>
+				</div>
+				经销商名：<%= @agency.name %><br/>
+				地址：<%= @agency.address %><br/>
+				联系人：<%= @agency.contact %><br/>
+				联系电话：<%= @agency.phone %><br/>
+			</div>
+		</div>
+		<% elsif @agency.nil? and @moneyio.from_agency_id == 0 %>
+		<div class="am-panel am-panel-default">
+			<div class="am-panel-hd">
+				<select onchange="window.location.href = options[selectedIndex].value">
+				<option value="/agency/buycar?agencyid=0&moneyioid=<%= @moneyio.id%>">请选择经销商</option>
+					<% if !@agencylist.nil? %>
+						<% @agencylist.each do |a| %>
+						<option value="/agency/buycar?agencyid=<%= a.id %>&moneyioid=<%= @moneyio.id%>"><%= a.name %></option>
+						<% end %>
+					<% end %>
+				</select>
+			</div>
+		</div>
+		<% end %>
+		<% if !@agency.nil? %>
+		<form class="am-form" action="/agency/inputbuycarinfo?agencyid=<%= @agency.id %>" method="post" ENCTYPE="multipart/form-data">
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd">车辆信息</div>
+			    <div class="am-panel-bd">
+
+						<div class="am-panel am-panel-default">
+							<div class="am-panel-hd">选择使用的购车基金</div>
 			    			<div class="am-panel-bd">
 								<ul style="padding-left:0;">
 									<li style="list-style:none;"><input checked name="moneyioid" value="<%= @moneyio.id%>" type="radio"/><%= @moneyio.money%>元[<%= @moneyio.remarks%>]</li>
 								</ul>
 							</div>
 						</div>
-						车辆品牌：<input type="text" name="brand" /><br/>
-						车辆型号：<input type="text" name="model" /><br/>
-						车辆配置：<input type="text" name="type" /><br/>
+						<label for="file">购车发票</label> 
+						<%= file_field "invoice","file",  :accept => "image/jepg", :capture => "camera" %>
 						联系电话 ：<input type="text" name="phonenumber" /><br/>
 						身份证：<input type="text" name="idnumber" /><br/>
-					
-					<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>
-					<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return">返回</a>
-				</form>
+				</div>
 			</div>
-		</div>
-	<% end %>
+			<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>
+			<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return">返回</a>
+		</form>
+		<% else %>
+		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return_full">返回</a>
+		<% end %>
 <% end %>

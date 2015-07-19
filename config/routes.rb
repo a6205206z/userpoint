@@ -69,7 +69,9 @@ Rails.application.routes.draw do
   get 'user/order/:id' => 'user#order_detail'
   get 'agency/buycar' => 'agency#buy_car'
   get 'user/buycarrequest' => 'user#buy_car_request'
+  get 'agency/newcarowner' => 'agency#new_car_owner'
 
+  post 'agency/inputnewcarowner' => 'agency#input_new_car_owner'
   post 'user/signin' => 'user#sign_in'
   post 'user/createuser' => 'user#create_user'
   post 'user/addpoint' => 'user#add_point_by_code'
@@ -85,6 +87,8 @@ Rails.application.routes.draw do
   get 'panda/orderlist' => 'panda#order_list'
   get 'panda/order/:id' => 'panda#order_detail'
   get 'panda/signout' => 'panda#sign_out'
+  get 'panda/carowner' => 'panda#car_owner'
+  get 'panda/passcarowner' => 'panda#pass_car_owner'
 
   
   post 'panda/signin' => 'panda#sign_in'

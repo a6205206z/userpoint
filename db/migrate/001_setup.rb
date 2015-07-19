@@ -9,6 +9,12 @@
 
 class Setup < ActiveRecord::Migration
 	def self.up
+		create_table :admins do |t|
+			t.column :login_name, :string, :limit => 30, :default => "", :null => false, :unique => true
+			t.column :login_password, :string, :default => "", :null =>false
+			t.column :persistence_token, :string, :null => false
+		end
+
 		create_table :user_infos do |t|
 			t.column :login_name, :string, :limit => 30, :default => "", :null => false, :unique => true
 			t.column :login_password, :string, :default => "", :null =>false
@@ -70,7 +76,9 @@ class Setup < ActiveRecord::Migration
 			t.column :user_id, :integer, :defualt => 0, :null => false
 			t.column :user_id_number, :string, :default => "", :null => false
 			t.column :agency_id, :integer, :defualt => 0, :null => false 
-			t.column :req_info, :string, :default => "", :null => false
+			t.column :user_name, :string, :default => "", :null => false
+			t.column :phonenumber, :string, :default => "", :null => false
+			t.column :invoice_url, :string, :default => "", :null => false
 			t.column :money_io_id, :integer, :default => 0, :null => false
 			t.column :create_time, :datetime, :null => false
 			t.column :status, :integer, :default => 0, :null => false
@@ -126,18 +134,25 @@ class Setup < ActiveRecord::Migration
 			t.column :total_point, :integer, :default => 0, :null => false
 		end
 
+		create_table :car_owners do |t|
+			t.column :user_id, :integer, :default => 0, :null => false, :unique => true
+			t.column :agency_id, :integer, :defualt => 0, :null => false
+			t.column :car_number, :string, :defualt => "", :null => false
+			t.column :invoice_url, :string, :default => "", :null => false
+			t.column :car_brand, :string, :default => "", :null => false
+			t.column :car_model, :string, :default => "", :null => false
+			t.column :car_type, :string, :default => "", :null => false
+			t.column :status, :integer, :defualt => 0, :null => false
+			t.column :create_time, :datetime, :null => false
+		end
 
 
 
-		agency =  Agency.new :login_name => "dongfeng",
-							 :login_password => UserInfo.hash_password("dongfeng"),
-						     :name => "东风标致",
-							 :address => "四川省 成都市 锦江区 中环广场35层",
-							 :contact => "李先生",
-							 :phone => "13545678954",
-							 :profile => "profile/man.png",
+
+		admin =  Admin.new :login_name => "admin",
+							 :login_password => UserInfo.hash_password("Admin$11"),
 							 :persistence_token => ""
-		agency.save
+		admin.save
 
 
 		product = Product.new :name => "商品",
@@ -202,6 +217,7 @@ class Setup < ActiveRecord::Migration
 	end
 
 	def self.down
+		drop_table :admins
 		drop_table :user_infos
 		drop_table :user_addresses
 		drop_table :user_point_ios
@@ -213,5 +229,6 @@ class Setup < ActiveRecord::Migration
 		drop_table :orders
 		drop_table :order_shippings
 		drop_table :order_items
+		drop_table :car_owners
 	end
 end

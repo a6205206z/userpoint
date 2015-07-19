@@ -1,0 +1,103 @@
+<% content_for :application do %>
+	<style type="text/css">
+		.moneyios{
+			width: 100%;
+			background-color: rgba(254,255,178,0.714);
+			padding-top: 1em;
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			overflow: auto;
+
+		}
+		#btn_commit{
+			width: 50%;
+			position: fixed;
+			font-size: 20px;
+			bottom:0;
+		}
+		#btn_return{
+			width: 50%;
+			position: fixed;
+			left: 50%;
+			font-size: 20px;
+			bottom:0;
+		}
+		#btn_return_full{
+			width: 100%;
+			position: fixed;
+			font-size: 20px;
+			bottom:0;
+		}
+	</style>
+	<% if !@carowner.nil? %>
+		<script type="text/javascript">
+			window.onload=function(){
+				alert('认证信息已经提交，请耐心等待审核。');
+				location.href = '/user/index'
+			}
+		</script>
+	<% else %>
+		<% if !@agency.nil? %>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd">
+					<select onchange="window.location.href = options[selectedIndex].value">
+					<option value="/agency/newcarowner?agencyid=0">请选择经销商</option>
+						<% if !@agencylist.nil? %>
+							<% @agencylist.each do |a| %>
+								<% if a.id == @agency.id %>
+									<option selected="true" value="/agency/newcarowner?agencyid=<%= a.id %>"><%= a.name %></option>
+								<% else %>
+									<option value="/agency/newcarowner?agencyid=<%= a.id %>"><%= a.name %></option>
+								<% end %>
+							<% end %>
+						<% end %>
+					</select>
+				</div>
+				<div class="am-panel-bd" >
+			    	<div style="text-align:center;">
+						<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>
+					</div>
+					经销商名：<%= @agency.name %><br/>
+					地址：<%= @agency.address %><br/>
+					联系人：<%= @agency.contact %><br/>
+					联系电话：<%= @agency.phone %><br/>
+				</div>
+			</div>
+			<% else %>
+			<div class="am-panel am-panel-default">
+				<div class="am-panel-hd">
+					<select onchange="window.location.href = options[selectedIndex].value">
+					<option value="/agency/newcarowner?agencyid=0">请选择经销商</option>
+						<% if !@agencylist.nil? %>
+							<% @agencylist.each do |a| %>
+							<option value="/agency/newcarowner?agencyid=<%= a.id %>"><%= a.name %></option>
+							<% end %>
+						<% end %>
+					</select>
+				</div>
+			</div>
+			<% end %>
+			<% if !@agency.nil? %>
+			<form class="am-form" action="/agency/inputnewcarowner?agencyid=<%= @agency.id %>" method="post" ENCTYPE="multipart/form-data">
+				<div class="am-panel am-panel-default">
+					<div class="am-panel-hd">车辆信息</div>
+				    <div class="am-panel-bd">
+							<label for="file">购车发票</label> 
+							<%= file_field "invoice","file",  :accept => "image/jepg", :capture => "camera" %>
+							车牌号 ：<input type="text" name="carnumber" /><br/>
+							品牌：<input type="text" name="brand" /><br/>
+							型号：<input type="text" name="model" /><br/>
+							品牌：<input type="text" name="type" /><br/>
+					</div>
+				</div>
+				<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>
+				<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return">返回</a>
+			</form>
+			<% else %>
+			<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return_full">返回</a>
+		<% end %>
+	<% end %>
+<% end %>

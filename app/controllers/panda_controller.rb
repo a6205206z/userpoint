@@ -13,12 +13,12 @@ class PandaController < ApplicationController
 	end
 
 	def sign_in
-		agency = Agency.find_by(login_name: params[:loginname], login_password: UserInfo.hash_password(params[:password]))
+		admin = Admin.find_by(login_name: params[:loginname], login_password: UserInfo.hash_password(params[:password]))
 
-		if !agency.nil?
-			agency_session = AgencySession.new agency
+		if !admin.nil?
+			admin_session = AdminSession.new admin
 
-			if agency_session.save
+			if admin_session.save
 				redirect_to "/panda/index"
 			else
 				redirect_to "/panda/login"
@@ -29,24 +29,23 @@ class PandaController < ApplicationController
 	end
 
 	def sign_out
-		if !current_agency_session.nil?
-			current_agency_session.destroy
+		if !current_admin_session.nil?
+			current_admin_session.destroy
 		end
 
 		redirect_to "/panda/login"
 	end
 
 	def index
-		if !current_agency.nil?
-			@userlist = UserInfo.order("real_name")
-			@buycarrequests = BuyCarRequest.where(agency_id: current_agency.id).order("status,create_time DESC")
+		if !current_admin.nil?
+			@buycarrequests = BuyCarRequest.order("status,create_time DESC")
 		else
 			redirect_to "/panda/login"
 		end
 	end
 
 	def order_list
-		if !current_agency.nil?
+		if !current_admin.nil?
 			@orderlist = Order.order("create_time DESC")
 		else
 			redirect_to "/panda/login"
@@ -54,7 +53,7 @@ class PandaController < ApplicationController
 	end
 
 	def order_detail
-		if !current_agency.nil?
+		if !current_admin.nil?
 			@order = Order.find_by(id: params[:id])
 			if !@order.nil? and @order.status == 1
 				@itemlist = OrderItem.where(order_id: @order.id)
@@ -65,35 +64,46 @@ class PandaController < ApplicationController
 		end
 	end
 
-	def generate_code
-		if !current_agency.nil?
-			user = UserInfo.find_by(id: params[:userid])
-			if !user.nil?
-				if CodeSource.find_by(user_id: user.id).nil?
-					code = CodeSource.new :user_id => user.id,
-										  :code => CodeSource.generate_code(user.login_name),
-										  :add_point => 200,
-										  :add_money => 1000,
-										  :from_agency_id => current_agency.id,
-										  :remarks => "来自" << current_agency.name << "的代码",
-										  :create_time => Time.new,
-										  :expire_time => t1 = Time.mktime(2025)
-					code.save
+	def car_owner
+		if !current_admin.nil?
+			@userlist = UserInfo.order("real_name")
+		else
+			redirect_to "/panda/login"
+		end
+	end
+
+	def pass_car_owner
+		if !current_admin.nil?
+			carowner = CarOwner.find_by(id: params[:carownerid])
+			if !carowner.nil?
+				if params[:status].to_i == 1
+					carowner.status = 1
+					if carowner.save
+						code = CodeSource.find_by(user_id: carowner.user_id)
+						code.from_agency_id = carowner.agency_id
+						code.add_point = 200
+						code.add_money = 1000
+						code.save
+					end
 				else
-					@resultMsg = "该用户已经有代码"
+					carowner.destroy
 				end
-				@resultMsg = "代码生成成功"
+				@resultMsg = "操作成功"
 			else
-				@resultMsg = "用户不存在"
+				@resultMsg = "未找到记录"
 			end
 		else
 			redirect_to "/panda/login"
 		end
 	end
 
+	def generate_code
+
+	end
+
 	def pass_buy_car_request
-		if !current_agency.nil?
-			request = BuyCarRequest.find_by(id: params[:reqid], agency_id: current_agency.id, status: 0)
+		if !current_admin.nil?
+			request = BuyCarRequest.find_by(id: params[:reqid], status: 0)
 			if !request.nil?
 				request.status = params[:status] #0 待审核 1 审核通过 2 审核不通过
 				

@@ -18,15 +18,25 @@
 		
 			
 			<ul>
-				<li>申请信息:<%=req.req_info %></li>
 				<li>申请时间:<%=req.create_time.strftime("%Y-%m-%d %H:%M:%S") %></li>
 				<li>
 					<ul style="margin: 0;">
 						<% @moneyio = UserMoneyIO.find_by(id: req.money_io_id)
 						if !@moneyio.nil? %>
-						<li><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
+						<li>购车基金：<%= @moneyio.money %>元</li>
 						<% end %>
 					</ul>
+				</li>
+				<li>
+					<%  @agency = Agency.find_by(id: req.agency_id) %>
+					<% if !@agency.nil?%>
+						<p>
+						经销商：<%= @agency.name %><br/>
+						地址：<%= @agency.address %><br/>
+						联系人：<%= @agency.contact %><br/>
+						联系电话：<%= @agency.phone %><br/>
+						</p>
+					<% end %>
 				</li>
 				<li style="text-align:right;">
 					<% if req.status == 0 %>

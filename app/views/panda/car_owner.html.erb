@@ -1,0 +1,78 @@
+<% content_for :application do %>
+<style type="text/css">
+	.content{
+		border-left: 1px solid #ccc;
+	}
+</style>
+<div class="am-cf">
+	<%=render "shared/panda_menu" %>
+  	<div class="am-u-sm-10 content">
+  		<div class="am-panel am-panel-default">
+			  <div class="am-panel-hd">生成用户代码</div>
+			  <div class="am-panel-bd">
+			  	<table class="am-table am-table-striped am-table-hover">
+					  <thead>
+			        <tr>
+			        	<th></th>
+		            <th>登录名</th>
+		            <th>姓名</th>
+		            <th>用户积分</th>
+		            <th>购车基金</th>
+		            <th>车主信息</th>
+		            <th>代码</th>
+			        </tr>
+				    </thead>
+				    <tbody>
+				    	<% @userlist.each do |u| %>
+								<tr>
+									<td>
+										<%= image_tag u.profile, 'data-turbolinks-track' => true , :style => "width:40px;height:40px;border-radius:100%"%>
+									</td>
+									<td>
+										<%= u.login_name%>
+									</td>
+									<td>
+										<%= u.real_name%>
+									</td>
+									<td>
+										<%= u.user_point%>
+									</td>
+									<td>
+										<%= u.user_money%>
+									</td>
+									<td>
+										<% @carowner = CarOwner.find_by(user_id: u.id) %>
+										<% if !@carowner.nil? %>
+										<% if @carowner.status == 1 %>
+										    <span style="color:red" class="am-icon-star"></span>认证车主<br/>
+										<% end %>
+										车牌：<%= @carowner.car_number %><br/>
+										品牌：<%= @carowner.car_brand %><br/>
+										型号：<%= @carowner.car_model %><br/>
+										配置：<%= @carowner.car_type %><br/>
+										<a target="blank" href="/invoice/upload/<%= @carowner.invoice_url %>">购车发票</a><br />
+											<% if @carowner.status == 1 %>
+												<a href="/panda/passcarowner?carownerid=<%= @carowner.id%>&status=0">移除认证</a>
+											<% else %>
+												<a href="/panda/passcarowner?carownerid=<%= @carowner.id%>&status=1">通过</a>
+												<a href="/panda/passcarowner?carownerid=<%= @carowner.id%>&status=0">拒绝</a>
+											<% end %>
+										<% else %>
+										未提交认证信息
+										<% end %>
+									</td>
+									<td>
+										<% @user_code = CodeSource.find_by(user_id: u.id) %>
+										<% if !@user_code.nil? %>
+											<%=@user_code.code %>
+										<% end %>
+									</td>
+								</tr>
+				    	<% end %>
+				    </tbody>
+					</table>
+			  </div>
+		</div>	
+  	</div>
+</div>
+<% end %>

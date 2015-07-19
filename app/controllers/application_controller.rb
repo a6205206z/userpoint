@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_user_info_session, :current_user_info, :current_agency_session, :current_agency
+  helper_method :current_user_info_session, :current_user_info, :current_admin_session, :current_admin
 
   private
 
@@ -15,11 +15,11 @@ class ApplicationController < ActionController::Base
   	@current_user_info ||= current_user_info_session && current_user_info_session.record
   end
 
-  def current_agency_session
-    @current_agency_session ||= AgencySession.find
+  def current_admin_session
+    @current_admin_session ||= AdminSession.find
   end
 
-  def current_agency
-    @current_agency ||= current_agency_session && current_agency_session.record
+  def current_admin
+    @current_admin ||= current_admin_session && current_admin_session.record
   end
 end

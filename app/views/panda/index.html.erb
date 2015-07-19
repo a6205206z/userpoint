@@ -7,52 +7,6 @@
 <div class="am-cf">
 	<%=render "shared/panda_menu" %>
   	<div class="am-u-sm-10 content">
-  		<div class="am-panel am-panel-default">
-			  <div class="am-panel-hd">生成用户代码</div>
-			  <div class="am-panel-bd">
-			  	<table class="am-table am-table-striped am-table-hover">
-					  <thead>
-			        <tr>
-			        	<th></th>
-		            <th>登录名</th>
-		            <th>姓名</th>
-		            <th>用户积分</th>
-		            <th>购车基金</th>
-		            <th>代码</th>
-			        </tr>
-				    </thead>
-				    <tbody>
-				    	<% @userlist.each do |u| %>
-								<tr>
-									<td>
-										<%= image_tag u.profile, 'data-turbolinks-track' => true , :style => "width:40px;height:40px;border-radius:100%"%>
-									</td>
-									<td>
-										<%= u.login_name%>
-									</td>
-									<td>
-										<%= u.real_name%>
-									</td>
-									<td>
-										<%= u.user_point%>
-									</td>
-									<td>
-										<%= u.user_money%>
-									</td>
-									<td>
-										<% @user_code = CodeSource.find_by(user_id: u.id) %>
-										<% if @user_code.nil? %>
-											<a href="/panda/generatecode?userid=<%= u.id%>">生成代码</a>
-										<% else %>
-											<%=@user_code.code %>
-										<% end %>
-									</td>
-								</tr>
-				    	<% end %>
-				    </tbody>
-					</table>
-			  </div>
-		</div>
 		<div class="am-panel am-panel-default">
 			<div class="am-panel-hd">审核购车基金</div>
 		    <div class="am-panel-bd">
@@ -61,8 +15,10 @@
 					<thead>
 				        <tr>
 			            <th>申请信息</th>
+			            <th>经销商</th>
 			            <th>申请时间</th>
-			            <th>基金</th>
+			            <th>备注</th>
+			            <th>发票</th>
 			            <th>状态</th>
 			            <th>操作</th>
 				        </tr>
@@ -71,8 +27,20 @@
 					<% @buycarrequests.each do |req| %>
 						<tr>
 							<td>
-							<%=req.req_info %>
-							<p style="color:green">[身份证 : <%=req.user_id_number %>]</p>
+							姓名：<%=req.user_name %><br/>
+							联系电话:<%=req.phonenumber %><br/>
+							<font style="color:green">[身份证 : <%=req.user_id_number %>]</font><br/>
+							</td>
+							<td>
+							<%  @agency = Agency.find_by(id: req.agency_id) %>
+							<% if !@agency.nil?%>
+								<p>
+								经销商：<%= @agency.name %><br/>
+								地址：<%= @agency.address %><br/>
+								联系人：<%= @agency.contact %><br/>
+								联系电话：<%= @agency.phone %><br/>
+								</p>
+							<% end %>
 							</td>
 							<td><%=req.create_time.strftime("%Y-%m-%d %H:%M:%S") %></td>
 							<td>
@@ -82,6 +50,9 @@
 									<li style="list-style:none;"><%= @moneyio.money %>(<%= @moneyio.remarks %>)</li>
 									<% end %>
 								</ul>
+							</td>
+							<td>
+								<a target="blank" href="/invoice/upload/<%= req.invoice_url %>">点击查看</a>
 							</td>
 							<td>
 								<% if req.status == 0 %>

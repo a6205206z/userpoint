@@ -31,13 +31,32 @@
 	<div class="index_bg" style="text-align:center;height:300px;line-height:250px;width:100%;">
 		<div style="display:inline-block;vertical-align:bottom;margin-bottom:10%;line-height:20px;">
 			<%= image_tag @user.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%"%>
-			<span style="display:block;padding-top:10px;color:white;"><%= @user.real_name %></span>
-			<span style="display:block;padding-top:10px;color:white;"  data-am-modal="{target: '#my-alert'}">我的代码</span>
-			
+			<span style="display:block;padding-top:10px;color:white;">
+			<% if !@carowner.nil? %>
+				<span style="color:red" class="am-icon-star" data-am-modal="{target: '#my-alert'}">认证车主:<%= @user.real_name %></span>
+			<% else %>
+				<%= @user.real_name %>
+			<% end %>
+			</span>
+			<span style="display:block;padding-top:10px;color:white;">
+				<% if !@user_code_my.nil? %>
+			       优惠代码:<%=@user_code_my.code %>
+			    <% else %>
+			   		成为正式会员，获取优惠代码。
+			    <% end %>
+			</span>
 		</div>
 	</div>
 	<div style="width:100%">
 		<ul class="am-list am-list-static m-widget-list">
+			<% if !@user_code_my.nil? and @user_code_my.from_agency_id == 0 %>
+				<li style="background-color:rgba(254,255,178,0.900);border-bottom:1px solid #eee;">
+					<a href="/agency/newcarowner" style="color:#333; ">
+						<i class="am-icon-star am-icon-fw"></i>
+						<span style="margin-right:5px;">车主认证</span>
+					</a>
+				</li>
+			<% end %>
 			<li style="background-color:rgba(254,255,178,0.900);border-bottom:1px solid #eee;">
 				<a href="/user/orderlist " style="color:#333; ">
 					<i class="am-icon-shopping-cart am-icon-fw"></i>
@@ -82,21 +101,28 @@
 			</li>
 		</ul>
 	</div>
-	<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
-	  <div class="am-modal-dialog">
-	    <div class="am-modal-hd">
-	    我的代码
-	    </div>
-	    <div class="am-modal-bd">
-	    <% if !@user_code_my.nil? %>
-	      <%=@user_code_my.code %>
-	    <% else %>
-	   		还没有代码，赶紧成为车主获取代码吧！
-	    <% end %>
-	    </div>
-	    <div class="am-modal-footer">
-	      <span class="am-modal-btn">确定</span>
-	    </div>
-	  </div>
-	</div>
+	<% if !@carowner.nil? %>
+		<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+		  <div class="am-modal-dialog">
+		  	<div class="am-modal-hd">
+		    <span style="color:red" class="am-icon-star" data-am-modal="{target: '#my-alert'}">认证车主:<%= @user.real_name %></span>
+		    </div>
+		    <div class="am-modal-hd">
+		    车牌：<%= @carowner.car_number %>
+		    </div>
+		    <div class="am-modal-hd">
+		    品牌：<%= @carowner.car_brand %>
+		    </div>
+		    <div class="am-modal-hd">
+		    型号：<%= @carowner.car_model %>
+		    </div>
+		    <div class="am-modal-hd">
+		    配置：<%= @carowner.car_type %>
+		    </div>
+		    <div class="am-modal-footer">
+		      <span class="am-modal-btn">确定</span>
+		    </div>
+		  </div>
+		</div>
+	<% end %>
 <% end %>

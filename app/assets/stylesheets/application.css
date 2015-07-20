@@ -13,4 +13,9 @@
  *= require_tree .
  *= require_self
  */
-.index_bg{background:#3bb4f2 url('ad.jpg') no-repeat center;background-size: 100% 100%}
+body{
+	background:url('bg.png') repeat;
+	color:#fefefe;
+}
+.bg{background:url('bg.png') repeat;}
+.index_bg{background:#3bb4f2 url('bg.jpg') no-repeat center;background-size: 100% 100%}

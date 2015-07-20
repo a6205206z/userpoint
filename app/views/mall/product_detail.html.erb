@@ -2,7 +2,6 @@
 <style type="text/css">
 	.productcontainer{
 		width: 100%;
-		background-color: #eee;
 		padding-top: 1em;
 		position: fixed;
 		top: 0;
@@ -86,7 +85,7 @@
 		商品描述:<%= @product.description %>
 	</div>
 
-	<a type="button" href="/mall/makeorder?pid=<%= @product.id %>" class="am-btn am-btn-secondary" id="btnbuy">点击购买</a>
+	<a type="button" href="/mall/makeorder?pid=<%= @product.id %>" class="am-btn am-btn-danger" id="btnbuy">点击购买</a>
 </div>
 	
 <% end %>

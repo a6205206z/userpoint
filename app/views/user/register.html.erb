@@ -17,8 +17,8 @@
 </style>
 	<%= form_for @user, url: {action: "create_user", :controller=>"user"} do |u| %>
 	  	<div class="am-input-group divusername">
-		  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
-		  <%= u.text_field :login_name ,:placeholder=>"请输入用户名",:class=>"am-form-field"%>
+		  <span class="am-input-group-label"><i class="am-icon-mobile-phone am-icon-fw"></i></span>
+		  <%= u.text_field :login_name ,:placeholder=>"请输入手机号",:class=>"am-form-field"%>
 		</div>
 		<div class="am-input-group divpass" style="margin-top:-1px;">
 		  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>

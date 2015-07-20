@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-RAILS_ROOT = '/vagrant/learnRails/userpoint'
+RAILS_ROOT = 'c:/www/UserPoint'
 
 module UserPoint
   class Application < Rails::Application

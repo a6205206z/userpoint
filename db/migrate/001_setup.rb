@@ -150,10 +150,29 @@ class Setup < ActiveRecord::Migration
 
 
 		admin =  Admin.new :login_name => "admin",
-							 :login_password => UserInfo.hash_password("Admin$11"),
-							 :persistence_token => ""
+						   :login_password => UserInfo.hash_password("Admin$11"),
+						   :persistence_token => ""
 		admin.save
 
+		dongfeng = Agency.new :login_name => "dongfeng",
+								   :login_password => UserInfo.hash_password("dongfeng"),
+								   :name => "东风标致",
+								   :address => "中环广场B座36层",
+								   :contact => "刘先生",
+								   :phone => "15828628297",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		dongfeng.save
+
+		nanfeng = Agency.new :login_name => "nanfeng",
+								   :login_password => UserInfo.hash_password("nanfeng"),
+								   :name => "南风标致",
+								   :address => "中环广场B座36层",
+								   :contact => "刘先生",
+								   :phone => "15828628297",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		nanfeng.save
 
 		product = Product.new :name => "商品",
 							  :sales_point => 20,
@@ -164,6 +183,7 @@ class Setup < ActiveRecord::Migration
 							  :create_time => Time.new
 
 		product.save
+
 
 		#for i in 0..5
 		#	product = Product.new(product)

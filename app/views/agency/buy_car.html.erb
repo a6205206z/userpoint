@@ -31,26 +31,39 @@
 			font-size: 20px;
 			bottom:0;
 		}
+		.panel-left{
+			display: inline-block;
+			width: 70%;
+		}
+		.panel-right{
+			display: inline-block;
+			text-align:center;
+			width:25%;
+			vertical-align: top;
+		}
 	</style>
 		<% if !@agency.nil? and @moneyio.from_agency_id != 0 %>
 		<div class="am-panel am-panel-default">
 			<div class="am-panel-hd">
-				<select><option><%= @agency.name %></option></select>
+				<select  style="width: 100%; height: 35px;"><option><%= @agency.name %></option></select>
 			</div>
 		    <div class="am-panel-bd" >
-		    	<div style="text-align:center;">
+		    	<div class="panel-left">
+					经销商名：<%= @agency.name %><br/>
+					地址：<%= @agency.address %><br/>
+					联系人：<%= @agency.contact %><br/>
+					联系电话：<%= @agency.phone %><br/>
+				</div>
+		    	<div class="panel-right">
 					<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>
 				</div>
-				经销商名：<%= @agency.name %><br/>
-				地址：<%= @agency.address %><br/>
-				联系人：<%= @agency.contact %><br/>
-				联系电话：<%= @agency.phone %><br/>
+
 			</div>
 		</div>
 		<% elsif !@agency.nil? and @moneyio.from_agency_id == 0 %>
 		<div class="am-panel am-panel-default">
 			<div class="am-panel-hd">
-				<select onchange="window.location.href = options[selectedIndex].value">
+				<select  style="width: 100%; height: 35px;" onchange="window.location.href = options[selectedIndex].value">
 				<option value="/agency/buycar?agencyid=0&moneyioid=<%= @moneyio.id%>">请选择经销商</option>
 					<% if !@agencylist.nil? %>
 						<% @agencylist.each do |a| %>
@@ -64,13 +77,16 @@
 				</select>
 			</div>
 			<div class="am-panel-bd" >
-		    	<div style="text-align:center;">
+				<div class="panel-left">
+					经销商名：<%= @agency.name %><br/>
+					地址：<%= @agency.address %><br/>
+					联系人：<%= @agency.contact %><br/>
+					联系电话：<%= @agency.phone %><br/>
+				</div>
+		    	<div class="panel-right">
 					<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>
 				</div>
-				经销商名：<%= @agency.name %><br/>
-				地址：<%= @agency.address %><br/>
-				联系人：<%= @agency.contact %><br/>
-				联系电话：<%= @agency.phone %><br/>
+				
 			</div>
 		</div>
 		<% elsif @agency.nil? and @moneyio.from_agency_id == 0 %>
@@ -103,8 +119,8 @@
 						</div>
 						<label for="file">购车发票</label> 
 						<%= file_field "invoice","file",  :accept => "image/jepg", :capture => "camera" %>
-						联系电话 ：<input type="text" name="phonenumber" /><br/>
-						身份证：<input type="text" name="idnumber" /><br/>
+						<label for="phonenumber">联系电话</label><input type="text" id="phonenumber" name="phonenumber" />
+						<label for="idnumber">身份证</label><input type="text" id="idnumber" name="idnumber" />
 				</div>
 			</div>
 			<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>

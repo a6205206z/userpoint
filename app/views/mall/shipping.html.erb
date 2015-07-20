@@ -9,9 +9,7 @@
 		font-size: 20px;
 		bottom:0;
 	}
-	fieldset{
-		margin-bottom: 50px;
-	}
+
 </style>
 	<% if @error_msg %>
 		<script type="text/javascript">
@@ -21,7 +19,7 @@
 			}
 		</script>
 	<% else %>
-		<form action="/mall/createshipping" method="post" class="am-form">
+		<form action="/mall/createshipping" method="post" class="am-form" style="background-color: white;">
 			<fieldset>
     			<legend>地址信息</legend>
 				<div class="am-form-group">

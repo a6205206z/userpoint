@@ -10,13 +10,23 @@
 		bottom: 0;
 		right: 0;
 		overflow: auto;
-
+		margin-bottom: 50px;
 	}
 	#return{
 		width: 100%;
 		position: fixed;
 		font-size: 20px;
 		bottom:0;
+	}
+	.list{
+	  border: 1px solid #eee;
+	  border-radius: 5px;
+	  line-height: 20px;
+	  margin-bottom: 5px;
+	  margin-left: 5px;
+	  margin-right: 5px;
+	  overflow: hidden;
+	  padding: 5px;
 	}
 </style>
 <div class="moneyios">
@@ -25,7 +35,7 @@
 
 			<% @money_ios.each do |m| %>
 
-			  <div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
+			  <div class="list">
 				<div style="overflow:hidden">
 					<span style="font-size:20px;color:red;float:left"><%= m.money %>元</span>
 					

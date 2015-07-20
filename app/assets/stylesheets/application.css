@@ -16,6 +16,10 @@
 body{
 	background:url('bg.png') repeat;
 	color:#fefefe;
+	padding-bottom: 50px;
+}
+.am-form,.am-panel,input{
+	color:#333;
 }
 .bg{background:url('bg.png') repeat;}
 .index_bg{background:#3bb4f2 url('bg.jpg') no-repeat center;background-size: 100% 100%}

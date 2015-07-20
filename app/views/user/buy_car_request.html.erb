@@ -8,15 +8,23 @@
 	}
 	ul{padding-left: 0;}
 	li{list-style: none;}
+	.list{
+	  border: 1px solid #eee;
+	  border-radius: 5px;
+	  line-height: 20px;
+	  margin-bottom: 5px;
+	  margin-left: 5px;
+	  margin-right: 5px;
+	  overflow: hidden;
+	  padding: 5px;
+	}
 </style>
 <div>
 	<h1 style="text-align:center;"><i class="am-icon-truck am-icon-fw"></i>我的购车记录</h1>
 
 	<% if !@buycarrequests.nil? %>
 		<% @buycarrequests.each do |req| %>
-			<div style="overflow:hidden;padding:5px;line-height:20px;border-bottom:1px solid #eee">
-		
-			
+			<div class="list">
 			<ul>
 				<li>申请时间:<%=req.create_time.strftime("%Y-%m-%d %H:%M:%S") %></li>
 				<li>

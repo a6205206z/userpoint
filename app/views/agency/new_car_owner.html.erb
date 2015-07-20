@@ -31,6 +31,16 @@
 			font-size: 20px;
 			bottom:0;
 		}
+		.panel-left{
+			display: inline-block;
+			width: 70%;
+		}
+		.panel-right{
+			display: inline-block;
+			text-align:center;
+			width:25%;
+			vertical-align: top;
+		}
 	</style>
 	<% if !@carowner.nil? %>
 		<script type="text/javascript">
@@ -43,7 +53,7 @@
 		<% if !@agency.nil? %>
 			<div class="am-panel am-panel-default">
 				<div class="am-panel-hd">
-					<select onchange="window.location.href = options[selectedIndex].value">
+					<select onchange="window.location.href = options[selectedIndex].value" style="width: 100%; height: 35px;">
 					<option value="/agency/newcarowner?agencyid=0">请选择经销商</option>
 						<% if !@agencylist.nil? %>
 							<% @agencylist.each do |a| %>
@@ -57,13 +67,16 @@
 					</select>
 				</div>
 				<div class="am-panel-bd" >
-			    	<div style="text-align:center;">
+					<div class="panel-left">
+						经销商名：<%= @agency.name %><br/>
+						地址：<%= @agency.address %><br/>
+						联系人：<%= @agency.contact %><br/>
+						联系电话：<%= @agency.phone %><br/>
+					</div>
+			    	<div class="panel-right">
 						<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>
 					</div>
-					经销商名：<%= @agency.name %><br/>
-					地址：<%= @agency.address %><br/>
-					联系人：<%= @agency.contact %><br/>
-					联系电话：<%= @agency.phone %><br/>
+					
 				</div>
 			</div>
 			<% else %>
@@ -87,17 +100,17 @@
 				    <div class="am-panel-bd">
 							<label for="file">购车发票</label> 
 							<%= file_field "invoice","file",  :accept => "image/jepg", :capture => "camera" %>
-							车牌号 ：<input type="text" name="carnumber" /><br/>
-							品牌：<input type="text" name="brand" /><br/>
-							型号：<input type="text" name="model" /><br/>
-							配置：<input type="text" name="type" /><br/>
+							<label for="carnumber">车牌号</label> <input type="text" id="carnumber" name="carnumber" />
+							<label for="brand">品牌</label> <input type="text" id="brand" name="brand" />
+							<label for="model">型号</label> <input type="text" id="model" name="model" />
+							<label for="type">配置</label> <input type="text" id="type" name="type" />
 					</div>
 				</div>
-				<button class="am-btn am-btn-secondary" id="btn_commit">确认</button>
-				<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return">返回</a>
+				<button class="am-btn am-btn-danger" id="btn_commit">确认</button>
+				<a type="button" href="/user/index" class="am-btn am-btn-danger" id="btn_return">返回</a>
 			</form>
 			<% else %>
-			<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return_full">返回</a>
+			<a type="button" href="/user/index" class="am-btn am-btn-danger" id="btn_return_full">返回</a>
 		<% end %>
 	<% end %>
 <% end %>

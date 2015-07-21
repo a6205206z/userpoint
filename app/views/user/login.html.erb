@@ -33,10 +33,15 @@
 		if(!$("#loginname").val()){
 			alert('请填写手机号码');
 			return false;
-		}else if($("#loginname").val().length != 11){
+		}
+		if($("#loginname").val().length != 11){
 			alert('手机号码格式不正确');
 			return false;
 		}
+		if($("#password").val().length < 6){
+				alert("密码最少6位");
+				return false;
+			}
 	});
 </script>
 <% end %>

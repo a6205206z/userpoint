@@ -36,6 +36,19 @@ class UserController < ApplicationController
 					  :create_time => Time.new,
 					  :expire_time => t1 = Time.mktime(2025)
 			code.save
+
+			point_io = UserPointIO.new :user_id => new_user.id,
+									   :point => 50,
+									   :remarks => "新用户注册奖励",
+									   :status => 1,
+									   :operate_time => Time.new,
+									   :from => "/user/createuser",
+									   :code => "nil"
+
+			point_io.save
+			new_user.user_point += 50
+			new_user.save
+
 			@resultMsg = "用户" << new_user.login_name << "创建成功，赶快去体验吧！"
 		else
 			@resultMsg  = "用户" << new_user.login_name << "创建失败,尝试更换用户名！"

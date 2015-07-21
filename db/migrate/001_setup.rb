@@ -154,25 +154,117 @@ class Setup < ActiveRecord::Migration
 						   :persistence_token => ""
 		admin.save
 
-		dongfeng = Agency.new :login_name => "dongfeng",
-								   :login_password => UserInfo.hash_password("dongfeng"),
-								   :name => "东风标致",
-								   :address => "中环广场B座36层",
-								   :contact => "刘先生",
-								   :phone => "15828628297",
+		agency_1 = Agency.new :login_name => "agency_1",
+								   :login_password => UserInfo.hash_password("agency_1"),
+								   :name => "成都精典东越汽车销售有限公司",
+								   :address => "成都市青羊区腾飞大道308号（成飞大道旁）",
+								   :contact => "公司",
+								   :phone => "4008302434",
 								   :profile => "profile/peugeot.jpg",
 								   :persistence_token => ""
-		dongfeng.save
+		agency_1.save
 
-		nanfeng = Agency.new :login_name => "nanfeng",
-								   :login_password => UserInfo.hash_password("nanfeng"),
-								   :name => "南风标致",
-								   :address => "中环广场B座36层",
-								   :contact => "刘先生",
-								   :phone => "15828628297",
+		agency_2 = Agency.new :login_name => "agency_2",
+								   :login_password => UserInfo.hash_password("agency_2"),
+								   :name => "成都申蓉泓翰汽车销售服务有限公司",
+								   :address => "成都市武侯区武兴路110号（三环武侯立交出城往双流方向1.5公里右侧）",
+								   :contact => "公司",
+								   :phone => "4008302426",
 								   :profile => "profile/peugeot.jpg",
 								   :persistence_token => ""
-		nanfeng.save
+		agency_2.save
+
+		agency_3 = Agency.new :login_name => "agency_3",
+								   :login_password => UserInfo.hash_password("agency_3"),
+								   :name => "成都申蓉泓锦汽车销售服务有限公司",
+								   :address => "成都市北新干道申蓉汽车城（海宁皮革城旁）",
+								   :contact => "公司",
+								   :phone => "4008307041",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_3.save
+
+		agency_4 = Agency.new :login_name => "agency_4",
+								   :login_password => UserInfo.hash_password("agency_4"),
+								   :name => "四川安捷汽车技术服务有限公司",
+								   :address => "成都市羊西线国际汽车品牌园（金牛区土龙路1号）",
+								   :contact => "公司",
+								   :phone => "4008302488",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_4.save
+
+		agency_5 = Agency.new :login_name => "agency_5",
+								   :login_password => UserInfo.hash_password("agency_5"),
+								   :name => "四川明嘉汽车贸易服务有限公司",
+								   :address => "成都市东三环二段龙潭工业园成致路30号",
+								   :contact => "公司",
+								   :phone => "4008302529",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_5.save
+
+
+		agency_6 = Agency.new :login_name => "agency_6",
+								   :login_password => UserInfo.hash_password("agency_6"),
+								   :name => "成都集大成汽车销售服务有限公司",
+								   :address => "四川省成都市高新区火车南站西路1279号（机场路辅道回城方向）",
+								   :contact => "公司",
+								   :phone => "4008302427",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_6.save
+
+		agency_7 = Agency.new :login_name => "agency_7",
+								   :login_password => UserInfo.hash_password("agency_7"),
+								   :name => "成都天致汽车销售服务有限公司",
+								   :address => "四川省成都市锦江区三圣乡幸福梅林（金港赛道斜对面）",
+								   :contact => "公司",
+								   :phone => "4008304929",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_7.save
+
+
+		agency_8 = Agency.new :login_name => "agency_8",
+								   :login_password => UserInfo.hash_password("agency_8"),
+								   :name => "四川安捷致信汽车销售服务有限公司",
+								   :address => "都江堰市蒲阳大道上阳街496号",
+								   :contact => "公司",
+								   :phone => "4008724197",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_8.save
+
+		agency_9 = Agency.new :login_name => "agency_9",
+								   :login_password => UserInfo.hash_password("agency_9"),
+								   :name => "成都中鑫海汽车服务有限公司",
+								   :address => "四川省崇州市崇阳镇金盆地大道229号",
+								   :contact => "公司",
+								   :phone => "4008303491",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_9.save
+
+		agency_10 = Agency.new :login_name => "agency_10",
+								   :login_password => UserInfo.hash_password("agency_10"),
+								   :name => "彭州明澈车业有限公司",
+								   :address => "彭州市牡丹大道77号",
+								   :contact => "公司",
+								   :phone => "028-83704333",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_10.save
+
+		agency_11 = Agency.new :login_name => "agency_11",
+								   :login_password => UserInfo.hash_password("agency_11"),
+								   :name => "新津弘致汽车销售服务有限公司",
+								   :address => "四川省成都市新津县花桥镇蔡湾村三组",
+								   :contact => "公司",
+								   :phone => "4008304699",
+								   :profile => "profile/peugeot.jpg",
+								   :persistence_token => ""
+		agency_11.save
 
 		product = Product.new :name => "商品",
 							  :sales_point => 20,

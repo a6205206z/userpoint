@@ -14,7 +14,9 @@
 	.divsex label{
 		width:49%;
 	}
+	
 </style>
+<div style="width:80%;margin:10% auto;">
 	<%= form_for @user, url: {action: "create_user", :controller=>"user"} do |u| %>
 	  	<div class="am-input-group divusername">
 		  <span class="am-input-group-label"><i class="am-icon-mobile-phone am-icon-fw"></i></span>
@@ -39,12 +41,16 @@
 			<label class="am-btn am-btn-default" for="sex0">女</label>
 		</div>
 		
-		<button type="submit" class="am-btn am-btn-secondary btnlogin" style="display: block;margin: 20px auto;width: 80%;">注册</button>
+		<button type="submit" class="am-btn am-btn-secondary btnlogin" style="display: block;margin: 20px auto;width: 100%;">注册</button>
 	<% end %>
 	<script type="text/javascript">
 		$("form").submit(function(){
 			if(!$(".divusername input[type=text]").val()){
-				alert("请输入用户名");
+				alert("请输入手机号");
+				return false;
+			}
+			if($(".divusername input[type=text]").val().length != 11){
+				alert("手机号格式不正确");
 				return false;
 			}
 			if(!$("#login_password").val()){
@@ -61,4 +67,5 @@
 			}			
 		});
 	</script>
+</div>
 <% end %>

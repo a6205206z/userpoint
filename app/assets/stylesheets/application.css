@@ -22,4 +22,4 @@ body{
 	color:#333;
 }
 .bg{background:url('bg.png') repeat;}
-.index_bg{background:#3bb4f2 url('bg.jpg') no-repeat center;background-size: 100% 100%}
+.index_bg{background:#3bb4f2 url('bg-s.jpg') no-repeat center;background-size: 100% 100%}

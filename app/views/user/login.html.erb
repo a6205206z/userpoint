@@ -6,23 +6,37 @@
 	.divpass{
 		margin-top:-1px;
 	}
-	.btnlogin {
-		display: block;
-		margin: 20px auto;
-		width: 80%;
 
+	.btnlogin ,.btnReg{
+		display: block;
+		margin: 1px auto;
+		width: 100%;
+	}
+	.btnlogin{
+		margin-top: 20px;
 	}
 </style>
-<form action="/user/signin" method="post">
-  <div class="am-input-group divusername">
+<form style="width:80%;margin:10% auto;" action="/user/signin" method="post">
+  <div class="am-input-group divusername" style="height:45px;">
 		  <span class="am-input-group-label"><i class="am-icon-mobile-phone am-icon-fw"></i></span>
-		  <input type="text" id="loginname" name="loginname" class="am-form-field" placeholder="请输入手机号">
+		  <input type="text" id="loginname" name="loginname" class="am-form-field" placeholder="请输入手机号" style="height:45px;">
 		</div>
-		<div class="am-input-group divpass">
+		<div class="am-input-group divpass" style="height:45px;">
 		  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
-		  <input type="password" id="password" name="password" class="am-form-field" placeholder="请输入密码">
+		  <input style="height:45px;" type="password" id="password" name="password" class="am-form-field" placeholder="请输入密码">
 		</div>
 		<button type="submit" class="am-btn am-btn-secondary btnlogin">登录</button>
+		<a href="/user/register" class="am-btn am-btn-secondary btnReg">注册</a>
 </form>
-		<a href="/user/register" class="am-btn am-btn-secondary btnlogin">注册</a>
+<script type="text/javascript">
+	$("form").on('submit',function(){
+		if(!$("#loginname").val()){
+			alert('请填写手机号码');
+			return false;
+		}else if($("#loginname").val().length != 11){
+			alert('手机号码格式不正确');
+			return false;
+		}
+	});
+</script>
 <% end %>

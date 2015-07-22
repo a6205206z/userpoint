@@ -5,7 +5,7 @@ class AgencyController < ApplicationController
 			@moneyio = UserMoneyIO.find_by(id: params[:moneyioid], user_id: current_user_info.id)
 
 			if @moneyio.from_agency_id == 0
-				@agencylist = Agency.order("id DESC")
+				@agencylist = Agency.order("id")
 			elsif @moneyio.from_agency_id != 0
 				if !@agency.nil? and @moneyio.from_agency_id != @agency.id
 					redirect_to "/user/index"
@@ -19,7 +19,7 @@ class AgencyController < ApplicationController
 	def new_car_owner
 		@carowner = CarOwner.find_by(user_id:  current_user_info.id)
 		@agency = Agency.find_by(id: params[:agencyid])
-		@agencylist = Agency.order("id DESC")
+		@agencylist = Agency.order("id")
 	end
 
 	def input_new_car_owner

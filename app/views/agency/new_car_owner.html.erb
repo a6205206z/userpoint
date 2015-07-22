@@ -70,8 +70,7 @@
 					<div class="panel-left">
 						经销商名：<%= @agency.name %><br/>
 						地址：<%= @agency.address %><br/>
-						联系人：<%= @agency.contact %><br/>
-						联系电话：<%= @agency.phone %><br/>
+						联系电话：<b><%= @agency.phone %></b><br/>
 					</div>
 			    	<div class="panel-right">
 						<%= image_tag @agency.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;"%>

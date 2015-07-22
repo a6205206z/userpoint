@@ -16,6 +16,7 @@
 	}
 	
 </style>
+<%= image_tag "logo.png", 'data-turbolinks-track' => true , :style => "width:100px;margin:20px 0px 0px 20px;"%>
 <div style="width:80%;margin:10% auto;">
 	<%= form_for @user, url: {action: "create_user", :controller=>"user"} do |u| %>
 	  	<div class="am-input-group divusername">

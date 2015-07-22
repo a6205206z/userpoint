@@ -31,26 +31,30 @@
   transform: translate(0px, 0px);
 }
 .userpanel{
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 7px;
   box-shadow: 0 0 12px -4px black;
   display: inline-block;
   line-height: 20px;
-  padding: 30px;
+  padding: 5px;
   vertical-align: bottom;
+  position: absolute;
+  bottom: -85px;
+  right: 0;
+  width:240px;
 }
 </style>
-	<div class="index_bg" style="text-align:center;height:300px;line-height:250px;width:100%;">
+	<div class="index_bg" style="margin-bottom:100px;text-align:center;height:300px;line-height:250px;width:100%;position:relative;">
 		<div class="userpanel">
-			<%= image_tag @user.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%"%>
-			<span style="display:block;padding-top:10px;color:red;position: relative; font-weight: bold;"  data-am-modal="{target: '#my-alert'}">
+			<%= image_tag @user.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;float:right;"%>
+			<span style="display:block;color:red;position: relative; font-weight: bold;max-width:160px;overflow:hidden;margin-top:20px;"  data-am-modal="{target: '#my-alert'}">
 			<% if !@carowner.nil? and @carowner.status == 1 %>
 				<%= @user.real_name %><span style="vertical-align: 5px; position: absolute; top: 4px; font-weight: 100; font-size: 0.7em;" >车主</span>
 			<% else %>
 				<%= @user.real_name %>
 			<% end %>
 			</span>
-			<span style="display:block;padding-top:10px;color:teal;">
+			<span style="display:block;color:teal;max-width:150px;color:#eee;">
 				<% if !@user_code_my.nil? %>
 			       优惠代码:<%=@user_code_my.code %>
 			    <% else %>

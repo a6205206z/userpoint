@@ -273,7 +273,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 100,
 							  :product_img_url => "product/01.png",
 							  :inventory => 100,
-							  :description => "100元购车抵用券",
+							  :description => "购车券使用说明：<br />1、购车抵用券每次只能使用一张，不可叠加使用。可在东风标致成都区域各网点使用。<br />2、购车券不折现，不找零。只可用于购车整车使用，不得用于购买其他附件产品。<br />3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_01.save
@@ -283,7 +283,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 100,
 							  :product_img_url => "product/001.png",
 							  :inventory => 100,
-							  :description => "100元保养抵用券",
+							  :description => "保养券使用说明：<br />1、保养券需在所购车网点使用，且保养车型须为东风标致车型。<br/>2、每次保养只能使用一张，该券不可兑换为现金使用，且不找零。<br/>3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_001.save
@@ -293,7 +293,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 200,
 							  :product_img_url => "product/02.png",
 							  :inventory => 100,
-							  :description => "200元购车抵用券",
+							  :description => "购车券使用说明：<br />1、购车抵用券每次只能使用一张，不可叠加使用。可在东风标致成都区域各网点使用。<br />2、购车券不折现，不找零。只可用于购车整车使用，不得用于购买其他附件产品。<br />3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_02.save
@@ -303,7 +303,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 200,
 							  :product_img_url => "product/002.png",
 							  :inventory => 100,
-							  :description => "200元保养抵用券",
+							  :description => "保养券使用说明：<br />1、保养券需在所购车网点使用，且保养车型须为东风标致车型。<br/>2、每次保养只能使用一张，该券不可兑换为现金使用，且不找零。<br/>3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_002.save
@@ -313,7 +313,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 300,
 							  :product_img_url => "product/03.png",
 							  :inventory => 100,
-							  :description => "300元购车抵用券",
+							  :description => "购车券使用说明：<br />1、购车抵用券每次只能使用一张，不可叠加使用。可在东风标致成都区域各网点使用。<br />2、购车券不折现，不找零。只可用于购车整车使用，不得用于购买其他附件产品。<br />3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_03.save
@@ -323,7 +323,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 300,
 							  :product_img_url => "product/003.png",
 							  :inventory => 100,
-							  :description => "300元保养抵用券",
+							  :description => "保养券使用说明：<br />1、保养券需在所购车网点使用，且保养车型须为东风标致车型。<br/>2、每次保养只能使用一张，该券不可兑换为现金使用，且不找零。<br/>3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_003.save
@@ -333,7 +333,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 400,
 							  :product_img_url => "product/04.png",
 							  :inventory => 100,
-							  :description => "400元购车抵用券",
+							  :description => "购车券使用说明：<br />1、购车抵用券每次只能使用一张，不可叠加使用。可在东风标致成都区域各网点使用。<br />2、购车券不折现，不找零。只可用于购车整车使用，不得用于购买其他附件产品。<br />3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_04.save
@@ -343,7 +343,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 400,
 							  :product_img_url => "product/004.png",
 							  :inventory => 100,
-							  :description => "400元保养抵用券",
+							  :description => "保养券使用说明：<br />1、保养券需在所购车网点使用，且保养车型须为东风标致车型。<br/>2、每次保养只能使用一张，该券不可兑换为现金使用，且不找零。<br/>3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_004.save
@@ -353,7 +353,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 800,
 							  :product_img_url => "product/05.png",
 							  :inventory => 100,
-							  :description => "800元购车抵用券",
+							  :description => "购车券使用说明：<br />1、购车抵用券每次只能使用一张，不可叠加使用。可在东风标致成都区域各网点使用。<br />2、购车券不折现，不找零。只可用于购车整车使用，不得用于购买其他附件产品。<br />3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_05.save
@@ -363,7 +363,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 800,
 							  :product_img_url => "product/005.png",
 							  :inventory => 100,
-							  :description => "800元保养抵用券",
+							  :description => "保养券使用说明：<br />1、保养券需在所购车网点使用，且保养车型须为东风标致车型。<br/>2、每次保养只能使用一张，该券不可兑换为现金使用，且不找零。<br/>3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_005.save
@@ -373,7 +373,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 1000,
 							  :product_img_url => "product/06.png",
 							  :inventory => 100,
-							  :description => "1000元购车抵用券",
+							  :description => "购车券使用说明：<br />1、购车抵用券每次只能使用一张，不可叠加使用。可在东风标致成都区域各网点使用。<br />2、购车券不折现，不找零。只可用于购车整车使用，不得用于购买其他附件产品。<br />3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_06.save
@@ -383,7 +383,7 @@ class Setup < ActiveRecord::Migration
 							  :original_point => 1000,
 							  :product_img_url => "product/006.png",
 							  :inventory => 100,
-							  :description => "1000元保养抵用券",
+							  :description => "保养券使用说明：<br />1、保养券需在所购车网点使用，且保养车型须为东风标致车型。<br/>2、每次保养只能使用一张，该券不可兑换为现金使用，且不找零。<br/>3、东风标致成都区域保留对本券使用方式最终解释权。",
 							  :create_time => Time.new
 
 		product_006.save

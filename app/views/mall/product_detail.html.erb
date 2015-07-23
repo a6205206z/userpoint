@@ -82,7 +82,7 @@
 		
 	</div>
 	<div class="description">
-		商品描述:<%= @product.description %>
+		商品描述:<%= @product.description.html_safe %>
 	</div>
 
 	<a type="button" href="/mall/makeorder?pid=<%= @product.id %>" class="am-btn am-btn-danger" id="btnbuy">点击购买</a>

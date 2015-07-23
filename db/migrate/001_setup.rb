@@ -266,66 +266,189 @@ class Setup < ActiveRecord::Migration
 								   :persistence_token => ""
 		agency_11.save
 
-		product = Product.new :name => "商品",
-							  :sales_point => 20,
-							  :original_point => 30,
-							  :product_img_url => "product/default.png",
+
+
+		product_01 = Product.new :name => "100元购车抵用券",
+							  :sales_point => 100,
+							  :original_point => 100,
+							  :product_img_url => "product/01.png",
 							  :inventory => 100,
-							  :description => "系统初始化商品",
+							  :description => "100元购车抵用券",
 							  :create_time => Time.new
 
-		product.save
+		product_01.save
 
-
-		#for i in 0..5
-		#	product = Product.new(product)
-		#	product.name = "商品" << i
-		#	product.save
-		#end
-
-
-		product_1 = Product.new :name => "商品1",
-							  :sales_point => 20,
-							  :original_point => 30,
-							  :product_img_url => "product/default.png",
+		product_001 = Product.new :name => "100元保养抵用券",
+							  :sales_point => 100,
+							  :original_point => 100,
+							  :product_img_url => "product/001.png",
 							  :inventory => 100,
-							  :description => "系统初始化商品",
+							  :description => "100元保养抵用券",
 							  :create_time => Time.new
 
-		product_1.save
+		product_001.save
 
-
-		product_2 = Product.new :name => "商品2",
-							  :sales_point => 20,
-							  :original_point => 30,
-							  :product_img_url => "product/default.png",
+		product_02 = Product.new :name => "200元购车抵用券",
+							  :sales_point => 200,
+							  :original_point => 200,
+							  :product_img_url => "product/02.png",
 							  :inventory => 100,
-							  :description => "系统初始化商品",
+							  :description => "200元购车抵用券",
 							  :create_time => Time.new
 
-		product_2.save
+		product_02.save
 
-
-		product_3 = Product.new :name => "商品3",
-							  :sales_point => 20,
-							  :original_point => 30,
-							  :product_img_url => "product/default.png",
+		product_002 = Product.new :name => "200元保养抵用券",
+							  :sales_point => 200,
+							  :original_point => 200,
+							  :product_img_url => "product/002.png",
 							  :inventory => 100,
-							  :description => "系统初始化商品",
+							  :description => "200元保养抵用券",
 							  :create_time => Time.new
 
-		product_3.save
+		product_002.save
 
-
-		product_4 = Product.new :name => "商品4",
-							  :sales_point => 20,
-							  :original_point => 30,
-							  :product_img_url => "product/default.png",
+		product_03 = Product.new :name => "300元购车抵用券",
+							  :sales_point => 300,
+							  :original_point => 300,
+							  :product_img_url => "product/03.png",
 							  :inventory => 100,
-							  :description => "系统初始化商品",
+							  :description => "300元购车抵用券",
 							  :create_time => Time.new
 
-		product_4.save
+		product_03.save
+
+		product_003 = Product.new :name => "300元保养抵用券",
+							  :sales_point => 300,
+							  :original_point => 300,
+							  :product_img_url => "product/003.png",
+							  :inventory => 100,
+							  :description => "300元保养抵用券",
+							  :create_time => Time.new
+
+		product_003.save
+
+		product_04 = Product.new :name => "400元购车抵用券",
+							  :sales_point => 400,
+							  :original_point => 400,
+							  :product_img_url => "product/04.png",
+							  :inventory => 100,
+							  :description => "400元购车抵用券",
+							  :create_time => Time.new
+
+		product_04.save
+
+		product_004 = Product.new :name => "400元保养抵用券",
+							  :sales_point => 400,
+							  :original_point => 400,
+							  :product_img_url => "product/004.png",
+							  :inventory => 100,
+							  :description => "400元保养抵用券",
+							  :create_time => Time.new
+
+		product_004.save
+
+		product_05 = Product.new :name => "800元购车抵用券",
+							  :sales_point => 800,
+							  :original_point => 800,
+							  :product_img_url => "product/05.png",
+							  :inventory => 100,
+							  :description => "800元购车抵用券",
+							  :create_time => Time.new
+
+		product_05.save
+
+		product_005 = Product.new :name => "800元保养抵用券",
+							  :sales_point => 800,
+							  :original_point => 800,
+							  :product_img_url => "product/005.png",
+							  :inventory => 100,
+							  :description => "800元保养抵用券",
+							  :create_time => Time.new
+
+		product_005.save
+
+		product_06 = Product.new :name => "1000元购车抵用券",
+							  :sales_point => 1000,
+							  :original_point => 1000,
+							  :product_img_url => "product/06.png",
+							  :inventory => 100,
+							  :description => "1000元购车抵用券",
+							  :create_time => Time.new
+
+		product_06.save
+
+		product_006 = Product.new :name => "1000元保养抵用券",
+							  :sales_point => 1000,
+							  :original_point => 1000,
+							  :product_img_url => "product/006.png",
+							  :inventory => 100,
+							  :description => "1000元保养抵用券",
+							  :create_time => Time.new
+
+		product_006.save
+
+		product_shizi = Product.new :name => "东风标致狮子人偶",
+							  :sales_point => 100,
+							  :original_point => 100,
+							  :product_img_url => "product/shizi.png",
+							  :inventory => 100,
+							  :description => "东风标致狮子人偶",
+							  :create_time => Time.new
+
+		product_shizi.save
+
+		product_xichenqi = Product.new :name => "车载吸尘器",
+							  :sales_point => 200,
+							  :original_point => 200,
+							  :product_img_url => "product/xichenqi.png",
+							  :inventory => 100,
+							  :description => "车载吸尘器",
+							  :create_time => Time.new
+
+		product_xichenqi.save
+
+
+		product_dianfanguo = Product.new :name => "电饭锅",
+							  :sales_point => 300,
+							  :original_point => 300,
+							  :product_img_url => "product/dianfanguo.png",
+							  :inventory => 100,
+							  :description => "电饭锅",
+							  :create_time => Time.new
+
+		product_dianfanguo.save
+
+		product_huiyinbi = Product.new :name => "高档回音壁",
+							  :sales_point => 400,
+							  :original_point => 400,
+							  :product_img_url => "product/huiyibi.png",
+							  :inventory => 100,
+							  :description => "高档回音壁",
+							  :create_time => Time.new
+
+		product_huiyinbi.save
+
+		product_binxiang = Product.new :name => "品牌电冰箱",
+							  :sales_point => 800,
+							  :original_point => 800,
+							  :product_img_url => "product/binxiang.png",
+							  :inventory => 100,
+							  :description => "品牌电冰箱",
+							  :create_time => Time.new
+
+		product_binxiang.save
+
+
+		product_dianshi = Product.new :name => "42寸液晶电视",
+							  :sales_point => 1000,
+							  :original_point => 1000,
+							  :product_img_url => "product/dianshi.png",
+							  :inventory => 100,
+							  :description => "42寸液晶电视",
+							  :create_time => Time.new
+
+		product_dianshi.save
 	end
 
 	def self.down

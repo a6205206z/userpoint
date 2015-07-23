@@ -38,7 +38,7 @@ class UserController < ApplicationController
 			code.save
 
 			point_io = UserPointIO.new :user_id => new_user.id,
-									   :point => 50,
+									   :point => 100,
 									   :remarks => "新用户注册奖励",
 									   :status => 1,
 									   :operate_time => Time.new,
@@ -46,7 +46,7 @@ class UserController < ApplicationController
 									   :code => "nil"
 
 			point_io.save
-			new_user.user_point += 50
+			new_user.user_point += 100
 			new_user.save
 
 			@resultMsg = "用户" << new_user.login_name << "创建成功，赶快去体验吧！"

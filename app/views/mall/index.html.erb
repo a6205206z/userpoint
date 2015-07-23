@@ -56,7 +56,7 @@
 				<% @products.each do |p| %>
 					<li>
 						<a href="/mall/product/<%=p.id %>" style="color:#333; ">
-							<%= image_tag p.product_img_url, 'data-turbolinks-track' => true %>
+							<%= image_tag p.product_img_url, 'data-turbolinks-track' => true, :style => "height:277px" %>
 							<span class="pname"><%=p.name %></span>
 							<span class="pprice"><%=p.sales_point %>积分</span>
 						</a>

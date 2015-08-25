@@ -54,9 +54,10 @@
 				<%= @user.real_name %>
 			<% end %>
 			</span>
-			<span style="display:block;color:teal;max-width:150px;color:#eee;">
+			<span id="sharemycode" style="display:block;color:teal;max-width:150px;color:#eee;">
 				<% if !@user_code_my.nil? %>
 			       优惠代码:<%=@user_code_my.code %>
+			       <input type="hidden" id="mycode" value="<%=@user_code_my.code %>" />
 			    <% else %>
 			   		成为正式会员，获取优惠代码。
 			    <% end %>
@@ -142,4 +143,30 @@
 		  </div>
 		</div>
 	<% end %>
+	<script type="text/javascript">
+	/*	function onBridgeReady() {
+		    $(".userpanel").click(function(){
+				var code = $("#mycode").val();
+				alert(code);
+			    WeixinJSBridge.invoke("shareTimeline",{
+			        "link":"http://m.exmail.qq.com",
+			        "img_url":"http://rescdn.qqmail.com/bizmail/zh_CN/htmledition/images/bizmail/v3/logo1ca3fe.png",
+			        "img_width":"172",
+			        "img_height":"40",
+			        "desc":"i am description",
+			        "title":"just test from WeixinJsBridge"
+		        },
+		        function(e){
+		        	alert(e.err_msg);
+		        });
+			});
+ 		}	
+		if (typeof WeixinJSBridge === "undefined"){
+		    if (document.addEventListener){
+		        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+		    }
+		}else{
+		    onBridgeReady();
+		}*/
+	</script>
 <% end %>

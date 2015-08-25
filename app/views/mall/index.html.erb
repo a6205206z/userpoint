@@ -7,19 +7,18 @@
 	.productslist li{
 		border: 0;
 		display: inline-block;
-		width: 50%;
-		list-style:none;
-		float: left;
+		list-style:none；
 		padding: 3px;
+		width:100%;
 	}
 	.productslist li a{
 		display: block;
-		border: 1px solid #ddd;
+		border: 1px solid #666;
 	}
 	.productslist img{
 		display: block;
-		margin: 10px auto;
-		width:90%;
+		margin: 5px auto;
+		width:95%;
 	}
 	.productslist span{
 		display: block;
@@ -55,11 +54,11 @@
 			<ul class="productslist">
 				<% @products.each do |p| %>
 					<li>
-						<a href="/mall/product/<%=p.id %>" style="color:#333;">
-						<table style="height:360px; width:100% ">
+						<a href="/mall/product/<%=p.id %>" style="color:#333;background-color: rgba(255,255,255,0.2);">
+						<table style="width:100% ">
 							<tr>
 								<td valign="center">
-									<%= image_tag p.product_img_url, 'data-turbolinks-track' => true, :style => "max-height:277px" %>
+									<%= image_tag p.product_img_url, 'data-turbolinks-track' => true%>
 								</td>
 							</tr>
 							<tr>

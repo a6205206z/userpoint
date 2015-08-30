@@ -144,40 +144,29 @@
 		</div>
 	<% end %>
 	<script type="text/javascript">
-	wx.config({
-	    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-	    appId: 'wxf2a99d77725215d1', // 必填，公众号的唯一标识
-	    timestamp: , // 必填，生成签名的时间戳
-	    nonceStr: '', // 必填，生成签名的随机串
-	    signature: '',// 必填，签名，见附录1
-	    jsApiList: [] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-	});
-	wx.ready(function(){
-		if (typeof WeixinJSBridge === "undefined"){
-		    if (document.addEventListener){
-		        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-		    }
-		}else{
-		    onBridgeReady();
-		}
-	});
-		function onBridgeReady() {
-		    $(".userpanel").click(function(){
-				var code = $("#mycode").val();
-				alert(code);
-			    WeixinJSBridge.invoke("shareTimeline",{
-			        "link":"http://m.exmail.qq.com",
-			        "img_url":"http://rescdn.qqmail.com/bizmail/zh_CN/htmledition/images/bizmail/v3/logo1ca3fe.png",
-			        "img_width":"172",
-			        "img_height":"40",
-			        "desc":"i am description",
-			        "title":"just test from WeixinJsBridge"
-		        },
-		        function(e){
-		        	alert(e.err_msg);
-		        });
+        wx.config({
+		    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+		    appId: '', // 必填，公众号的唯一标识
+		    timestamp: , // 必填，生成签名的时间戳
+		    nonceStr: '', // 必填，生成签名的随机串
+		    signature: '',// 必填，签名，见附录1
+		    jsApiList: ['onMenuShareTimeline'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+		});
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        	alert(wx);
+        	wx.onMenuShareTimeline({
+			    title: '111', // 分享标题
+			    link: '222', // 分享链接
+			    imgUrl: '', // 分享图标
+			    success: function () { 
+			        // 用户确认分享后执行的回调函数
+			    },
+			    cancel: function () { 
+			        alert("cancel");// 用户取消分享后执行的回调函数
+			    }
 			});
- 		}	
-		
+            
+        }, false);
 	</script>
 <% end %>

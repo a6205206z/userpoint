@@ -1,3 +1,4 @@
+require "digest/sha1"
 # User Point project
 #
 #file: user_controller.rb
@@ -90,6 +91,36 @@ class UserController < ApplicationController
 			@user_code_my = CodeSource.find_by(user_id: current_user_info.id)
 			@carowner = CarOwner.find_by(user_id: current_user_info.id)
 			#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
+
+			@timestamp = rand(9999999999)
+			@noncestr = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
+			@secretstr = '6b24b7a8e45006b7d6fe2eb5b6a72a47'
+			@appid = 'wxf2a99d77725215d1'
+
+			uri = URI.parse("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{@appid}&secret=#{@secretstr}")
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+			request = Net::HTTP::Get.new(uri.request_uri)
+			response = http.request(request)
+			@data = response.body
+
+			@token = @data[17,107]
+
+			uri = URI.parse("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=#{@token}&type=jsapi")
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+			request = Net::HTTP::Get.new(uri.request_uri)
+			response = http.request(request)
+			@data = response.body
+
+			@ticket = @data[37,86]
+
+			str = "jsapi_ticket=#{@ticket}&noncestr=#{@noncestr}&timestamp=#{@timestamp}&url=http://wx.cd-peugeot.com/user/index"
+			@signature = Digest::SHA1.hexdigest(str)
+
+			
 		else
 			redirect_to "/user/login"
 		end

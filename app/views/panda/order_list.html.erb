@@ -14,7 +14,6 @@
 			        <tr>
 		            <th>时间</th>
 		            <th>使用积分额度</th>
-		            <th>状态</th>
 		            <th>备注</th>
 		            <th>操作</th>
 			        </tr>
@@ -30,9 +29,13 @@
 									</td>
 									<td>
 										<% if o.status == 1 %>
-										  	<font style="color:green">成功</font>
-										  	<% elsif o.status == 0 %>
-										  	<font style="color:red">失败</font>
+										  	<font style="color:green">未发货</font>
+										  	<% elsif o.status == 2 %>
+										  	<font style="color:green">已发货</font>
+										  	<% elsif o.status == 3 %>
+										  	<font style="color:green">完成</font>
+										  	<% else %>
+										  	<font style="color:green">无效订单</font>
 										<% end %>
 									</td>
 									<td>

@@ -46,7 +46,7 @@ class PandaController < ApplicationController
 
 	def order_list
 		if !current_admin.nil?
-			@orderlist = Order.order("create_time DESC")
+			@orderlist = Order.where("status > 0").order("create_time DESC")
 		else
 			redirect_to "/panda/login"
 		end
@@ -55,9 +55,22 @@ class PandaController < ApplicationController
 	def order_detail
 		if !current_admin.nil?
 			@order = Order.find_by(id: params[:id])
-			if !@order.nil? and @order.status == 1
+			if !@order.nil? and @order.status > 0
 				@itemlist = OrderItem.where(order_id: @order.id)
 				@shipping = OrderShipping.find_by(order_id: @order.id)
+			end
+		else
+			redirect_to "/panda/login"
+		end
+	end
+
+	def change_order_status
+		if !current_admin.nil?
+			@order = Order.find_by(id: params[:id])
+			if !@order.nil?
+				@order.status = params[:status]
+				@order.save
+				@resultMsg = "操作成功"
 			end
 		else
 			redirect_to "/panda/login"

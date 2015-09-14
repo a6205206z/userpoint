@@ -42,10 +42,12 @@
 				<div style="overflow:hidden">
 					<span style="color:red;float:left">
 						<% if o.status == 1 %>
-					  	<font style="color:green">成功</font>
-					  	<% elsif o.status == 0 %>
-					  	<font style="color:red">失败</font>
-					  	<% end %>
+						  	<font style="color:green">未发货</font>
+						  	<% elsif o.status == 2 %>
+						  	<font style="color:green">已发货</font>
+						  	<% elsif o.status == 3 %>
+						  	<font style="color:green">完成</font>
+						<% end %>
 					 </span>
 					 <span style="color:#999;float:left;margin-left:3px;"><%= o.remarks %></span>
 					 <span style="color:#999;">(<%= o.create_time.strftime("%Y-%m-%d %H:%M:%S") %>)</span>

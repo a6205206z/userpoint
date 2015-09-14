@@ -89,7 +89,7 @@ Rails.application.routes.draw do
   get 'panda/signout' => 'panda#sign_out'
   get 'panda/carowner' => 'panda#car_owner'
   get 'panda/passcarowner' => 'panda#pass_car_owner'
-
+  get 'panda/change_order_status' => 'panda#change_order_status'
   
   post 'panda/signin' => 'panda#sign_in'
 

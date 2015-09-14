@@ -4,7 +4,7 @@
 		border-left: 1px solid #ccc;
 	}
 </style>
-	<% if @order.nil?  or @order.status != 1 %>
+	<% if @order.nil?  or @order.status < 1 %>
 		<script type="text/javascript">
 			window.onload=function(){
 				alert('无效订单');
@@ -21,10 +21,12 @@
 					<span>订单创建时间:<%=@order.create_time.strftime("%Y-%m-%d %H:%M:%S") %></span><br/>
 					<span>订单状态:			
 						<% if @order.status == 1 %>
-					  		<font style="color:green">成功</font>
-					  	<% elsif @order.status == 0 %>
-					  		<font style="color:red">失败</font>
-					  	<% end %>
+						  	<font style="color:green">未发货</font>
+						  	<% elsif @order.status == 2 %>
+						  	<font style="color:green">已发货</font>
+						  	<% elsif @order.status == 3 %>
+						  	<font style="color:green">完成</font>
+						<% end %>
 					 </span><br/>
 			    </div>
 			</div>
@@ -84,7 +86,12 @@
 					<span>邮编：<%=@shipping.post_code %></span><br/>
 				</div>
 			</div>
-			<a type="button" href="/panda/orderlist" style="float:right;" class="am-btn am-btn-secondary" id="return">返回</a>
+			<a type="button" href="/panda/orderlist" style="float:right;" class="am-btn am-btn-secondary" id="return">返回</a>&nbsp;&nbsp;
+			<% if @order.status == 1%>
+			<a type="button" href="/panda/change_order_status?id=<%=@order.id %>&status=2" style="float:right;" class="am-btn am-btn-secondary" id="return">发货</a>
+			<% elsif @order.status == 2 %>
+			<a type="button" href="/panda/change_order_status?id=<%=@order.id %>&status=3" style="float:right;" class="am-btn am-btn-secondary" id="return">完成订单</a>
+			<% end %>
 		</div>
 	<% end %>
 <% end %>

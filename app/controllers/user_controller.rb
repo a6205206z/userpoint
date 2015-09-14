@@ -92,31 +92,41 @@ class UserController < ApplicationController
 			@carowner = CarOwner.find_by(user_id: current_user_info.id)
 			#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
 
-			@timestamp = rand(9999999999)
-			@noncestr = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
-			@secretstr = '6b24b7a8e45006b7d6fe2eb5b6a72a47'
-			@appid = 'wxf2a99d77725215d1'
+			if (Time.new - $WEIXIN_API_CACHE_TIME) >= 7200
+				$WEIXIN_API_CACHE_TIME = Time.new
+				@timestamp = rand(9999999999)
+				@noncestr = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
+				@secretstr = '6b24b7a8e45006b7d6fe2eb5b6a72a47'
+				@appid = 'wxf2a99d77725215d1'
 
-			uri = URI.parse("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{@appid}&secret=#{@secretstr}")
-			http = Net::HTTP.new(uri.host, uri.port)
-			http.use_ssl = true
-			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-			request = Net::HTTP::Get.new(uri.request_uri)
-			response = http.request(request)
-			@data = response.body
+				uri = URI.parse("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{@appid}&secret=#{@secretstr}")
+				http = Net::HTTP.new(uri.host, uri.port)
+				http.use_ssl = true
+				http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+				request = Net::HTTP::Get.new(uri.request_uri)
+				response = http.request(request)
+				@data = response.body
 
-			@token = @data[17,107]
+				@token = @data[17,107]
 
-			uri = URI.parse("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=#{@token}&type=jsapi")
-			http = Net::HTTP.new(uri.host, uri.port)
-			http.use_ssl = true
-			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-			request = Net::HTTP::Get.new(uri.request_uri)
-			response = http.request(request)
-			@data = response.body
+				uri = URI.parse("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=#{@token}&type=jsapi")
+				http = Net::HTTP.new(uri.host, uri.port)
+				http.use_ssl = true
+				http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+				request = Net::HTTP::Get.new(uri.request_uri)
+				response = http.request(request)
+				@data = response.body
 
-			@ticket = @data[37,86]
+				@ticket = @data[37,86]
 
+				$WEIXIN_API_TICKET = @ticket
+				$WEIXIN_API_TIMESTAMP = @timestamp
+				$WEIXIN_API_NONCESTR = @noncestr
+			else
+				@ticket = $WEIXIN_API_TICKET
+				@timestamp = $WEIXIN_API_TIMESTAMP
+				@noncestr = $WEIXIN_API_NONCESTR			
+			end
 			str = "jsapi_ticket=#{@ticket}&noncestr=#{@noncestr}&timestamp=#{@timestamp}&url=http://wx.cd-peugeot.com/user/index"
 			@signature = Digest::SHA1.hexdigest(str)
 
@@ -156,7 +166,7 @@ class UserController < ApplicationController
 
 	def order_detail
 		@order = Order.find_by(id: params[:id])
-		if !@order.nil? and @order.status == 1
+		if !@order.nil? and @order.status > 0
 			@itemlist = OrderItem.where(order_id: @order.id)
 			@shipping = OrderShipping.find_by(order_id: @order.id)
 		end

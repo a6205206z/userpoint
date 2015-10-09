@@ -105,6 +105,11 @@
 		<form class="am-form" action="/agency/inputbuycarinfo?agencyid=<%= @agency.id %>" method="post" ENCTYPE="multipart/form-data">
 			<div class="am-panel am-panel-default">
 				<div class="am-panel-hd">车辆信息</div>
+				<div class="am-panel-bd">
+						<label for="brand">品牌</label> <select id="brand" name="brand" /></select>
+						<label for="model">型号</label> <select id="model" name="model" /></select>
+						<label for="type">配置</label> <select id="type" name="type" /></select>
+				</div>
 			    <div class="am-panel-bd">
 
 						<div class="am-panel am-panel-default">
@@ -127,4 +132,9 @@
 		<% else %>
 		<a type="button" href="/user/index" class="am-btn am-btn-secondary" id="btn_return_full">返回</a>
 		<% end %>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$.car("brand","model","type");
+		});
+		</script>
 <% end %>

@@ -77,6 +77,16 @@ class AgencyController < ApplicationController
 										  	  :money_io_id => moneyioid,
 										  	  :create_time => Time.new,
 										  	  :status => 0
+
+				# if 2008 3008 point * 1.2 508 * 1.5
+				if !params[:model].nil? 
+					if params[:model].include? "2008" or params[:model].include? "3008"
+						buycarreq.status = 12
+					elsif params[:model].include? "508"
+						buycarreq.status = 15
+					end
+				end
+
 				if buycarreq.save
 					totalmoney = 0.00
 					if !moneyio.nil?

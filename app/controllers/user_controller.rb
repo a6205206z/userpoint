@@ -30,7 +30,7 @@ class UserController < ApplicationController
 			#create user code
 			code = CodeSource.new :user_id => new_user.id,
 					  :code => CodeSource.generate_code(new_user.login_name),
-					  :add_point => 100,
+					  :add_point => 200,
 					  :add_money => 500,
 					  :from_agency_id => 0,
 					  :remarks => "非车主代码",

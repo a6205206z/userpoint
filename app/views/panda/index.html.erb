@@ -11,13 +11,13 @@
 			<div class="am-panel-hd">审核购车基金</div>
 		    <div class="am-panel-bd">
 				<% if !@buycarrequests.nil? %>
-				<table class="am-table am-table-striped am-table-hover">
+				<table style="font-size:13px;" class="am-table am-table-striped am-table-hover">
 					<thead>
 				        <tr>
 			            <th>申请信息</th>
 			            <th>经销商</th>
 			            <th>申请时间</th>
-			            <th>备注</th>
+			            <th width="25%">备注</th>
 			            <th>发票</th>
 			            <th>状态</th>
 			            <th>操作</th>
@@ -61,12 +61,16 @@
 							  		<font style="color:green">审核通过</font>
 							  	<% elsif req.status == 2 %>
 							  		<font style="color:red">审核未通过</font>
+							  	<% elsif req.status == 12 %>
+							  		<font style="color:red">待审核 推荐积分奖励1.2倍</font>
+							  	<% elsif req.status == 15 %>
+							  		<font style="color:red">待审核 推荐积分奖励1.5倍</font>
 							  	<% else %>
 							  		<font style="color:red">异常</font>
 								<% end %>
 							</td>
 							<td>
-							<% if req.status == 0 %>
+							<% if req.status == 0 or req.status == 12 or req.status == 15 %>
 								<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=1">通过</a>
 								<a href="/panda/passbuycarrequest?reqid=<%= req.id%>&status=2">拒绝</a>
 							<% end %>

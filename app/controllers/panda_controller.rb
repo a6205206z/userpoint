@@ -94,7 +94,7 @@ class PandaController < ApplicationController
 					if carowner.save
 						code = CodeSource.find_by(user_id: carowner.user_id)
 						code.from_agency_id = carowner.agency_id
-						code.add_point = 200
+						code.add_point = 500
 						code.add_money = 1000
 						code.save
 					end
@@ -116,11 +116,15 @@ class PandaController < ApplicationController
 
 	def pass_buy_car_request
 		if !current_admin.nil?
-			request = BuyCarRequest.find_by(id: params[:reqid], status: 0)
+			request = BuyCarRequest.where("id = #{params[:reqid]} and (status = 0 or status > 10)").first()
 			if !request.nil?
-				request.status = params[:status] #0 待审核 1 审核通过 2 审核不通过
 				
+				point_rate = 1.0
+				if request.status > 10
+					point_rate = request.status.to_f / 10
+				end
 
+				request.status = params[:status] #0 待审核 1 审核通过 2 审核不通过
 				if request.save
 					moneyio_status = 1
 					if request.status == 1
@@ -141,15 +145,17 @@ class PandaController < ApplicationController
 					elsif moneyio_status ==3
 						user_code = CodeSource.find_by(code: moneyio.code)
 						if !user_code.nil?
+							add_point = user_code.add_point*point_rate
+
 							#add point to code user
 							code_user = UserInfo.find_by(id: user_code.user_id)
-							code_user.user_point +=  user_code.add_point
+							code_user.user_point += add_point
 							code_user.save
 
-														#add point io
+							#add point io
 							point_io = UserPointIO.new :user_id => code_user.id,
-										:point => user_code.add_point,
-										:remarks => "来自" << user.real_name << "的代码",
+										:point => add_point,
+										:remarks => "来自" << user.real_name << "购车基金",
 										:status => 1,
 										:operate_time => Time.new,
 										:from => "/user/addpoint/#{user.id}/#{params[:code]}",

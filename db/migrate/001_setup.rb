@@ -104,6 +104,7 @@ class Setup < ActiveRecord::Migration
 			t.column :inventory, :integer, :default => 0, :null => false
 			t.column :description, :string
 			t.column :create_time, :datetime, :null => false
+			t.column :status, :integer, :default => 0, :null => false
 		end
 
 		create_table :orders do |t|

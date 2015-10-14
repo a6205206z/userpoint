@@ -12,8 +12,17 @@ class MallController < ApplicationController
 		if offset < 0 
 			offset = 0
 		end
-		
-		@products = Product.order("sales_point,name")#.limit(5).offset(offset)
+		if !current_user_info.nil?
+			@carowner = CarOwner.find_by(user_id: current_user_info.id)
+			if !@carowner.nil? and @carowner.status == 1
+				@products = Product.where("status=2").order("sales_point,name")#.limit(5).offset(offset)
+			else
+				@products = Product.where("status=1").order("sales_point,name")#.limit(5).offset(offset)
+			end
+		else
+			@products = Product.where("status=1").order("sales_point,name")#.limit(5).offset(offset)
+		end
+
 	end
 
 	def product_detail

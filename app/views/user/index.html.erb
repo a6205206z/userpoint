@@ -1,4 +1,6 @@
 <% content_for :application do %>
+<%= stylesheet_link_tag 'swiper.min.css', media: 'all', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'swiper.min.js', 'data-turbolinks-track' => true %>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <style type="text/css">
 	li a,li a:hover,li a:active{
@@ -40,15 +42,60 @@
   padding: 5px;
   vertical-align: bottom;
   position: absolute;
-  bottom: -85px;
+  bottom: 85px;
   right: 0;
   width:240px;
 }
+.main-menu{
+	padding:0 10px;
+	overflow: hidden;
+}
+.main-menu li{
+	list-style: none;
+	float: left;
+	display: block;	
+	width: 25%;
+	margin-bottom: 10px;
+}
+.main-menu li a {
+	display: block;
+	font-size: 0.6em;
+	text-align: center;
+}
+.main-menu li a i{
+	border:1px solid rgba(255,255,255,0.1);
+	width: 100%;
+	font-size:6em;
+	display: block;
+	margin: 0 auto;
+	background-color:rgba(255,255,255,0.1);
+	margin-bottom: 5px;
+}
+.pics ul{
+	padding-left: 10px;
+	padding-right: 10px;
+	overflow: hidden;
+}
+.pics li{
+	float: left;
+	width: 50%;
+	list-style: none;
+	color: black;
+	background-color: white;
+	text-align: center;
+	padding:0%;
+	border:1px solid #3691de;
+}
+
+.pics img{
+	width: 100%;
+}
+
 </style>
-	<div class="index_bg" style="margin-bottom:100px;text-align:center;height:300px;line-height:250px;width:100%;position:relative;">
+	<div class="index_bg" style="margin-bottom:10px;text-align:center;height:300px;line-height:250px;width:100%;position:relative;">
 		<div class="userpanel">
 			<%= image_tag @user.profile, 'data-turbolinks-track' => true , :style => "width:80px;height:80px;border-radius:100%;float:right;"%>
-			<span style="display:block;color:red;position: relative; font-weight: bold;max-width:160px;overflow:hidden;margin-top:20px;"  data-am-modal="{target: '#my-alert'}">
+			<span style="display:block;color:red;position: relative; font-weight: bold;max-width:160px;overflow:hidden;margin-top:20px;" >
 			<% if !@carowner.nil? and @carowner.status == 1 %>
 				<%= @user.real_name %><span style="vertical-align: 5px; position: absolute; top: 4px; font-weight: 100; font-size: 0.7em;" >车主</span>
 			<% else %>
@@ -65,61 +112,154 @@
 			</span>
 		</div>
 	</div>
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide">
+				<div class="pics">
+					<ul>
+						<li>
+							<a href="http://408.peugeot.com.cn/">
+								<img src="/assets/cars/408.jpg">
+								<div>
+									标致408
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="http://508.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=508KW_%B3%B5%D0%CD-1%BC%B6_%B6%AB%B7%E7%B1%EA%D6%C2508&mz_ca=2010118&mz_sp=6vjnH&mz_kw=3631706&mz_sb=1">
+								<img src="/assets/cars/508.jpg">
+								<div>
+									标致508
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="swiper-slide">
+				<div class="pics">
+					<ul>
+						<li>
+							<a href="http://2008.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=2008KW_%B3%B5%D0%CD-1%BC%B6_%B6%AB%B7%E7%B1%EA%D6%C22008&mz_ca=2010119&mz_sp=6vjnL&mz_kw=3637869&mz_sb=1">
+								<img src="/assets/cars/2008.jpg">
+								<div>
+									标致2008
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="http://3008.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=3008KW_%B3%B5%D0%CD%B4%CA-1%BC%B6_3008&mz_ca=2010120&mz_sp=6vk6m&mz_kw=3640852&mz_sb=1">
+								<img src="/assets/cars/3008.jpg">
+								<div>
+									标致3008
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="swiper-slide">
+				<div class="pics">
+					<ul>
+						<li>
+							<a href="http://301.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=301KW_%B3%B5%D0%CD_%B6%AB%B7%E7%B1%EA%D6%C2301&mz_ca=2010115&mz_sp=6vjR5&mz_kw=3615260&mz_sb=1">
+								<img src="/assets/cars/301.jpg">
+								<div>
+									标致301
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="http://308.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=308KW_%C6%B7%C5%C6%D7%A8%C7%F8-1%BC%B6_%B6%AB%B7%E7%B1%EA%D6%C2308&mz_ca=2010116&mz_sp=6vjmt&mz_kw=3617517&mz_sb=1">
+								<img src="/assets/cars/308.jpg">
+								<div>
+									标致308
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="swiper-slide">
+				<div class="pics">
+					<ul>
+						<li>
+							<a href="http://308s.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B6%AB%B7%E7%B1%EA%D6%C2308S%B9%D9%CD%F8&utm_campaign=308SKW_%B3%B5%D0%CD%B4%CA_%B9%D9%CD%F8&mz_ca=2003921&mz_sp=6sJlB&mz_kw=2197241&mz_sb=1">
+								<img src="/assets/cars/308s.jpg">
+								<div>
+									标致308s
+								</div>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div style="width:100%">
-		<ul class="am-list am-list-static m-widget-list">
+		<ul class="main-menu">
 			<% if !@carowner.nil? and @carowner.status == 1 %>
+				<li class="bg">
+					<a data-am-modal="{target: '#my-alert'}" style="color:#ccc;">
+						<i class="am-icon-star am-icon-fw" style="color:red;"></i>
+						<span>车主信息</span>
+					</a>
+				</li>
 			<% else %>
-				<li class="bg" style="border-bottom:1px solid #eee;">
+				<li class="bg">
 					<a href="/agency/newcarowner" style="color:#ccc;">
 						<i class="am-icon-star am-icon-fw"></i>
-						<span style="margin-right:5px;">车主认证</span>
+						<span>车主认证</span>
 					</a>
 				</li>
 			<% end %>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/user/orderlist " style="color:#ccc;">
-					<i class="am-icon-shopping-cart am-icon-fw"></i>
-					<span style="margin-right:5px;">我的订单</span>
+					<i class="am-icon-check am-icon-fw"></i>
+					<span>我的订单</span>
 				</a>
 			</li>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/user/pointio " style="color:#ccc;">
 					<i class="am-icon-trophy am-icon-fw"></i>
-					<span style="margin-right:5px;">我的积分:</span><%=@user.user_point %> Point
+					<span>我的积分</span><br/><span><%=@user.user_point %> Point</span>
 				</a>
 			</li>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/user/moneyio" style="color:#ccc;">
 					<i class="am-icon-money am-icon-fw"></i>
-					<span style="margin-right:5px;">我的购车基金:</span><%=@user.user_money %>元
+					<span>我的购车基金</span><br/><span><%=@user.user_money %>元</span>
 				</a>
 			</li>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/user/buycarrequest" style="color:#ccc;">
 					<i class="am-icon-truck am-icon-fw"></i>
-					<span style="margin-right:5px;">我的购车记录
+					<span>我的购车记录
 				</a>
 			</li>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/mall/index" style="color:#ccc;">
 					<i class="am-icon-shopping-cart am-icon-fw"></i>
-					<span style="margin-right:5px;">积分商城</span>
+					<span>积分商城</span>
 				</a>
 			</li>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/user/inputcode" style="color:#ccc;">
 					<i class="am-icon-barcode am-icon-fw"></i>
-					<span style="margin-right:5px;">输入优惠码</span>
+					<span>输入优惠码</span>
 				</a>
 			</li>
-			<li class="bg" style="border-bottom:1px solid #eee;">
+			<li class="bg">
 				<a href="/user/signout" style="color:#ccc;">
 					<i class="am-icon-sign-out am-icon-fw"></i>
-					<span style="margin-right:5px;">退出登录</span>
+					<span>退出登录</span>
 				</a>
 			</li>
 		</ul>
 	</div>
+
 	<% if !@carowner.nil? and @carowner.status == 1 %>
 		<div class="am-modal am-modal-alert" style="color:black;" tabindex="-1" id="my-alert">
 		  <div class="am-modal-dialog">
@@ -144,6 +284,7 @@
 		  </div>
 		</div>
 	<% end %>
+	<p style="width:100%;text-align: center;color: #939393;font-size: 12px;">Copyright ©2015 PEUGEOT Corporation, All Rights Reserved</p>
 	<script type="text/javascript">
         wx.config({
 		    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -169,4 +310,7 @@
             
         }, false);
 	</script>
+	<script>
+    	var swiper = new Swiper('.swiper-container');
+    </script>
 <% end %>

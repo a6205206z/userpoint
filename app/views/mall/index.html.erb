@@ -50,6 +50,13 @@
 	}
 </style>
 	<div class="product">
+		<% if !@carowner.nil? and @carowner.status == 1 %>
+				<h1 style="text-align:center;"><i style="color:red" class="am-icon-shopping-cart am-icon-fw"></i>车主商城</h1>
+		<% else %>
+				<h1 style="text-align:center;"><i class="am-icon-shopping-cart am-icon-fw"></i>会员商城</h1>
+		<% end %>
+
+
 		<div style="width:100%;overflow:hidden;margin-bottom:45px;">
 			<ul class="productslist">
 				<% @products.each do |p| %>

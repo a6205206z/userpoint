@@ -27,7 +27,7 @@ class AgencyController < ApplicationController
 		if !current_user_info.nil?
 			agency = Agency.find_by(id: params[:agencyid])
 			if !agency.nil? and !params[:invoice].nil?
-				invoice_url = uploadFile(params[:invoice][:file])
+				invoice_url = uploadFile(params[:invoice][:file],"/public/invoice/upload/")
 				carowner = CarOwner.new :user_id => current_user_info.id,
 										:agency_id => params[:agencyid],
 										:invoice_url => invoice_url,
@@ -67,7 +67,7 @@ class AgencyController < ApplicationController
 		
 
 			if !params[:invoice].nil?
-				invoice_url = uploadFile(params[:invoice][:file])
+				invoice_url = uploadFile(params[:invoice][:file],"/public/invoice/upload/")
 				buycarreq = BuyCarRequest.new :user_id => current_user_info.id,
 										  	  :agency_id => params[:agencyid],
 										  	  :user_name => current_user_info.real_name,
@@ -112,25 +112,5 @@ class AgencyController < ApplicationController
 
 	def configure_charsets          
        @headers["Content-Type"]="text/html;charset=utf-8"      
-   	end      
-    
-	def uploadFile(file)    
-	   if !file.original_filename.empty?  
-	     #生成一个随机的文件名      
-	     @filename=getFileName(file.original_filename)         
-	     #向dir目录写入文件  
-	     File.open("#{RAILS_ROOT}/public/invoice/upload/#{@filename}", "wb") do |f|   
-	        f.write(file.read)  
-	     end   
-	       #返回文件名称，保存到数据库中  
-	     return @filename  
-	   end  
-	end   
-	  
-	def getFileName(filename)  
-	  if !filename.nil?  
-	   require 'uuidtools'  
-	     filename.sub(/.*./,UUIDTools::UUID.random_create.to_s+'.jpg')
-	   end  
-	end      
+   	end     
 end

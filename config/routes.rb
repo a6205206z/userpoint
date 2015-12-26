@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   get '/' => 'user#index'
   get 'user/index' => 'user#index'
   get 'user/signout' => 'user#sign_out'
+  get 'user/recommend' => 'user#recommend'
   get 'user/login'  => 'user#login'
   get 'user/register' => 'user#register'
   get 'user/pointio' => 'user#user_point_io'
@@ -77,6 +78,7 @@ Rails.application.routes.draw do
   post 'user/addpoint' => 'user#add_point_by_code'
   post 'mall/createshipping' => 'mall#create_shipping'
   post 'agency/inputbuycarinfo' => 'agency#input_buy_car_info'
+  post 'user/update_profile' => 'user#update_profile'
 
 
   #admin

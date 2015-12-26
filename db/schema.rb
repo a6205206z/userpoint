@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 1) do
     t.integer  "inventory",       limit: 4,   default: 0,  null: false
     t.string   "description",     limit: 255
     t.datetime "create_time",                              null: false
+    t.integer  "status",          limit: 4,   default: 0,  null: false
   end
 
   create_table "user_addresses", force: :cascade do |t|

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>活动规则</title>
+    <meta name="viewport" content="width=320,user-scalable=no,target-densitydpi=device-dpi" />
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+
+            font-family: "Microsoft YaHei UI";
+        }
+        .split{
+            background-color: #eaf6fd;
+            height:15px;
+        }
+        .container{
+            position: relative;
+            background-image: url('./img/background.png');
+            background-repeat:no-repeat;
+            background-position:center bottom;
+            background-size: 65%;
+        }
+        .topbar{
+            background-color: #fefefe;
+            line-height: 50px;
+            color:#172f5e;
+        }
+        .topbar .returnBtn{
+            position: absolute;
+            top:0;
+            left:28px;
+        }
+        .topbar .returnBtn:before{
+            content: "<";
+            left:-14px;
+            position: absolute;
+            font-weight: bold;
+            transform:scaleY(1.5);
+        }
+        .topbar .title{
+            margin:0;
+            text-align: center;
+        }
+
+        .section{
+            background: transparent;
+
+            border-top:1px solid rgba(160,247,246,0.8);
+        }
+        .section .textpanel{
+            padding: 60px 30px 40px;
+            font-size:14px;
+        }
+        .section .textpanel p {
+            margin: 0;
+        }
+        .section .textpanel p.title {
+           color:#444;
+        }
+        .section .textpanel p.itemtitle {
+            font-size: 16px;
+            font-weight: bold;
+            color:#e40082;
+            margin-top:20px;
+        }
+        .section .textpanel p.itemcontent{
+            margin-top:5px;
+            font-size: 12px;
+            color:#a8a8a8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!--<div class="topbar">-->
+        <!--<a class="returnBtn">返回</a>-->
+        <!--<h4 class="title">活动规则</h4>-->
+    <!--</div>-->
+    <div class="split"></div>
+    <div class="section">
+        <div class="textpanel">
+            <p class="title">
+                客户进入东风标致礼享家,完善个人信息即可生成专属优惠码,分享个人优惠码参与"东风标致礼享家"活动
+            </p>
+            <p class="title">可享多重好礼:</p>
+            <p class="itemtitle">好礼一</p>
+            <p class="itemcontent">进行车主认证即可获得洗车卡5张,享在购车网点5次免费洗车权利</p>
+            <p class="itemtitle">好礼二</p>
+            <p class="itemcontent">使用优惠码即可获得500元购车红包,购车时可直接抵扣车款</p>
+            <p class="itemtitle">好礼三</p>
+            <p class="itemcontent">使用优惠码购车,购车者认证车主完毕后可获A保卡2张,享在购车网点两次免费保养权利</p>
+            <p class="itemtitle">好礼四</p>
+            <p class="itemcontent">成功推荐新客户购车后,推荐者若是为认证车主,可获价值500元消费卡1张(限在购车网点使用),推荐者若为非认证车主,可获50元家乐福购物卡1张</p>
+            <p class="itemtitle">好礼五</p>
+            <p class="itemcontent">推荐者每成功推荐1位客户购车,即可点亮1颗荣誉五角星,点亮10颗后,即可获得"十星客户"奖励,7折购车卡1张</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,30 +1,114 @@
 <% content_for :application do %>
-<style type="text/css">
-	.inputcode{
-		width: 100%;
-		padding-top: 1em;
-		position: fixed;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		overflow: auto;
+ <style>
+        body{
+            padding: 0;
+            margin: 0;
 
-	}
-	#return{
-		width: 100%;
-		position: fixed;
-		font-size: 20px;
-		bottom:0;
-	}
-</style>
-	<div class="inputcode">
-		<form action="/user/addpoint" method="post">
-			<input style="display: block;line-height:30px;border:1px solid #3bb4f2;margin:10% auto 0;width: 80%;" type="text" name="code" id="code" />
-			<button style="display: block;margin:20px auto;width: 80%;" type="submit" class="am-btn am-btn-danger">输入优惠码</button>
-			<input type="hidden" value="Normal" name="msg" />
+            font-family: "Microsoft YaHei UI";
+        }
+        .split{
+            background-color: #eaf6fd;
+            height:15px;
+        }
+        .container{
+            position: relative;
+            background-image: url('/assets/background.png');
+            background-repeat:no-repeat;
+            background-position:center bottom;
+            background-size: 65%;
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+        }
+        .topbar{
+            background-color: #fefefe;
+            line-height: 50px;
+            color:#172f5e;
+        }
+        .topbar .returnBtn{
+            position: absolute;
+            top:0;
+            left:28px;
+        }
+        .topbar .returnBtn:before{
+            content: "<";
+            left:-14px;
+            position: absolute;
+            font-weight: bold;
+            transform:scaleY(1.5);
+        }
+        .topbar .title{
+            margin:0;
+            text-align: center;
+        }
+
+        .section{
+            background: transparent;
+
+            border-top:1px solid rgba(160,247,246,0.8);
+        }
+        .section .textpanel{
+            padding: 60px 30px 40px;
+            font-size:14px;
+        }
+        .section .textpanel p {
+            margin: 10px 0 0;
+            text-align: center;
+        }
+        .section .textpanel p .codeMain{
+            width: 80px;
+        }
+        .section .textpanel p .codetext{
+            width: 125px;
+        }
+        .section .textpanel p .code{
+            width: 160px;
+            font-size:20px;
+            border:1px solid #a0d9f6;
+            text-align: center;
+            padding: 5px;
+        }
+        .section .textpanel p .detailinfo{
+           text-decoration: none;
+            color:#a0d9f6;
+        }
+        .section .textpanel p .codebutton{
+            margin: 10px  0 100px 0;
+            width: 180px;
+        }
+        .get{
+            margin-top:30px!important;
+        }
+        .btn{
+
+            width:180px;
+            padding: 10px 0;
+            display: block;
+            background-color:#e40082;
+            color:white;
+            margin: 0 auto;
+            text-decoration: none;
+        }
+    </style>
+    <div class="container">
+	    <form action="/user/addpoint" method="post">
+		    <!--<div class="topbar">-->
+		        <!--<a class="returnBtn">返回</a>-->
+		        <!--<h4 class="title">活动规则</h4>-->
+		    <!--</div>-->
+		    <div class="split"></div>
+		    <div class="section">
+		        <div class="textpanel">
+		            <p><img src="/assets/3.png" class="codeMain" /></p>
+		            <p><img src="/assets/codetext.png" class="codetext" /></p>
+		            <p><input type="text" name="code" class="code" /></p>
+		            <p><a class="detailinfo" href="/rule.html">详细信息</a></p>
+		            <p class="get"><button href="#" class="btn">点击领取</button></p>
+		        </div>
+		    </div>
 		</form>
-		<a type="button" href="/user/index" class="am-btn am-btn-danger" id="return">返回</a>
 	</div>
 <% end %>
 

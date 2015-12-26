@@ -85,13 +85,9 @@ class UserController < ApplicationController
 		end
 	end
 
-	def index
+	def recommend
 		if !current_user_info.nil?
-			@user = UserInfo.find_by(id: current_user_info.id)
 			@user_code_my = CodeSource.find_by(user_id: current_user_info.id)
-			@carowner = CarOwner.find_by(user_id: current_user_info.id)
-			#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
-
 			if (Time.new - $WEIXIN_API_CACHE_TIME) >= 7200
 				$WEIXIN_API_CACHE_TIME = Time.new
 				@timestamp = rand(9999999999)
@@ -129,8 +125,19 @@ class UserController < ApplicationController
 			end
 			str = "jsapi_ticket=#{@ticket}&noncestr=#{@noncestr}&timestamp=#{@timestamp}&url=http://wx.cd-peugeot.com/user/index"
 			@signature = Digest::SHA1.hexdigest(str)
+		else
+			redirect_to "/user/login"
+		end
+	end
 
-			
+	def index
+		if !current_user_info.nil?
+			@user = UserInfo.find_by(id: current_user_info.id)
+			@user_code_my = CodeSource.find_by(user_id: current_user_info.id)
+			@carowner = CarOwner.find_by(user_id: current_user_info.id)
+			@orderCount = Order.where(user_id: current_user_info.id,status: 4).count
+
+			#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
 		else
 			redirect_to "/user/login"
 		end
@@ -269,8 +276,20 @@ class UserController < ApplicationController
 		end
 	end
 
-	private
+	def update_profile
+		if !current_user_info.nil?
+			@user = UserInfo.find_by(id: current_user_info.id)
+			#profile_url = uploadFile(params[:profile][:file],"/public/profile/upload/")
+			profile_url = params[:profile][:file]
+			@user.profile = profile_url
+			@user.save
+			@resultMsg = "头像更新成功！"
+		else
+			@resultMsg = "头像更新失败，请稍后再试"
+		end
+	end
 
+	private
 	def user_info_params
 		params.require(:user_info).permit(:login_name, :login_password, :real_name, :sex, :create_time, :user_point, :user_money, :profile, :persistence_token)
 	end

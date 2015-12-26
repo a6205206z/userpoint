@@ -1,0 +1,30 @@
+<% content_for :application do %>
+<style type="text/css">
+	.inputcode{
+		width: 100%;
+		padding-top: 1em;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow: auto;
+
+	}
+	#return{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
+</style>
+	<div class="inputcode">
+		<form action="/user/addpoint" method="post">
+			<input style="display: block;line-height:30px;border:1px solid #3bb4f2;margin:10% auto 0;width: 80%;" type="text" name="code" id="code" />
+			<button style="display: block;margin:20px auto;width: 80%;" type="submit" class="am-btn am-btn-danger">输入优惠码</button>
+			<input type="hidden" value="Normal" name="msg" />
+		</form>
+		<a type="button" href="/user/index" class="am-btn am-btn-danger" id="return">返回</a>
+	</div>
+<% end %>
+

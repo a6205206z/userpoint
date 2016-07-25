@@ -1,0 +1,213 @@
+<% content_for :application do %>
+<%= javascript_include_tag 'localResizeIMG.js', 'data-turbolinks-track' => true %>
+<style>
+    .split{
+        background-color: #eaf6fd;
+        height:15px;
+    }
+    .topbar{
+        background-color: #fefefe;
+        line-height: 50px;
+        color:#172f5e;
+    }
+    .topbar .returnBtn{
+        position: absolute;
+        top:0;
+        left:28px;
+    }
+    .topbar .returnBtn:before{
+        content: "<";
+        left:-14px;
+        position: absolute;
+        font-weight: bold;
+        transform:scaleY(1.5);
+    }
+    .topbar .title{
+        margin:0;
+        text-align: center;
+    }
+
+    .section{
+        background: transparent;
+
+        border-top:1px solid rgba(160,247,246,0.8);
+        border-bottom:1px solid rgba(160,247,246,0.8);
+    }
+    .section .menu{
+        padding-left: 12px;
+        margin:0;
+        /*border-bottom:1px solid #a0d9f6;*/
+    }
+    .section .menu + .menu{
+        border-top:1px solid #a0d9f6;
+    }
+    /*.section .menu:first-child{*/
+        /*border-top:1px solid #a0d9f6;*/
+    /*}*/
+    .section .menu li{
+        list-style: none;
+        border-bottom :1px solid #a0d9f6;
+        line-height: 55px;
+        height:55px;
+        padding-left: 12px;
+        color:#5c5756;
+        font-weight: 500;
+        font-size:14px;
+    }
+    .section .menu li:last-child{
+        border-bottom :0;
+
+    }
+    .section .menu li.afterArrow:after{
+        content: ">";
+        color:#a0d9f6;
+        right:14px;
+        position: absolute;
+        font-weight: bold;
+        transform:scaleY(1.5);
+    }
+    .section .menu li .title{
+        display: block;
+        float: left;
+        color:#333;
+    }
+    .section .menu li .menuContent{
+        display: block;
+        float: right;
+        height:100%;
+        margin-right:35px;
+        color:#757575;
+    }
+    .section .menu li .menuContent img{
+        height:70%;
+        vertical-align: middle;
+    }
+    body{
+
+    }
+</style>
+<div class="container">
+    <!--<div class="topbar">-->
+        <!--<a class="returnBtn">返回</a>-->
+        <!--<h4 class="title">个人信息</h4>-->
+    <!--</div>-->
+    <div class="split"></div>
+    <div class="section">
+        <ul class="menu">
+            <li class="afterArrow">
+                <span class="title">头像</span>
+                <span class="menuContent">
+                    <img onclick="$('#profile_file').click()" data-turbolinks-track="true" src="data:image/jpeg;base64,<%= @user.profile %>" >
+                </span>
+            </li>
+            <li class="afterArrow">
+	            <a href="/user/user_info_mod">
+	                 <span class="title">姓名</span>
+	                 <span class="menuContent"><%= @user.real_name %></span>
+                 </a>
+                 <a href="/user/user_info_mod" style="float:right;width:100px;">&nbsp;</a>
+            </li>
+        </ul>
+    </div>
+    <div class="split"></div>
+    <div class="section">
+        <ul class="menu">
+            <li class="afterArrow">
+            	<a href="/user/user_info_mod">
+	                <span class="title">性别</span>
+	                <span class="menuContent">
+	                <% if @user.sex == 1 %>
+	                	男
+	                <% else %>
+	                	女
+	                <% end %>
+	                </span>
+                </a>
+                <a href="/user/user_info_mod" style="float:right;width:100px;">&nbsp;</a>
+            </li>
+        </ul>
+    </div>
+    <div class="split"></div>
+    <div class="section">
+        <ul class="menu">
+            <li class="afterArrow">
+	            <a href="/user/user_info_mod">
+	                <span class="title">身份信息</span>
+	                <span class="menuContent"><%= @user.id_no %></span>
+                </a>
+                <a href="/user/user_info_mod" style="float:right;width:100px;">&nbsp;</a>
+            </li>
+            <li class="afterArrow">
+            	<a href="/user/user_info_mod">
+	                <span class="title">绑定手机</span>
+	                <span class="menuContent"><%= @user.login_name %></span>
+                </a>
+                <a href="/user/user_info_mod" style="float:right;width:100px;">&nbsp;</a>
+            </li>
+            <li class="afterArrow">
+            	<a href="/user/user_address">
+                <span class="title">收货地址</span>
+                <% if @address != nil %>
+                    <span class="menuContent"><%= @address.province %>&nbsp;<%= @address.city %></span>
+                <% end %>
+                </a>
+                <a href="/user/user_address" style="float:right;width:100px;">&nbsp;</a>
+            </li>
+            <li class="afterArrow">
+                <a href="/user/user_address">
+                <% if @address != nil %>
+                    <span class="menuContent"><%= @address.area %>&nbsp;<%= @address.address %></span>
+                <% end %>
+                </a>
+                <a href="/user/user_address" style="float:right;width:100px;">&nbsp;</a>
+            </li>
+        </ul>
+        <ul class="menu">
+            <li>
+                <span class="title">推荐成功数量</span>
+                <span class="menuContent"><%=@user.user_point/500%></span>
+            </li>
+        </ul>
+    </div>
+</div>
+<a id="loading" data-am-modal="{target: '#loading-alert'}" style="display:none;"></a>
+<div class="am-modal am-modal-alert" style="color:black;" tabindex="-1" id="loading-alert">
+	<div class="am-modal-dialog">
+	  	<div class="am-modal-hd">
+	    <span class="am-icon-star" data-am-modal="{target: '#my-alert'}">等待...</span>
+	    </div>
+	    <div class="am-modal-hd">
+	    <img src="/assets/loading.gif" />正在上传图片
+	    </div>
+	 </div>
+</div>
+<div style="display:none;">
+	<form class="am-form" action="/user/update_profile" method="post" ENCTYPE="multipart/form-data">
+		<%= file_field "profile","file",  :accept => "image/jpeg", :capture => "camera" %>
+	</form>
+</div>
+<script type="text/javascript">        
+$('input:file').localResizeIMG({
+        width: 500,
+        quality: 0.8,
+        success: function (result) {
+            var img = new Image();
+            img.src = result.base64;
+            $("#loading").click();
+            $.ajax({
+                url: '/user/update_profile',
+                type: 'POST',
+                data: {"profile[file]": result.clearBase64},
+                dataType: 'HTML',
+                timeout: 1000,
+                error: function (err) {
+                    window.location.href="/user/index"
+                },
+                success: function (result) {
+                	window.location.href="/user/index"
+                }
+            });
+        }
+    });    
+</script>
+<% end %>

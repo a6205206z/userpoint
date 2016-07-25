@@ -1,25 +1,39 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- */
 body{
-	background:url('bg.png') repeat;
-	color:#fefefe;
-	padding-bottom: 50px;
+    padding: 0;
+    margin: 0;
+
+    font-family: "Microsoft YaHei UI";
 }
-.am-form,.am-panel,input{
-	color:#333;
+.split{
+    background-color: #eaf6fd;
+    height:15px;
 }
-.bg{background:url('bg.png') repeat;}
-.index_bg{background:#3bb4f2 url('bg-s.jpg') no-repeat center;background-size: 100% 100%}
+.container{
+    position: relative;
+    background-image: url('/assets/background.png');
+    background-repeat:no-repeat;
+    background-position:center bottom;
+    background-size: 65%;
+    padding-bottom: 100px;
+}
+.topbar{
+    background-color: #fefefe;
+    line-height: 50px;
+    color:#172f5e;
+}
+.topbar .returnBtn{
+    position: absolute;
+    top:0;
+    left:28px;
+}
+.topbar .returnBtn:before{
+    content: "<";
+    left:-14px;
+    position: absolute;
+    font-weight: bold;
+    transform:scaleY(1.5);
+}
+.topbar .title{
+    margin:0;
+    text-align: center;
+}

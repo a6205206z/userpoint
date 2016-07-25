@@ -1,61 +1,98 @@
 
 <% content_for :application do %>
 <style type="text/css">
-	.orderlist{
-		width: 100%;
-		padding-top: 1em;
-		position: fixed;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		overflow: auto;
-		margin-bottom: 50px;
-	}
-	#return{
-		width: 100%;
-		position: fixed;
-		font-size: 20px;
-		bottom:0;
-	}
-	.list{
-	  border: 1px solid #eee;
-	  border-radius: 5px;
-	  line-height: 20px;
-	  margin-bottom: 5px;
-	  margin-left: 5px;
-	  margin-right: 5px;
-	  overflow: hidden;
-	  padding: 5px;
-	}
+.cards{
+   
+    padding:0;
+    margin-left: 12px;
+    overflow:hidden;
+}
+.cards li{
+    list-style:none;
+   
+    display:block;
+    float:left;
+    width: 90px;
+    margin-right: 12px;
+    margin-bottom : 12px;
+    position:relative;
+}
+.cards a {
+    text-decoration:none;
+}
+.cards a .title{
+    text-decoration:none;
+    font-size: 10px;
+    text-align: center;
+    margin: 0;
+    color: #333;
+    line-height: 20px;
+}
+.card{
+    box-sizing:border-box;
+    width:100%;
+    height: 100px;
+    border:1px solid #c6e8fa;
+    text-align:center;
+    position:relative;
+}
+.card img{
+    width: 86%;
+    margin-top:23%;
+}
+.card p{
+    background-color:#008fd7;
+    color:#fefefe;
+    font-size: 1px;
+    padding:1px 4px;
+    position:absolute;
+    bottom: 1px;
+    right: 7px;
+    margin: 0;
+}
+.cards li .used{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:rgba(200,200,200,0.6);
+    background-image: url('/assets/icon-used.png');
+    background-position:center center;
+    background-size:90% ;
+    background-repeat:no-repeat;
+}
 </style>
-<div class="orderlist">
-	<h1 style="text-align:center;"><i class="am-icon-check am-icon-fw"></i>我的订单</h1>
-	<% if @orderlist%>
-
-			<% @orderlist.each do |o| %>
-
-			  <div class="list">
-				<div style="overflow:hidden">
-					<span style="font-size:20px;color:red;float:left"><%= o.order_point %>积分</span>
-				</div>
-				<div style="overflow:hidden">
-					<span style="color:red;float:left">
-						<% if o.status == 1 %>
-						  	<font style="color:green">未发货</font>
-						  	<% elsif o.status == 2 %>
-						  	<font style="color:green">已发货</font>
-						  	<% elsif o.status == 3 %>
-						  	<font style="color:green">完成</font>
-						<% end %>
-					 </span>
-					 <span style="color:#999;float:left;margin-left:3px;"><%= o.remarks %></span>
-					 <span style="color:#999;">(<%= o.create_time.strftime("%Y-%m-%d %H:%M:%S") %>)</span>
-					 <span style="color:#999;float:right;"><a href="/user/order/<%=o.id %>">订单详情</a></span>
-				</div>
-			</div>
+   <div class="container">
+        <div class="split"></div>
+        <div class="section">
+            <ul class="cards">
+            <% if @orderlist%>
+				<% @orderlist.each do |o| %>
+				<% 
+				@item = OrderItem.find_by(order_id: o.id) 
+				@product = Product.find_by(id: @item.product_id)
+				%>
+				<li>
+					<% if o.status != 4 %>
+                    <a onclick="return confirm('是否确认使用？')" href="/user/use_order?oid=<%= o.id %>">
+                    <% else %>
+                    <a href="#">
+                    <% end %>
+                        <div class="card">
+                            <%= image_tag @product.product_img_url, 'data-turbolinks-track' => true %>
+                            <p>点击使用</p>
+                        </div>
+                        <p class="title"><%= @product.name %></p>
+                    </a>
+                    <% if o.status == 4 %>
+	                    <div class="used">
+	                    </div>
+                    <% end %>
+                </li>
+				<% end %>
 			<% end %>
-	<% end %>
-</div>
-<a type="button" href="/user/index" class="am-btn am-btn-danger" id="return">返回</a>
+            </ul>
+        </div>
+    </div>
 <% end %>

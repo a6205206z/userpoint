@@ -12,4 +12,25 @@ class UserInfo < ActiveRecord::Base
 	end
 
 	validates :login_name, :presence => true, :uniqueness => {:message => "This login_name has been used"}
+
+	def self.isFullInfo(id)
+		user = UserInfo.find_by(id: id)
+
+	 	if user.id_no == nil or user.id_no == ""
+	 		return false
+		end
+	 	if user.real_name == nil or user.real_name == ""
+	 		return false
+	 	end
+	 	if user.login_name == nil or user.login_name == ""
+	 		return false
+	 	end
+
+		useraddress = UserAddresses.find_by(user_id: id)
+	 	if useraddress == nil
+	 		return false
+	 	end
+
+		return true
+	end
 end

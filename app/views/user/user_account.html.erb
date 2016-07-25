@@ -1,0 +1,105 @@
+<% content_for :application do %>
+<style type="text/css">
+.section{
+    background: transparent;
+
+    border-top:1px solid rgba(160,247,246,0.8);
+    border-bottom:1px solid rgba(160,247,246,0.8);
+}
+.section .menu{
+    padding-left: 12px;
+    margin:0;
+    /*border-bottom:1px solid #a0d9f6;*/
+}
+.section .menu + .menu{
+    border-top:1px solid #a0d9f6;
+}
+/*.section .menu:first-child{*/
+/*border-top:1px solid #a0d9f6;*/
+/*}*/
+.section .menu li{
+    list-style: none;
+    border-bottom :1px solid #a0d9f6;
+    line-height: 55px;
+    height:55px;
+    padding-left: 12px;
+    color:#5c5756;
+    font-weight: 500;
+    font-size:14px;
+}
+.section .menu li:last-child{
+    border-bottom :0;
+
+}
+.section .menu li.afterArrow:after{
+    content: ">";
+    color:#a0d9f6;
+    right:14px;
+    position: absolute;
+    font-weight: bold;
+    transform:scaleY(1.5);
+}
+.section .menu li a {
+    display:block;
+    overflow: hidden;
+}
+.section .menu li .title{
+    display: block;
+    float: left;
+    color:#333;
+}
+.section .menu li .menuContent{
+    display: block;
+    float: right;
+    height:100%;
+    margin-right:35px;
+    color:#757575;
+}
+.section .menu li .menuContent img{
+    height:70%;
+    vertical-align: middle;
+}
+.cardsCount{
+    background-image: url('/assets/huiicon.png');
+    padding-left:40px;
+    background-repeat:no-repeat;
+    line-height:40px;
+}
+.moneyCount{
+    background-image: url('/assets/walleticon.png');
+    padding-left: 33px;
+    background-repeat:no-repeat;
+    line-height: 25px;
+    /* height: 40px; */
+    display: inline-block;
+    background-size: contain;
+}
+</style>
+<div class="container">
+    <!--<div class="topbar">-->
+        <!--<a class="returnBtn">返回</a>-->
+        <!--<h4 class="title">个人信息</h4>-->
+    <!--</div>-->
+    <div class="split"></div>
+    <div class="section">
+        <ul class="menu">
+            <li >
+                <a href="/user/orderlist">
+                    <span class="title">我的卡包</span>
+                    <span class="menuContent">
+                        <span class="cardsCount"><%=@orderCount %></span>张
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/user/moneyio">
+                     <span class="title">购车红包</span>
+                     <span class="menuContent">
+                         <span class="moneyCount"><%=@user.user_money %></span>元
+                     </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<% end %>

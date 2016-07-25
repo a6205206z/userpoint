@@ -1,6 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <meta name="viewport" content="width=320,user-scalable=no,target-densitydpi=device-dpi" />
+    <style type="text/css">
+    body{
+    padding: 0;
+    margin: 0;
 
-<% content_for :application do %>
-<style type="text/css">
+    font-family: "Microsoft YaHei UI";
+}
+.split{
+    background-color: #eaf6fd;
+    height:15px;
+}
+.container{
+    position: relative;
+    background-image: url('../img/background.png');
+    background-repeat:no-repeat;
+    background-position:center bottom;
+    background-size: 65%;
+    padding-bottom: 100px;
+}
+.topbar{
+    background-color: #fefefe;
+    line-height: 50px;
+    color:#172f5e;
+}
+.topbar .returnBtn{
+    position: absolute;
+    top:0;
+    left:28px;
+}
+.topbar .returnBtn:before{
+    content: "<";
+    left:-14px;
+    position: absolute;
+    font-weight: bold;
+    transform:scaleY(1.5);
+}
+.topbar .title{
+    margin:0;
+    text-align: center;
+}
 .moneysList{
     padding :10px;
     margin-bottom: 0;
@@ -15,7 +58,7 @@
     color:#e40082;
     font-size: 27px;
     font-weight:bold;
-    background-image: url('/assets/walleticon.png');
+    background-image: url('../img/walleticon.png');
     background-repeat: no-repeat;
     display: inline-block;
     line-height: 36px;
@@ -40,7 +83,7 @@
     color:#fadad1;
     font-size: 27px;
     font-weight:bold;
-    background-image: url('/assets/walleticon.png');
+    background-image: url('../img/walleticon.png');
     background-repeat: no-repeat;
     display: inline-block;
     line-height: 36px;
@@ -108,91 +151,57 @@
     color:#172f5e;
     font-weight:bold;
 }
-</style>
+    </style>
+</head>
+<body>
 <div class="container">
     <div class="section">
-        <ul class="moneysList">
-        <% if @money_ios%>
-
-			<% @money_ios.each do |m| %>
-			<% if m.status == 1 %>
-            <li>
-            <% else %>
-			<li class="used">
-        	<% end %>
-                <a>
-                    <span class="money">
-
-                        <%= m.money %><span>元</span>
-                    </span>
-                    <% if m.status == 1 %>
-				  		<p><a href="/agency/buycar?agencyid=<%= m.from_agency_id%>&moneyioid=<%= m.id%>">使用</a></p>
-				  	<% elsif m.status == 2 %>
-				  		<p style="color:red">使用中</p>
-				  	<% elsif m.status == 3 %>
-				  		<p style="color:red">已使用</p>
-				  	<% else %>
-				  		<p style="color:red">异常</p>
-					<% end %>
-                </a>
-            </li>
-            <% end %>
-		<% end %>
-        </ul>
-        <p class="infotip">
-            使用方式:在店内购车付款前请点击使用,<br/>
-            向销售人员出示购车红包即可减免500元现金<br/>
-            (每次购车仅能使用一个购车红包)
-        </p>
-        <a href="/rule.html" class="moreInfo">详细信息</a>
-    </div>
-    <div class="section">
         <div class="title">全部车型</div>
-        <ul class="carList">
+            <ul class="carList">
             <li>
-               <a href="http://301.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=301KW_%B3%B5%D0%CD_%B6%AB%B7%E7%B1%EA%D6%C2301&mz_ca=2010115&mz_sp=6vjR5&mz_kw=3615260&mz_sb=1">
+               <a href="http://m.peugeot.com.cn/car/301/?2851&">
                    <img src="/assets/car-301.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">301</span>
                </a>
             </li>
             <li>
-               <a href="http://308.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=308KW_%C6%B7%C5%C6%D7%A8%C7%F8-1%BC%B6_%B6%AB%B7%E7%B1%EA%D6%C2308&mz_ca=2010116&mz_sp=6vjmt&mz_kw=3617517&mz_sb=1">
+               <a href="http://m.peugeot.com.cn/car/308/?65&">
                    <img src="/assets/car-308.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">308</span>
                </a>
             </li>
             <li>
-               <a href="http://308s.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B6%AB%B7%E7%B1%EA%D6%C2308S%B9%D9%CD%F8&utm_campaign=308SKW_%B3%B5%D0%CD%B4%CA_%B9%D9%CD%F8&mz_ca=2003921&mz_sp=6sJlB&mz_kw=2197241&mz_sb=1">
+               <a href="http://m.peugeot.com.cn/car/308s/?3874&">
                    <img src="/assets/car-308s.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">308S</span>
                </a>
             </li>
             <li>
-               <a href="http://408.peugeot.com.cn/">
+               <a href="http://m.peugeot.com.cn/car/new408/?3362&">
                    <img src="/assets/car-408.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">408</span>
                </a>
             </li>
             <li>
-               <a href="http://508.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=508KW_%B3%B5%D0%CD-1%BC%B6_%B6%AB%B7%E7%B1%EA%D6%C2508&mz_ca=2010118&mz_sp=6vjnH&mz_kw=3631706&mz_sb=1">
+               <a href="http://m.peugeot.com.cn/car/508/?67&">
                    <img src="/assets/car-508.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">508</span>
                </a>
             </li>
             <li>
-               <a href="http://2008.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=2008KW_%B3%B5%D0%CD-1%BC%B6_%B6%AB%B7%E7%B1%EA%D6%C22008&mz_ca=2010119&mz_sp=6vjnL&mz_kw=3637869&mz_sb=1">
+               <a href="http://m.peugeot.com.cn/car/2008/?3058&">
                    <img src="/assets/car-2008.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">2008</span>
                </a>
             </li>
             <li>
-               <a href="http://3008.peugeot.com.cn/?utm_source=baidu&utm_medium=cpc&utm_term=%B3%B5%D0%CD%B4%CA&utm_campaign=3008KW_%B3%B5%D0%CD%B4%CA-1%BC%B6_3008&mz_ca=2010120&mz_sp=6vk6m&mz_kw=3640852&mz_sb=1">
+               <a href="http://m.peugeot.com.cn/car/3008/?68&">
                    <img src="/assets/car-3008.jpg">
                    <span class="brand">东风标致</span>
                    <span class="model">3008</span>
@@ -201,4 +210,5 @@
         </ul>
     </div>
 </div>
-<% end %>
+</body>
+</html>

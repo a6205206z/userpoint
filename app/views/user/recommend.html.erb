@@ -1,117 +1,96 @@
 <% content_for :application do %>
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <style>
-    body{
-        padding: 0;
-        margin: 0;
+ .section{
+    background: transparent;
 
-        font-family: "Microsoft YaHei UI";
-    }
-    .split{
-        background-color: #eaf6fd;
-        height:15px;
-    }
-    .container{
-        position: relative;
-        background-image: url('/assets/background.png');
-        background-repeat:no-repeat;
-        background-position:center bottom;
-        background-size: 65%;
-        position: absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-    }
-    .topbar{
-        background-color: #fefefe;
-        line-height: 50px;
-        color:#172f5e;
-    }
-    .topbar .returnBtn{
-        position: absolute;
-        top:0;
-        left:28px;
-    }
-    .topbar .returnBtn:before{
-        content: "<";
-        left:-14px;
-        position: absolute;
-        font-weight: bold;
-        transform:scaleY(1.5);
-    }
-    .topbar .title{
-        margin:0;
-        text-align: center;
-    }
+    border-top:1px solid rgba(160,247,246,0.8);
+}
+.section .textpanel{
+    padding: 60px 30px 40px;
+    font-size:14px;
+}
+.section .textpanel p {
+    margin: 5px 0 0;
+    text-align: center;
+}
+.section .textpanel p .codeMain{
+    width: 80px;
+}
+.section .textpanel p .codetext{
+    width: 125px;
+}
+.section .textpanel p .code{
+    width: 160px;
+    font-size:20px;
+    border:1px solid #a0d9f6;
+    text-align: center;
+    padding: 5px;
+}
+.section .textpanel p .detailinfo{
+    text-decoration: none;
+    color:#a0d9f6;
+}
+.section .textpanel p .codebutton{
+    margin: 10px  0 100px 0;
+    width: 180px;
+}
+.text12{
+    font-size:12px;
+    color:#7e7e7e;
+}
+.text20{
+    font-size:20px;
+    color:#172f5e;
+    font-weight: bold;
+}
+.text16{
+    font-size:16px;
+    width:180px;
+    color:#333;
+    margin: 5px auto!important;
+    text-align: left!important;
+}
+.text16 span span{
+    color:#e40082;
+    font-weight: bold;
+}
+.send{
+    margin-top: 30px!important;
+}
+.btn{
 
-    .section{
-        background: transparent;
-
-        border-top:1px solid rgba(160,247,246,0.8);
-    }
-    .section .textpanel{
-        padding: 60px 30px 40px;
-        font-size:14px;
-    }
-    .section .textpanel p {
-        margin: 5px 0 0;
-        text-align: center;
-    }
-    .section .textpanel p .codeMain{
-        width: 80px;
-    }
-    .section .textpanel p .codetext{
-        width: 125px;
-    }
-    .section .textpanel p .code{
-        width: 160px;
-        font-size:20px;
-        border:1px solid #a0d9f6;
-        text-align: center;
-        padding: 5px;
-    }
-    .section .textpanel p .detailinfo{
-        text-decoration: none;
-        color:#a0d9f6;
-    }
-    .section .textpanel p .codebutton{
-        margin: 10px  0 100px 0;
-        width: 180px;
-    }
-    .text12{
-        font-size:12px;
-        color:#7e7e7e;
-    }
-    .text20{
-        font-size:20px;
-        color:#172f5e;
-        font-weight: bold;
-    }
-    .text16{
-        font-size:16px;
-        width:180px;
-        color:#333;
-        margin: 5px auto!important;
-        text-align: left!important;
-    }
-    .text16 span span{
-        color:#e40082;
-        font-weight: bold;
-    }
-    .send{
-        margin-top: 30px!important;
-    }
-    .btn{
-
-        width:180px;
-        padding: 10px 0;
-        display: block;
-        background-color:#e40082;
-        color:white;
-        margin: 0 auto;
-        text-decoration: none;
-    }
+    width:180px;
+    padding: 10px 0;
+    display: block;
+    background-color:#e40082;
+    color:white;
+    margin: 0 auto;
+    text-decoration: none;
+}
+.container,.mask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.mask{
+    display:none;
+    background-color: rgba(0,0,0,0.8);
+    text-align:center;
+}
+.mask img{
+    width:60%;
+    position:absolute;
+    right:15px;
+    top:5px;
+}
+.mask p{
+    color:#fbfbfb;
+    margin-top:200px;
+    line-height:30px;
+}
 </style>
 <div class="container">
     <!--<div class="topbar">-->
@@ -122,19 +101,35 @@
     <div class="section">
         <div class="textpanel">
             <p><img src="/assets/icon-recommend.png" class="codeMain" /></p>
-            <p class="text12">分享您的优惠码</p>
+            <p class="text12">分享优惠码</p>
             <p class="text20">
-        		<% if !@user_code_my.nil? %>
-			       优惠代码:<%=@user_code_my.code %>
-			       <input type="hidden" id="mycode" value="<%=@user_code_my.code %>" />
+        		<% if @code != nil %>
+			       优惠代码:<%=@code %>
+			       <input type="hidden" id="mycode" value="<%=@code %>" />
 			    <% else %>
-			   		成为正式会员，获取优惠代码。
+			   		没有优惠代码。
 			    <% end %>
             </p>
+            <% if !current_user_info.nil? %>
             <p class="text16"><span>当您的朋友使用优惠码购车,您将获得<span>500</span>积分</span></p>
-            <p><a class="detailinfo" href="#">详细信息</a></p>
-            <p class="send"><a class="btn" href="#">发送给朋友</a></p>
+            <% else %>
+            <p class="text16"><span>当您使用朋友的优惠码购车,您将获得<span>500</span>元红包</span></p>
+            <% end %>
+            <p><a class="detailinfo" href="/rule.html">详细信息</a></p>
+            <% if !current_user_info.nil? %>
+            <p class="send"><a id="send" class="btn" href="#" class="btn" href="#">发送给朋友</a></p>
+            <% else %>
+            <p class="send"><a href="/user/login">赶紧加入，使用优惠码</a></p>
+            <% end %>
         </div>
+    </div>
+    <div class="mask" id="share">
+        <img src="/assets/rightcorner.png"/>
+        <p>
+            请点击右上角<br/>
+            将他发送给指定朋友<br/>
+            或分享到朋友圈
+        </p>
     </div>
 </div>
 <script type="text/javascript">
@@ -149,8 +144,8 @@
     // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
     	wx.onMenuShareTimeline({
-		    title: '礼享家-快使用我的专属代码【<%=@user_code_my.code %>】享受优惠吧', // 分享标题
-		    link: 'http://wx.cd-peugeot.com/user/index', // 分享链接
+		    title: '礼享家-快使用我的专属代码【<%=@code %>】享受优惠吧', // 分享标题
+		    link: 'http://wx.cd-peugeot.com/user/recommend?code=<%=@code %>', // 分享链接
 		    imgUrl: 'http://wx.cd-peugeot.com/assets/logo.png', // 分享图标
 		    success: function () { 
 		        // 用户确认分享后执行的回调函数
@@ -161,5 +156,15 @@
 		});
         
     }, false);
+</script>
+<script type="text/javascript">
+    window.onload = function(){
+        document.getElementById('send').onclick = function(){
+            document.getElementById('share').style.display = 'block';
+        }
+        document.getElementById('share').onclick = function(){
+            document.getElementById('share').style.display = 'none';
+        }
+    }
 </script>
 <% end %>

@@ -4,19 +4,6 @@
 <%= javascript_include_tag 'mobileBUGFix.mini.js', 'data-turbolinks-track' => true %>
 <%= javascript_include_tag 'swiper.min.js', 'data-turbolinks-track' => true %>
     <style>
-        body{
-            padding: 0;
-            margin: 0;
-            font-family: "Microsoft YaHei UI";
-        }
-        .container{
-            position: relative;
-            background-image: url('/assets/background.png');
-            background-repeat:no-repeat;
-            background-position:center bottom;
-            background-size: 65%;
-            padding-bottom: 100px;
-        }
         .userinfo{
             height : 110px;
             line-height: 110px;
@@ -105,7 +92,7 @@
             color:#e40082;
         }
         .menu{
-            padding: 20px 0 0 5px ;
+            padding: 20px 0 0 10% ;
             margin:0;
             overflow: hidden;
 
@@ -141,23 +128,22 @@
             </div>
             <div class="account">
                 <div class="username"><%= @user.real_name %></div>
-                <div class="weixinname">weixin112</div>
+                <div class="weixinname"></div>
                 <div>
                     <ul class="countstar">
+                        <% for i in 0..(@user.user_point/500 - 1)  %>
                         <li class="color">★</li>
-                        <li class="color">★</li>
-                        <li class="color">★</li>
-                        <li class="color">★</li>
+                        <% end %>
+                        <% for i in 0..(9 - @user.user_point/500)  %>
                         <li>★</li>
-                        <li>★</li>
-                        <li>★</li>
-                        <li>★</li>
-                        <li>★</li>
-                        <li>★</li>
+                        <% end %>
                     </ul>
                 </div>
             </div>
-            <img class="tip" src="/assets/userinfotip.png"/>
+            <% if !@isFullInfo %>
+            <a href="/user/user_info"><img class="tip" src="/assets/userinfotip.png"/></a>
+            <% end %>
+            <a href="/user/user_info" style="float:right;width:100px;">&nbsp;</a>
         </div>
         <div class="card">
             <span class="moneylabel">我的卡包:</span><img src="/assets/huiicon.png" /><a href="/user/orderlist"><span class="number"><%=@orderCount %></span></a>张
@@ -166,6 +152,7 @@
             <span class="moneylabel">购车红包:</span><img src="/assets/walleticon.png" /><a href="/user/moneyio"><span  class="number"><%=@user.user_money %></span></a>元
         </div>
         <ul class="menu">
+        <% if !@carowner.nil? and @carowner.status == 1 %>
             <li>
 	            <a>
 	                <div>
@@ -175,8 +162,18 @@
 	                </div>
                 </a>
             </li>
+        <% else %>
             <li>
-	             <a>
+                <a href="/agency/newcarowner">
+                    <div>
+                        <img src="/assets/icon-1.png">
+                        车主认证
+                    </div>
+                </a>
+            </li>
+        <% end %>
+            <li>
+	             <a href="/user/moneyio">
 	                <div>
 	                    <img src="/assets/icon-2.png">
 	                    我要购车
@@ -192,7 +189,7 @@
                 </a>
             </li>
             <li>
-            	<a>
+            	<a href="/user/user_account">
 	                <div>
 	                    <img src="/assets/icon-4.png">
 	                    我的账户
@@ -200,7 +197,7 @@
                 </a>
             </li>
             <li>
-	            <a href="/user/recommend">
+	            <a href="/user/recommend?code=<%=@user_code_my.code %>">
 	                <div>
 	                    <img src="/assets/icon-5.png">
 	                    推荐给朋友
@@ -208,7 +205,7 @@
                 </a>
             </li>
             <li>
-	            <a>
+	            <a href="/rule.html">
 	                <div>
 	                    <img src="/assets/icon-6.png">
 	                    活动规则

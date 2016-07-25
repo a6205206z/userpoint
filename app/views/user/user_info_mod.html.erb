@@ -1,8 +1,5 @@
 <% content_for :application do %>
 <style type="text/css">
-	body{
-		background-color: #eee;
-	}
 	#sex1,#sex0{
 		position: absolute;
 		left: -999em;
@@ -16,36 +13,34 @@
 	}
 	
 </style>
-<%= image_tag "logo.png", 'data-turbolinks-track' => true , :style => "width:100px;margin:20px 0px 0px 20px;"%>
-<div style="width:80%;margin:10% auto;">
-	<%= form_for @user, url: {action: "create_user", :controller=>"user"} do |u| %>
-	  	<div class="am-input-group divusername">
-		  <span class="am-input-group-label"><i class="am-icon-mobile-phone am-icon-fw"></i></span>
-		  <%= u.text_field :login_name ,:placeholder=>"请输入手机号",:class=>"am-form-field"%>
-		</div>
-		<div class="am-input-group divpass" style="margin-top:-1px;">
-		  <span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
-		  <%= u.password_field :login_password, :id => "login_password" ,:placeholder=>"请输入密码",:class=>"am-form-field"%></p>
-		</div>
-		<div class="am-input-group divpassagain" style="margin-top:-1px;">
-		  <span class="am-input-group-label"><i class="am-icon-wrench am-icon-fw"></i></span>
-		  <input type="password" id="login_password_repeat" class="am-form-field" placeholder="请确认密码">
-		</div>
-		<div class="am-input-group divrealname" style="margin-top:-1px;">
+
+<div class="container" style="width:80%;margin:10% auto;">
+	<%= form_for @user, url: {action: "update_user"} do |u| %>
+		<div class="am-input-group divrealname" style="margin-top:2px;margin-bottom:2px;">
 		  <span class="am-input-group-label"><i class="am-icon-heart am-icon-fw"></i></span>
 		  <%= u.text_field :real_name ,:class=>"am-form-field" ,:placeholder=>"请输入姓名"%>
 		</div>
-		<div class="am-input-group divsex" style="margin-top:-1px;width:100%;text-align:center">
+		<div class="am-input-group divsex" style="margin-top:2px;margin-bottom:2px;width:100%;text-align:center">
 			<%= u.radio_button :sex,  '1' ,:id=>"sex1", :checked=>"checked"%>
 			<label class="am-btn am-btn-default" for="sex1">男</label>
 			<%= u.radio_button :sex,  '0' ,:id=>"sex0" %>
 			<label class="am-btn am-btn-default" for="sex0">女</label>
 		</div>
+		<div class="am-input-group divrealname" style="margin-top:2px;margin-bottom:2px;">
+		  <span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+		  <%= u.text_field :id_no ,:class=>"am-form-field" ,:placeholder=>"请输入身份证"%>
+		</div>
+		<div class="am-input-group divusername">
+		  <span class="am-input-group-label"><i class="am-icon-mobile-phone am-icon-fw"></i></span>
+		  <%= u.text_field :login_name ,:placeholder=>"请输入手机号",:class=>"am-form-field"%>
+		</div>
+
 		
-		<button type="submit" class="am-btn am-btn-secondary btnlogin" style="display: block;margin: 20px auto;width: 100%;">注册</button>
+		<button type="submit" class="am-btn am-btn-secondary btnlogin" style="display: block;margin: 20px auto;width: 100%;">保存</button>
 	<% end %>
 	<script type="text/javascript">
 		$("form").submit(function(){
+			/*
 			if(!$(".divusername input[type=text]").val()){
 				alert("请输入手机号");
 				return false;
@@ -69,7 +64,8 @@
 			if(!$(".divrealname input[type=text]").val()){
 				alert("请输入姓名");
 				return false;
-			}			
+			}		
+			*/	
 		});
 	</script>
 </div>

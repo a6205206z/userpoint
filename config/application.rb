@@ -6,8 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-RAILS_ROOT = '/var/www/UserPoint/'
-#RAILS_ROOT = 'C:/www/UserPoint/'
+#RAILS_ROOT = '/var/www/UserPoint/'
+RAILS_ROOT = 'C:/www/UserPoint/'
 module UserPoint
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

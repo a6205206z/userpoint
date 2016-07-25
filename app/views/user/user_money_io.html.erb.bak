@@ -1,0 +1,66 @@
+
+<% content_for :application do %>
+<style type="text/css">
+	.moneyios{
+		width: 100%;
+		padding-top: 1em;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		overflow: auto;
+		margin-bottom: 50px;
+	}
+	#return{
+		width: 100%;
+		position: fixed;
+		font-size: 20px;
+		bottom:0;
+	}
+	.list{
+	  border: 1px solid #eee;
+	  border-radius: 5px;
+	  line-height: 20px;
+	  margin-bottom: 5px;
+	  margin-left: 5px;
+	  margin-right: 5px;
+	  overflow: hidden;
+	  padding: 5px;
+	}
+</style>
+<div class="moneyios">
+	<h1 style="text-align:center;"><i class="am-icon-money am-icon-fw"></i>我的购车基金</h1>
+	<% if @money_ios%>
+
+			<% @money_ios.each do |m| %>
+
+			  <div class="list">
+				<div style="overflow:hidden">
+					<span style="font-size:20px;color:red;float:left"><%= m.money %>元</span>
+					
+				</div>
+				<div style="overflow:hidden">
+					<span style="color:red;float:left">
+						<% if m.status == 1 %>
+					  		<font style="color:green">未使用</font>
+					  	<% elsif m.status == 2 %>
+					  		<font style="color:red">使用中</font>
+					  	<% elsif m.status == 3 %>
+					  		<font style="color:red">已使用</font>
+					  	<% else %>
+					  		<font style="color:red">异常</font>
+					  	<% end %>
+					 </span>
+					 <span style="color:#999;float:left;margin-left:3px;"><%= m.remarks %></span>
+					 <span style="color:#999;float:left;"><%= m.operate_time.strftime("%Y-%m-%d %H:%M:%S") %></span>
+					 <% if m.status == 1 %>
+					 	<span style="color:#999;float:right"><a href="/agency/buycar?agencyid=<%= m.from_agency_id%>&moneyioid=<%= m.id%>">使用</a></span>
+					 <% end %>
+				</div>
+			</div>
+			<% end %>
+	<% end %>
+</div>
+<a type="button" href="/user/index" class="am-btn am-btn-danger" id="return">返回</a>
+<% end %>

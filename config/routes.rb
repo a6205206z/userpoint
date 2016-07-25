@@ -57,6 +57,11 @@ Rails.application.routes.draw do
   get 'user/index' => 'user#index'
   get 'user/signout' => 'user#sign_out'
   get 'user/recommend' => 'user#recommend'
+  get 'user/user_info' => 'user#user_info'
+  get 'user/user_info_mod' => 'user#user_info_mod'
+  get 'user/user_account' => 'user#user_account'
+  get 'user/user_address' => 'user#user_address'
+  get 'user/use_order' => 'user#use_order'
   get 'user/login'  => 'user#login'
   get 'user/register' => 'user#register'
   get 'user/pointio' => 'user#user_point_io'
@@ -79,6 +84,10 @@ Rails.application.routes.draw do
   post 'mall/createshipping' => 'mall#create_shipping'
   post 'agency/inputbuycarinfo' => 'agency#input_buy_car_info'
   post 'user/update_profile' => 'user#update_profile'
+  post 'user/create_address' => 'user#create_address'
+
+
+  patch 'user/update_user' => 'user#update_user'
 
 
   #admin

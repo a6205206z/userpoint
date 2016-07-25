@@ -56,11 +56,6 @@ class UserController < ApplicationController
 		end
 	end
 
-
-	def login
-		
-	end
-
 	def sign_out
 		if !current_user_info_session.nil?
 			current_user_info_session.destroy
@@ -85,46 +80,73 @@ class UserController < ApplicationController
 		end
 	end
 
+	def login
+		
+	end
+
 	def recommend
+		@code = params[:code]
+		if (Time.new - $WEIXIN_API_CACHE_TIME) >= 7200
+			$WEIXIN_API_CACHE_TIME = Time.new
+			@timestamp = rand(9999999999)
+			@noncestr = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
+			@secretstr = '6b24b7a8e45006b7d6fe2eb5b6a72a47'
+			@appid = 'wxf2a99d77725215d1'
+
+			uri = URI.parse("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{@appid}&secret=#{@secretstr}")
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+			request = Net::HTTP::Get.new(uri.request_uri)
+			response = http.request(request)
+			@data = response.body
+
+			@token = @data[17,107]
+
+			uri = URI.parse("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=#{@token}&type=jsapi")
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+			request = Net::HTTP::Get.new(uri.request_uri)
+			response = http.request(request)
+			@data = response.body
+
+			@ticket = @data[37,86]
+
+			$WEIXIN_API_TICKET = @ticket
+			$WEIXIN_API_TIMESTAMP = @timestamp
+			$WEIXIN_API_NONCESTR = @noncestr
+		else
+			@ticket = $WEIXIN_API_TICKET
+			@timestamp = $WEIXIN_API_TIMESTAMP
+			@noncestr = $WEIXIN_API_NONCESTR			
+		end
+		str = "jsapi_ticket=#{@ticket}&noncestr=#{@noncestr}&timestamp=#{@timestamp}&url=http://wx.cd-peugeot.com/user/index"
+		@signature = Digest::SHA1.hexdigest(str)
+	end
+
+	def user_info
 		if !current_user_info.nil?
-			@user_code_my = CodeSource.find_by(user_id: current_user_info.id)
-			if (Time.new - $WEIXIN_API_CACHE_TIME) >= 7200
-				$WEIXIN_API_CACHE_TIME = Time.new
-				@timestamp = rand(9999999999)
-				@noncestr = (0...50).map{ ('a'..'z').to_a[rand(26)] }.join
-				@secretstr = '6b24b7a8e45006b7d6fe2eb5b6a72a47'
-				@appid = 'wxf2a99d77725215d1'
+			@user = UserInfo.find_by(id: current_user_info.id)
+			@address = UserAddresses.find_by(user_id: current_user_info.id)
+		else
+			redirect_to "/user/login"
+		end
+	end
 
-				uri = URI.parse("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=#{@appid}&secret=#{@secretstr}")
-				http = Net::HTTP.new(uri.host, uri.port)
-				http.use_ssl = true
-				http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-				request = Net::HTTP::Get.new(uri.request_uri)
-				response = http.request(request)
-				@data = response.body
+	def user_info_mod
+		if !current_user_info.nil?
+			@user = UserInfo.find_by(id: current_user_info.id)
+		else
+			redirect_to "/user/login"
+		end
+	end
 
-				@token = @data[17,107]
-
-				uri = URI.parse("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=#{@token}&type=jsapi")
-				http = Net::HTTP.new(uri.host, uri.port)
-				http.use_ssl = true
-				http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-				request = Net::HTTP::Get.new(uri.request_uri)
-				response = http.request(request)
-				@data = response.body
-
-				@ticket = @data[37,86]
-
-				$WEIXIN_API_TICKET = @ticket
-				$WEIXIN_API_TIMESTAMP = @timestamp
-				$WEIXIN_API_NONCESTR = @noncestr
-			else
-				@ticket = $WEIXIN_API_TICKET
-				@timestamp = $WEIXIN_API_TIMESTAMP
-				@noncestr = $WEIXIN_API_NONCESTR			
-			end
-			str = "jsapi_ticket=#{@ticket}&noncestr=#{@noncestr}&timestamp=#{@timestamp}&url=http://wx.cd-peugeot.com/user/index"
-			@signature = Digest::SHA1.hexdigest(str)
+	def update_user
+		if !current_user_info.nil?
+			user = UserInfo.find_by(id: current_user_info.id)
+			user.update_attributes(user_info_update_params)
+			@resultMsg = "保存成功！"
 		else
 			redirect_to "/user/login"
 		end
@@ -135,12 +157,62 @@ class UserController < ApplicationController
 			@user = UserInfo.find_by(id: current_user_info.id)
 			@user_code_my = CodeSource.find_by(user_id: current_user_info.id)
 			@carowner = CarOwner.find_by(user_id: current_user_info.id)
-			@orderCount = Order.where(user_id: current_user_info.id,status: 4).count
+			@orderCount = Order.where(user_id: current_user_info.id,status: 3).count
+			@isFullInfo = UserInfo.isFullInfo(current_user_info.id)
 
 			#@users = User.where(name: 'David', occupation: 'Code Artist').order('created_at DESC')
 		else
 			redirect_to "/user/login"
 		end
+	end
+
+	def user_account
+		if !current_user_info.nil?
+			@user = UserInfo.find_by(id: current_user_info.id)
+			@orderCount = Order.where(user_id: current_user_info.id,status: 3).count
+		else
+			redirect_to "/user/login"
+		end
+	end
+
+	def user_address
+		if !current_user_info.nil?
+			@user = UserInfo.find_by(id: current_user_info.id)
+			@shipping = UserAddresses.find_by(user_id: current_user_info.id)
+			if @shipping.nil?
+				@shipping = UserAddresses.new
+			end
+		else
+			redirect_to "/user/login"
+		end
+	end
+
+	def create_address
+		useraddress = UserAddresses.find_by(user_id: current_user_info.id)
+		if useraddress.nil?
+			useraddress = UserAddresses.new :user_id => current_user_info.id,
+										    :real_name => params[:real_name],
+										    :mobile => params[:mobile],
+										    :country => params[:country],
+										    :province => params[:province],
+										    :city => params[:city],
+										    :area => params[:area],
+										    :post_code => params[:post_code],
+										    :address => params[:address]
+			useraddress.save
+		else
+			useraddress.real_name = params[:real_name]
+		    useraddress.mobile = params[:mobile]
+		    useraddress.country = params[:country]
+		    useraddress.province = params[:province]
+		    useraddress.city = params[:city]
+		    useraddress.area = params[:area]
+		    useraddress.post_code = params[:post_code]
+		    useraddress.address = params[:address]
+
+		    useraddress.save
+		end
+		@resultMsg = "保存成功！"
 	end
 
 	def user_point_io
@@ -289,8 +361,22 @@ class UserController < ApplicationController
 		end
 	end
 
+	def use_order
+		if !current_user_info.nil?
+			@order = Order.find_by(id: params[:oid])
+			@order.status = 4
+			@order.save
+			@resultMsg = "使用成功！"
+		else
+			redirect_to "/user/login"
+		end
+	end
+
 	private
 	def user_info_params
 		params.require(:user_info).permit(:login_name, :login_password, :real_name, :sex, :create_time, :user_point, :user_money, :profile, :persistence_token)
+	end
+	def user_info_update_params
+		params.require(:user_info).permit(:login_name, :real_name, :sex, :id_no)
 	end
 end
